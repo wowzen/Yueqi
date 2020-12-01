@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/show/show",
+    "pages/create/create"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "plugins": {
+    "sdkPlugin": {
+      "version": "3.15.0",
+      "provider": "wxc6b86e382a1e3294"
+    }
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
