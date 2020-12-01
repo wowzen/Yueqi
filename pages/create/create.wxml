@@ -1,2 +1,10 @@
-<!--pages/create/create.wxml-->
-<text>pages/create/create.wxml</text>
+<view>On this page users can create an event</view>
+<form action="">
+  <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
+  <view>Select possible dates + times using a WeChat plugin</view>
+  <view>Location - This we save for Week 2, leave it out for now</view>
+  <view>Latest response date: This is a deadline for invited users to submit their responses</view>
+  <view>Click on the SUBMIT button below to be directed to the SHOW page, CREATE an event in the DATABASE, and to INVITE users to the event</view>
+  <button bindtap="submitNewEvent">Submit!</button>
+
+</form>

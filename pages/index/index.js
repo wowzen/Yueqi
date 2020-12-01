@@ -7,5 +7,11 @@ Page({
   
   onLoad: function () {
     
+  },
+
+  createEvent: function () {
+    wx.navigateTo({
+      url: '../create/create',
+    })
   }
 })
