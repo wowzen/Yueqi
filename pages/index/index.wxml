@@ -1,0 +1,16 @@
+<view>VEGA: We suggest You OWN the INDEX page.</view>
+
+<view>Click below button to be directed to the CREATE page. Users AUTHORIZATION will be checked.
+</view>
+
+<button bindtap="createEvent">Create event!</button>
+
+Click below button to view the events. Users AUTHORIZATION will be checked [to make sure we know which events belong to user].
+<button>View events</button>
+
+<view class="container">List of events</view>
+<view class="header">Created by me</view>
+<view class="card mycards">In here there are cards of events I have created</view>
+
+<view class="header">I am invited</view>
+<view class="card invitedcards">In here there are cards of events I have been invited to</view>

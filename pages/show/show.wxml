@@ -1,2 +1,7 @@
-<!--pages/show/show.wxml-->
-<text>pages/show/show.wxml</text>
+<view>ZHENGYU owns the SHOW page</view>
+
+<view>This is the Event SHOW page!</view>
+<view>This show page is directed to when clicking on an event from one of the 2 lists in the INDEX page, or after submitting an event on the CREATE page.
+</view>
+<view>In case [wx:if] the event_id created by currentUser: This page will show the EVENT DETAILS, an option to INVITE users, VIEW user responses, an option to SET the final EVENT date to trigger a notification to INVITED users.</view>
+<view>In case [wx:elif] the event_id an event the currentUser has been INVITED to: This page will show the EVENT DETAILS, plus RESPONSE options [Yes, No], SUBMIT button, VIEW other people responses, and [optional] INVITE more users</view>
