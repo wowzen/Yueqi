@@ -2,7 +2,8 @@
   "pages":[
     "pages/index/index",
     "pages/show/show",
-    "pages/create/create"
+    "pages/create/create",
+    "pages/calendar/calendar"
   ],
   "window":{
     "backgroundTextStyle":"light",
