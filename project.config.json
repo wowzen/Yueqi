@@ -68,6 +68,12 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/show/show",
+          "pathName": "pages/show/show",
           "scene": null
         }
       ]
