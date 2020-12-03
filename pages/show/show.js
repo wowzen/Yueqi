@@ -8,10 +8,22 @@ Page({
 
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
   onLoad: function (options) {
+    let Events = new wx.BaaS.TableObject("events")
+     Events.get("5fc64bf31ec30f00a4f3804c").then (res =>
+      {
+        console.log(res)
+        this.setData({event: res.data})
+
+      })
+
+    let Slots = new wx.BaaS.TableObject("event_slots")
+    let query = new wx.BaaS.Query()
+    query.compare('event_id', '=', "5fc64bf31ec30f00a4f3804c")
+    Slots.setQuery(query).find().then(res => {
+       console.log(res)
+        this.setData({slots: res.data.objects})
+        })
 
   },
 

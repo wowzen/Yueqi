@@ -1,1 +1,4 @@
-/* pages/show/show.wxss */
+.card{
+  margin: 16rpx;
+  text-align: center;
+}
