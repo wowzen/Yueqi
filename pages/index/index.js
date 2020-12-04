@@ -16,6 +16,12 @@ Page({
     })
   },
 
+  viewEvents: function () {
+    wx.navigateTo({
+      url: '../userevents/userevents',
+    })
+  },
+
   login: function (e) {
     console.log(e)
     let page = this
