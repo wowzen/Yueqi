@@ -76,6 +76,12 @@
         {
           "name": "pages/show/show",
           "pathName": "pages/show/show",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/userevents/userevents",
+          "pathName": "pages/userevents/userevents",
           "scene": null
         }
       ]

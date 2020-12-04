@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/userevents/userevents",
     "pages/show/show",
     "pages/create/create",
     "pages/calendar/calendar"

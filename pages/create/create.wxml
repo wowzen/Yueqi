@@ -16,7 +16,7 @@
 </view>
 
 <view wx:if="{{goToSelectActivity}}" >
-<view>Select why you want to organize an activity:</view>
+<view>Select the kind of activity you are organizing:</view>
   <view wx:for="{{activities}}" wx:for-item="activity">
     <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
   </view>

@@ -1,0 +1,17 @@
+
+<view class="container">List of events</view>
+
+<view wx:if="currentUser">
+  <view class="header">Created by me</view>
+  <view class="card mycards">In here there are cards of events I have created</view>
+</view>
+
+<view wx:if="currentUser">
+  <view class="header">I am invited</view>
+  <view class="card invitedcards">In here there are cards of events I have been invited to</view>
+</view>
+
+<view>
+  <view class="header">Public events</view>
+  <view class="card invitedcards">In here there are cards of published events</view>
+</view>
