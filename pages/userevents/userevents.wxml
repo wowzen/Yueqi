@@ -1,17 +1,27 @@
 
-<view class="container">List of events</view>
+<view class="header">My events</view>
 
-<view wx:if="currentUser">
-  <view class="header">Created by me</view>
-  <view class="card mycards">In here there are cards of events I have created</view>
-</view>
+<view class="container">
 
-<view wx:if="currentUser">
-  <view class="header">I am invited</view>
-  <view class="card invitedcards">In here there are cards of events I have been invited to</view>
-</view>
+  <view wx:if="currentUser">
+    <view class="header">Created by me {{currentUser.nickname}}</view>
+    <view class="card mycards" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
+      <view>{{myEvent.occasion}}</view>
+      <view>{{myEvent.activity}}</view>
+    </view>
+  </view>
 
-<view>
-  <view class="header">Public events</view>
-  <view class="card invitedcards">In here there are cards of published events</view>
+  <view wx:if="currentUser">
+    <view class="header">Created by others</view>
+    <view class="card mycards" wx:for="{{otherUserEvents}}" wx:for-item="otherEvent" bindtap="goToEvent" data-eventid="{{otherEvent.id}}">
+      <view>{{otherEvent.occasion}}</view>
+      <view>{{otherEvent.activity}}</view>
+    </view>
+  </view>
+
+  <!-- <view>
+    <view class="header">Public events</view>
+    <view class="card invitedcards">In here there are cards of published events</view>
+  </view> -->
+
 </view>

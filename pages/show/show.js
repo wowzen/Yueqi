@@ -9,28 +9,37 @@ Page({
   },
 
   onLoad: function (options) {
+    const id = options.id;
+    const currentUser = wx.getStorageSync('user');
+    this.setData({currentUser});
+    this.getEvent(id)
+    this.getSlots(id)
+  },
+
+  getEvent: function (id) {
     let Events = new wx.BaaS.TableObject("events")
-     Events.get("5fc64bf31ec30f00a4f3804c").then (res =>
+     Events.get(id).then (res =>
       {
         console.log(res)
         this.setData({event: res.data})
-
       })
+  },
 
+  getSlots: function (id) {
     let Slots = new wx.BaaS.TableObject("event_slots")
     let query = new wx.BaaS.Query()
-    query.compare('event_id', '=', "5fc64bf31ec30f00a4f3804c")
+    query.compare('event_id', '=', id)
     Slots.setQuery(query).find().then(res => {
        console.log(res)
         this.setData({slots: res.data.objects})
         })
-
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
+    
 
   },
 
