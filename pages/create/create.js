@@ -12,35 +12,31 @@ Page({
     goToSelectDates: false
   },
 
-  formSubmit: function (e) {
+//   formSubmit: function (e) {
 
-    let occasion = e.detail.value.occasion;
-    let activity = e.detail.value.activity;
-    let event = {occasion: occasion, activity: activity};
+//     let occasion = e.detail.value.occasion;
+//     let activity = e.detail.value.activity;
+//     let event = {occasion: occasion, activity: activity};
 
-    this.sendData(event);
-  },
+//     this.sendData(event);
+//   },
 
-  sendData: function (event) {
+//   sendData: function (event) {
 
-    let url = "https://fml.shanghaiwogeng.com/api/v1/stories"
+//     let url = "https://fml.shanghaiwogeng.com/api/v1/stories"
 
-    wx.request({
-      url: url,
-      method: 'POST',
-      data: story,
-      success: (res) => {
-        console.log(res);
-        wx.switchTab({
-          url: '../index/index',
-        })
-      }
-   })
-},
-
-formReset: function() {
-  console.log('form triggers a reset event.')
-},
+//     wx.request({
+//       url: url,
+//       method: 'POST',
+//       data: story,
+//       success: (res) => {
+//         console.log(res);
+//         wx.switchTab({
+//           url: '../calendar/calendar',
+//         })
+//       }
+//    })
+// },
 
   /**
    * Lifecycle function--Called when page load
@@ -113,16 +109,20 @@ formReset: function() {
   },
 
   submitNewEvent: function () {
+    let page = this
     let activity = this.data.finalActivity
     let occasion = this.data.finalOccasion
     let creator_id = this.data.currentUser.id
     let Event = new wx.BaaS.TableObject("events")
     Event.create().set({occasion: occasion, activity: activity, creator_id: creator_id}).save().then(res => {
       console.log(res)
+      page.navToSelectDates ()
     })
+  },
+
+  navToSelectDates: function () {
+    wx.navigateTo({
+      url: '../calendar/calendar'})
   }
 
 })
-
-// wx.navigateTo({
-  // url: '../calendar/calendar',

@@ -1,27 +1,32 @@
-<view>On this page users can create an event</view>
-<view wx:if="{{occasionSpecSelected}}" class="unselectedCard" wx:for="{{occasions}}" >
+<view class="header">Create your event! </view>
+
+<view wx:if="{{goToSelectActivity}}" wx:if="{{goToSelectDates}}">Event occasion: {{finalOccasion}} </view>
+<view wx:if="{{goToSelectDates}}">Activity: {{finalActivity}}</view>
+
+<view wx:if="{{occasionSpecSelected}}">Select why you want to organize an event:</view>
+
+<view wx:if="{{occasionSpecSelected}}" class="unselectedCard" wx:for="{{occasions}}" > 
   <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
-  <view wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" wx:if="{{occasionIndex == index && occasionSelected}}">
+  <view wx:if="{{occasionIndex == index && occasionSelected}}">
+    <view>Specify what kind of {{mainOccasion}}:</view>
+    <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" >
     <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
   </view>  
+  </view>
 </view>
 
-<view>Event occasion: {{finalOccasion}} </view>
-
 <view wx:if="{{goToSelectActivity}}" >
-
+<view>Select why you want to organize an activity:</view>
   <view wx:for="{{activities}}" wx:for-item="activity">
     <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
   </view>
-  
 </view>
 
-<view>Activity: {{finalActivity}}</view>
+<button bindtap="startAgain" type="warn">Start over</button>
 
 <view wx:if="{{goToSelectDates}}">
+  <button bindtap="submitNewEvent" type="primary">Select my event dates</button>
 </view>
-
-<button bindtap="startAgain">Start Again!</button>
 
 <!-- 
   <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
@@ -29,4 +34,3 @@
   <view>Location - This we save for Week 2, leave it out for now</view>
   <view>Latest response date: This is a deadline for invited users to submit their responses</view>
   <view>Click on the SUBMIT button below to be directed to the SHOW page, CREATE an event in the DATABASE, and to INVITE users to the event</view> -->
-  <button bindtap="submitNewEvent">Submit!</button>
