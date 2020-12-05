@@ -1,10 +1,11 @@
 
-<view class="header">My events</view>
+<view class="header">My fun</view>
 
 <view class="container">
 
   <view wx:if="currentUser">
-    <view class="header">Created by me {{currentUser.nickname}}</view>
+    <view class="header">Hi {{currentUser.nickname}}</view>
+    <view>My events</view>
     <view class="card mycards" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
       <view>
         <image src="{{testImage}}"></image>
