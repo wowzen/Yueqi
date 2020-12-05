@@ -78,7 +78,7 @@ Page({
 
   toShowPage: function () {
     wx.navigateTo({
-      url: '../show/show',
+      url: `/pages/show/show?id=${this.data.event_id}`,
     })
   },
 
