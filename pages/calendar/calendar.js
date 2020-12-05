@@ -38,8 +38,6 @@ Page({
     this.setData({
       start_time: e.detail.value
     })
-   //let lotStartTime = "ChangeDay" + "start_time"
-   //console.log(lotsStartTime)
   },
 
   bindEndTimeChange: function(e) {

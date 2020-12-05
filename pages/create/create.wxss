@@ -46,6 +46,16 @@
   font-weight: 300;
   font-size: 18px;
 }
+.time-picker{
+  padding: 10px;
+  margin-top: 25px;
+  background: #FFECD7;
+  border-radius: 25px; 
+
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
 .choose-date{
   padding: 10px;
   margin-top: 25px;
