@@ -12,3 +12,10 @@
   padding:16rpx;
   color:darkgray;
 }
+
+.chosenSlot{
+  margin:40 rpx;
+  padding:16rpx;
+  color:white;
+  background-color: gray;
+}
