@@ -114,15 +114,14 @@ Page({
     let occasion = this.data.finalOccasion
     let creator_id = this.data.currentUser.id
     let Event = new wx.BaaS.TableObject("events")
-    Event.create().set({occasion: occasion, activity: activity, creator_id: creator_id}).save().then(res => {
+    Event.create().set({occasion: occasion, activity: activity, creator_id: creator_id}).save().then(res =>{
       console.log(res)
-      page.navToSelectDates ()
+      page.navToSelectDates(res.data.id)
     })
   },
-
-  navToSelectDates: function () {
+  navToSelectDates: function (id) {
     wx.navigateTo({
-      url: '../calendar/calendar'})
+      url: `../calendar/calendar?id=${id}`})
   }
 
 })

@@ -17,6 +17,7 @@ currentUser = invitee_id && has not submitted availability ==>
     <view class="nickname">Organized by: {{event.creator_id.nickname}}</view>
   </view>
 
+
   <view class="select-date">Select a suitable date for you</view>
 
   <view>
@@ -47,3 +48,41 @@ currentUser = invitee_id && has not submitted availability ==>
 
 
 <!-- <view class="card" wx:for="{{slots}}" wx:for-item="slot">{{slot.start_date}} to {{slot.end_date}}</view> -->
+<image src="{{testImage}}" class="card"/>
+<view class="card">{{event.activity}}</view>
+<view class="card">For {{event.occasion}}</view>
+<view class="card">Invitation Host: {{event.creator_id.nickname}}</view>
+
+<view wx:if="{{event.confirmed_date == ''}}">
+  <radio-group bindchange="chooseDate">
+    <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="{{slot.id}}" >
+      <view class="">
+        {{slot.start_date}} to {{slot.end_date}}
+        <radio value="{{slot.id}}"/>
+      </view>
+    </label>
+  </radio-group>
+</view>
+
+<view wx:else>
+  <view>Event date & time: {{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
+</view>
+
+<view wx:if="{{availabilityProvided}}">
+  <button bindtap="changeAvailability">Change availability
+  </button>
+</view>
+
+<view wx:elif="{{event.confirmed_date == ''}}">
+  <button bindtap="submitAvailability">Submit availability
+  </button>
+</view>
+
+<view wx:if="{{currentUser.id == event.creator_id.id && dateSelected && event.confirmed_date != ''}}">
+  <button bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date
+  </button>
+</view>
+
+<view wx:if="{{currentUser.id == event.creator_id.id}}">
+  <button open-type="share">Invite friends</button>
+</view>
