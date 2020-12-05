@@ -5,8 +5,9 @@ Page({
    * Page initial data
    */
   data: {
-    testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1"
-
+    testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1",
+    dateSelected: false,
+    availabilityProvided: false
   },
 
   onLoad: function (options) {
@@ -32,9 +33,12 @@ Page({
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', id)
     Slots.setQuery(query).find().then(res => {
-       console.log(res)
-        this.setData({slots: res.data.objects})
-        })
+      console.log(res)
+      let confirmedSlot = res.data.objects.find(item => {
+        return item.slot_selected
+      })
+      this.setData({slots: res.data.objects, confirmedSlot: confirmedSlot})
+    })
   },
 
   chooseDate: function (e) {
@@ -42,8 +46,12 @@ Page({
     let chosenSlotId = e.detail.value
     let chosenSlot = this.data.slots.find(item => {
       return item.id == chosenSlotId})
-    this.setData({chosenSlot: chosenSlot})
+    this.setData({chosenSlot: chosenSlot, dateSelected: true})
     console.log('chosenSlot', chosenSlot)
+    wx.pageScrollTo({
+      scrollTop: 1000,
+      duration: 300
+    })
   },
 
   setFinalDate: function () {
@@ -52,7 +60,38 @@ Page({
       content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
       success (res) {
         if (res.confirm) {
+          chosenSlot.create({}).then(res =>{
+            console.log(res)
+
+          })
+
+
+        } else if (res.cancel) {
+          console.log('user clicked cancel', res)
+        }
+      }
+    })
+  },
+
+  setFinalDateEarly: function () {
+    let page = this
+    let chosenSlot = this.data.chosenSlot
+    let EventSlots = new wx.BaaS.TableObject("event_slots")
+    let Events = new wx.BaaS.TableObject("events")
+    let eventId = this.data.event.id
+    wx.showModal({
+      title: 'Reminder',
+      content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+      success (res) {
+        if (res.confirm) {
           console.log('user clicked confirm')
+          let event = Events.getWithoutData(eventId)
+          event.set({confirmed_date: chosenSlot.start_date}).update().then()
+          let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
+          eventSlot.set({slot_selected: true}).update().then(res => {
+            console.log(res)
+            page.setData({confirmedSlot: res.data})
+          })
 
         } else if (res.cancel) {
           console.log('user clicked cancel')
@@ -61,17 +100,10 @@ Page({
     })
   },
 
-  setFinalDateEarly: function () {
-    wx.showModal({
-      title: 'Reminder',
-      content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
-      success (res) {
-        if (res.confirm) {
-          console.log('user clicked confirm')
-        } else if (res.cancel) {
-          console.log('user clicked cancel')
-        }
-      }
+  inviteFriends: function () {
+    wx.showShareMenu({
+      withShareTicket: true,
+      menus: ['shareAppMessage']
     })
   },
 
@@ -117,11 +149,10 @@ Page({
   onReachBottom: function () {
 
   },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
   onShareAppMessage: function () {
-
+    return {
+      title: `You are invited for: ${this.date.event.occasion}`,
+      path: `pages/show/show?id=${this.date.event.id}`
+    }
   }
 })
