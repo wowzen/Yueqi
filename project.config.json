@@ -82,6 +82,12 @@
         {
           "name": "pages/userevents/userevents",
           "pathName": "pages/userevents/userevents",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/calendar/calendar",
+          "pathName": "pages/calendar/calendar",
           "scene": null
         }
       ]
