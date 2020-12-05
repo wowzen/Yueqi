@@ -34,7 +34,7 @@ Page({
     
     query.compare('creator_id', "=", currentUser.id)
     event.setQuery(query).find().then(res => {
-      let myEvents = res.data.objects
+      let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
       this.setData({myEvents: myEvents});
     })
   },
@@ -59,7 +59,7 @@ Page({
     query.compare('creator_id', "!=", currentUser.id)
     query.compare('invitee_id', "=", currentUser.id)
     event.setQuery(query).expand(["event_id", "creator_id"]).find().then(res => {
-      let invitedEvents = res.data.objects
+      let invitedEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
       this.setData({invitedEvents: invitedEvents});
       console.log(invitedEvents)
     })
