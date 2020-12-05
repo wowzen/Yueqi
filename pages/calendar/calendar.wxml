@@ -5,7 +5,7 @@
 <view class="header">Select the time for your event</view>
 
 <view class="time-picker">
-  <picker mode="time" value="{{start_ime}}" start="09:00" end="23:00" bindchange="bindStartTimeChange">
+  <picker mode="time" value="{{start_ime}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">
     <view class="picker">
       Start TIme: {{start_time}}
     </view>
@@ -13,7 +13,7 @@
 </view>
 
   <view class="time-picker">
-  <picker mode="time" value="{{end_time}}" start="{{start_time || '09:00'}}" end="23:00" bindchange="bindEndTimeChange">
+  <picker mode="time" value="{{end_time}}" start="{{start_time || '00:00'}}" end="23:59" bindchange="bindEndTimeChange">
     <view class="picker">
       End Time: {{end_time}}
     </view>
@@ -31,6 +31,6 @@
 </view>
 
 <view wx:if="{{slotsAdded}}"> 
-<button bindtap="toShowPage">View your Invitation</button>
-  </view>
+  <button bindtap="toShowPage">View your Invitation</button>
+</view>
 
