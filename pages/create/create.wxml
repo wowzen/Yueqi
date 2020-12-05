@@ -19,20 +19,31 @@
   </view>
 
   <view wx:if="{{goToSelectActivity}}" >
-  <view>Select the kind of activity you are organizing:</view>
-    <view wx:for="{{activities}}" wx:for-item="activity">
-      <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
+    <view>Select the kind of activity you are organizing:</view>
+      <view wx:for="{{activities}}" wx:for-item="activity">
+        <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{pickResponseDeadline}}">
+      <view>Select the Response Deadline</view>
+      <view>
+        <picker class="time-picker" mode="date" value="{{date}}" start="2020-12-01" end="2099-12-31" bindchange="bindDateChange">
+          <view class="picker">Date: {{response_date}}</view>
+        </picker>
+      </view>
+
+        <view>
+          <picker class="time-picker" mode="time" value="{{reponsse_time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+            <view class="picker">Time: {{response_time}}</view>
+          </picker>
+        </view>
     </view>
   </view>
-
-  <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
-
-  <view wx:if="{{goToSelectDates}}">
+<view wx:if="{{goToSelectDates}}">
     <button class="choose-date" bindtap="submitNewEvent">Choose date</button>
   </view>
-
-</view>
-
+<button class="back-button" bindtap="startAgain" type="warn" >Back</button>
 <!-- 
   <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
   <view>Select possible dates + times using a WeChat plugin</view>
