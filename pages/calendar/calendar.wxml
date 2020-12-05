@@ -1,5 +1,22 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="header">Select the dates for your event</view>
-<calendar />
-<view>Awesome date selection plugin here</view>
+<calendar active-style='square' days-color="{{dayStyle}}" week-style="cn" binddayClick='dayClick'/>
+
+<view class="header">Select the time for your event</view>
+
+<view class="time-picker">
+  <picker mode="time" value="{{start_ime}}" start="09:01" end="21:01" bindchange="bindStartTimeChange">
+    <view class="picker">
+      Start TIme: {{start_time}}
+    </view>
+    </picker>
+</view>
+
+  <view class="time-picker">
+  <picker mode="time" value="{{end_time}}" start="09:01" end="21:01" bindchange="bindEndTimeChange">
+    <view class="picker">
+      End Time: {{end_time}}
+    </view>
+  </picker>
+</view>
 
