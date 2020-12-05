@@ -1,31 +1,36 @@
-<view class="header">Create your event! </view>
 
-<view wx:if="{{goToSelectActivity}}" wx:if="{{goToSelectDates}}">Event occasion: {{finalOccasion}} </view>
-<view wx:if="{{goToSelectDates}}">Activity: {{finalActivity}}</view>
+<view class="container">
 
-<view wx:if="{{occasionSpecSelected}}">Select why you want to organize an event:</view>
+  <view class="header">Create the event and share </view>
 
-<view wx:if="{{occasionSpecSelected}}" class="unselectedCard" wx:for="{{occasions}}" > 
-  <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
-  <view wx:if="{{occasionIndex == index && occasionSelected}}">
-    <view>Specify what kind of {{mainOccasion}}:</view>
-    <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" >
-    <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
-  </view>  
+  <view wx:if="{{goToSelectActivity}}" wx:if="{{goToSelectDates}}">Event occasion: {{finalOccasion}} </view>
+  <view wx:if="{{goToSelectDates}}">Activity: {{finalActivity}}</view>
+
+  <view wx:if="{{occasionSpecSelected}}">What event type do you want to create:</view>
+
+  <view wx:if="{{occasionSpecSelected}}" class="occasions-card" wx:for="{{occasions}}" > 
+    <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
+    <view wx:if="{{occasionIndex == index && occasionSelected}}">
+      <view class="event-type-card" >Type of {{mainOccasion}}:</view>
+      <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" >
+      <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
+    </view>  
+    </view>
   </view>
-</view>
 
-<view wx:if="{{goToSelectActivity}}" >
-<view>Select the kind of activity you are organizing:</view>
-  <view wx:for="{{activities}}" wx:for-item="activity">
-    <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
+  <view wx:if="{{goToSelectActivity}}" >
+  <view>Select the kind of activity you are organizing:</view>
+    <view wx:for="{{activities}}" wx:for-item="activity">
+      <view data-facti="{{activity}}" class="unselectedCard" bindtap="selectActivity">{{activity}}</view>
+    </view>
   </view>
-</view>
 
-<button bindtap="startAgain" type="warn">Start over</button>
+  <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
 
-<view wx:if="{{goToSelectDates}}">
-  <button bindtap="submitNewEvent" type="primary">Select my event dates</button>
+  <view wx:if="{{goToSelectDates}}">
+    <button class="choose-date" bindtap="submitNewEvent">Choose date</button>
+  </view>
+
 </view>
 
 <!-- 

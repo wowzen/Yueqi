@@ -1,1 +1,5 @@
 /* pages/userevents/userevents.wxss */
+.container{
+  margin: 15px;
+
+}

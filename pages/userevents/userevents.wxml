@@ -1,29 +1,29 @@
-
-<view class="header">My fun</view>
-
 <view class="container">
 
   <view wx:if="currentUser">
+
     <view class="header">Hi {{currentUser.nickname}}</view>
-    <view>My events</view>
-    <view class="card mycards" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
-      <view>
-        <image src="{{testImage}}"></image>
-      </view>
-      <view>{{myEvent.occasion}}</view>
-      <view>{{myEvent.activity}}</view>
-      <view>Response deadline: {{myEvent.response_deadline}}</view>
+
+    <view class="my-events">My events</view>
+
+    <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
+      <image class="image1" src="{{testImage}}"></image>   
+      <view class="occasion" >{{myEvent.occasion}}</view>
+      <view class="activity" >{{myEvent.activity}}</view>
+      <view class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
     </view>
   </view>
 
   <view wx:if="currentUser">
-    <view class="header">I have been invited to:</view>
-    <view class="card mycards" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}">
-      <view>{{invitedEvent.event_id.occasion}}</view>
-      <view>{{invitedEvent.event_id.activity}}</view>
-      <view>Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
-      <view>Event organizer: {{invitedEvent.creator_id.nickname}}
-        <image src="{{invitedEvent.creator_id.avatar}}"></image> 
+
+    <view class="header">Invited Events:</view>
+
+    <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}">
+      <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>
+      <view class="activity" >{{invitedEvent.event_id.activity}}</view>
+      <view class="deadline" >Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
+      <view class="creator" >Organized by: {{invitedEvent.creator_id.nickname}}
+      <image src="{{invitedEvent.creator_id.avatar}}"></image> 
       </view>
     </view>
   </view>
