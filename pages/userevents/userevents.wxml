@@ -12,10 +12,10 @@
   </view>
 
   <view wx:if="currentUser">
-    <view class="header">Created by others</view>
-    <view class="card mycards" wx:for="{{otherUserEvents}}" wx:for-item="otherEvent" bindtap="goToEvent" data-eventid="{{otherEvent.id}}">
-      <view>{{otherEvent.occasion}}</view>
-      <view>{{otherEvent.activity}}</view>
+    <view class="header">I have been invited to:</view>
+    <view class="card mycards" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}">
+      <view>{{invitedEvent.event_id.occasion}}</view>
+      <view>{{invitedEvent.event_id.activity}}</view>
     </view>
   </view>
 

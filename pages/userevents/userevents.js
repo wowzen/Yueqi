@@ -24,7 +24,7 @@ Page({
       // err
     })
     this.getMyEvents()
-    this.getOtherUserEvents()
+    this.getInvitedEvents()
   },
 
   getMyEvents: function () {
@@ -39,15 +39,29 @@ Page({
     })
   },
 
-  getOtherUserEvents: function () {
+  // getOtherUserEvents: function () {
+  //   let currentUser = this.data.currentUser;
+  //   let event = new wx.BaaS.TableObject("events");
+  //   let query = new wx.BaaS.Query()
+    
+  //   query.compare('creator_id', "!=", currentUser.id)
+  //   event.setQuery(query).find().then(res => {
+  //     let otherUserEvents = res.data.objects
+  //     this.setData({otherUserEvents: otherUserEvents});
+  //   })
+  // },
+
+  getInvitedEvents: function () {
     let currentUser = this.data.currentUser;
-    let event = new wx.BaaS.TableObject("events");
+    let event = new wx.BaaS.TableObject("event_invitations");
     let query = new wx.BaaS.Query()
     
     query.compare('creator_id', "!=", currentUser.id)
-    event.setQuery(query).find().then(res => {
-      let otherUserEvents = res.data.objects
-      this.setData({otherUserEvents: otherUserEvents});
+    query.compare('invitee_id', "=", currentUser.id)
+    event.setQuery(query).expand(["event_id", "creator_id"]).find().then(res => {
+      let invitedEvents = res.data.objects
+      this.setData({invitedEvents: invitedEvents});
+      console.log(invitedEvents)
     })
   },
 
