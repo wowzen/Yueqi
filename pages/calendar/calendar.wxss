@@ -1,1 +1,14 @@
 /* pages/calendar/calendar.wxss */
+.time-picker{
+  margin:40 rpx;
+  padding:16rpx;
+  color:white;
+  background-color: gray;
+}
+
+.header{
+  text-align: center;
+  margin:40 rpx;
+  padding:16rpx;
+  color:darkgray;
+}
