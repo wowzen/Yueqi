@@ -1,5 +1,5 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="header">Select the dates for your event</view>
-
+<calendar />
 <view>Awesome date selection plugin here</view>
 
