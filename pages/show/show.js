@@ -18,10 +18,11 @@ Page({
 
   getEvent: function (id) {
     let Events = new wx.BaaS.TableObject("events")
-     Events.get(id).then (res =>
-      {
+     Events.expand(["creator_id"]).get(id).then (res => {
         console.log(res)
-        this.setData({event: res.data})
+        let today = new Date()
+        let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
+        this.setData({event: res.data, deadlinePassed: deadlinePassed})
       })
   },
 
@@ -33,6 +34,44 @@ Page({
        console.log(res)
         this.setData({slots: res.data.objects})
         })
+  },
+
+  chooseDate: function (e) {
+    console.log('radio', e)
+    let chosenSlotId = e.detail.value
+    let chosenSlot = this.data.slots.find(item => {
+      return item.id == chosenSlotId})
+    this.setData({chosenSlot: chosenSlot})
+    console.log('chosenSlot', chosenSlot)
+  },
+
+  setFinalDate: function () {
+    wx.showModal({
+      title: 'Reminder',
+      content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+      success (res) {
+        if (res.confirm) {
+          console.log('user clicked confirm')
+
+        } else if (res.cancel) {
+          console.log('user clicked cancel')
+        }
+      }
+    })
+  },
+
+  setFinalDateEarly: function () {
+    wx.showModal({
+      title: 'Reminder',
+      content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+      success (res) {
+        if (res.confirm) {
+          console.log('user clicked confirm')
+        } else if (res.cancel) {
+          console.log('user clicked cancel')
+        }
+      }
+    })
   },
 
   /**
