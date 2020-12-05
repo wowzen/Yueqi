@@ -10,7 +10,7 @@ currentUser = invitee_id && has not submitted availability ==>
   if event date is set ==> only show invitation with event details  
   if date is not set ==> submit availability button  -->
 
-<view class="card">{{event.image}}</view>
+<image src="{{testImage}}" class="card"/>
 <view class="card">{{event.activity}}</view>
 <view class="card">For {{event.occasion}}</view>
 <view class="card">Invitation Host: {{event.creator_id.nickname}}</view>
