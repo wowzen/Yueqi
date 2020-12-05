@@ -37,8 +37,8 @@ currentUser = invitee_id && has not submitted availability ==>
   </view>
 
   <view wx:else>
-    <view wx:if="{{currentUser.id != event.creator_id.id && event.confirmed_date.length == 0 &&availabilitySubmitted == false}}">
-      <view>Confirm your availability</view>
+    <view wx:if="{{event.confirmed_date.length == 0 && availabilitySubmitted == false}}">
+      <view wx:if="{{slots.length > 0}}">Confirm your availability</view>
       <checkbox-group bindchange="chooseMultiDate">
         <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="{{slot.id}}" >
           <view class="date-cell">{{slot.start_date}} to {{slot.end_date}}
@@ -53,7 +53,7 @@ currentUser = invitee_id && has not submitted availability ==>
     </view>
 
     
-    <view>Your availability has been confirmed. Wait for the organizer to set the event date.</view>
+    <view wx:if="{{event.confirmed_date.length != 0 || availabilitySubmitted == true}}">Your availability has been confirmed. Wait for the organizer to set the event date.</view>
   </view>
 
   <view wx:if="{{event.confirmed_date != ''}}"> 
