@@ -13,18 +13,21 @@ Page({
   onLoad: function (options) {
     const id = options.id;
     const currentUser = wx.getStorageSync('user');
+    console.log(options)
     this.setData({currentUser});
     this.getEvent(id)
     this.getSlots(id)
   },
 
   getEvent: function (id) {
+    let page = this
     let Events = new wx.BaaS.TableObject("events")
      Events.expand(["creator_id"]).get(id).then (res => {
         console.log(res)
         let today = new Date()
         let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
-        this.setData({event: res.data, deadlinePassed: deadlinePassed})
+        page.setData({event: res.data, deadlinePassed: deadlinePassed})
+        page.createInvitation(page.data.currentUser.id, res.data)
       })
   },
 
@@ -146,6 +149,23 @@ Page({
       withShareTicket: true,
       menus: ['shareAppMessage']
     })
+  },
+
+  createInvitation: function(invitee_id, event) {
+    let Invitation = new wx.BaaS.TableObject("event_invitations")
+    let query = new wx.BaaS.Query()
+    query.compare('event_id', '=', event.id)
+    query.compare('invitee_id', '=', invitee_id)
+    query.compare('creator_id', '!=', invitee_id)
+    Invitation.setQuery(query).find().then(res => {
+      if (res.data.objects.length == 0) {
+        console.log(event, invitee_id)
+        Invitation.create().set({event_id: event.id, invitee_id: invitee_id, creator_id: event.creator_id.id}).save().then(res => {
+          console.log(res)
+        })
+      }
+    })
+
   },
 
   /**
