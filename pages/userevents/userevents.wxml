@@ -6,6 +6,9 @@
   <view wx:if="currentUser">
     <view class="header">Created by me {{currentUser.nickname}}</view>
     <view class="card mycards" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
+      <view>
+        <image src="{{testImage}}"></image>
+      </view>
       <view>{{myEvent.occasion}}</view>
       <view>{{myEvent.activity}}</view>
       <view>Response deadline: {{myEvent.response_deadline}}</view>

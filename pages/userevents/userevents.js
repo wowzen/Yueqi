@@ -5,6 +5,7 @@ Page({
    * Page initial data
    */
   data: {
+    testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`
 
   },
 
