@@ -20,19 +20,22 @@
       </view>
     </picker>
   </view>
+
+  <view> 
+    <button class="add-another-date" bindtap="addSlot">Add another date</button>
+  </view>
+
+  <view class="header-dates" wx:if="{{slotsAdded}}" >Your choosen dates</view>
+  <view class="chosenSlot"  wx:for="{{chosenSlots}}">
+    <view>{{item.start_date}}</view>
+    <view>{{item.end_date}}</view>
+  </view>
+
+  <view wx:if="{{slotsAdded}}"> 
+    <button class="view-invitation-button" bindtap="toShowPage">View Invitation</button>
+  </view>
+
 </view>
 
-<view> 
-  <button bindtap="addSlot">Add Slot</button>
-</view>
 
-<view wx:if="{{slotsAdded}}" >Below is your chosen Slots</view>
-<view class="chosenSlot"  wx:for="{{chosenSlots}}">
-  <view>{{item.start_date}}</view>
-  <view>{{item.end_date}}</view>
-</view>
-
-<view wx:if="{{slotsAdded}}"> 
-  <button bindtap="toShowPage">View your Invitation</button>
-</view>
 

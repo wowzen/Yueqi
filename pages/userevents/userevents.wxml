@@ -5,12 +5,14 @@
     <view class="header">Hi {{currentUser.nickname}}</view>
 
     <view class="my-events">My events</view>
-
+  
     <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
-      <image class="image1" src="{{testImage}}"></image>   
-      <view class="occasion" >{{myEvent.occasion}}</view>
-      <view class="activity" >{{myEvent.activity}}</view>
-      <view class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
+      <image class="image1" src="{{testImage}}"></image> 
+      <view class="description">
+       <view class="occasion" >{{myEvent.occasion}}</view>
+        <view class="activity" >{{myEvent.activity}}</view>
+        <view class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
+      </view>  
     </view>
   </view>
 

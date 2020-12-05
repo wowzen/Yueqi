@@ -3,3 +3,11 @@
   margin: 15px;
 
 }
+.image1{
+  width: 100%;
+  border-radius: 8px;
+}
+.description{
+  margin:8px;
+  padding-bottom: 8px;
+}
