@@ -15,8 +15,7 @@ currentUser = invitee_id && has not submitted availability ==>
 <view class="card">For {{event.occasion}}</view>
 <view class="card">Invitation Host: {{event.creator_id.nickname}}</view>
 
-<view wx:if="{{currentUser.id == event.creator_id.id}}">
-
+<view>
   <radio-group bindchange="chooseDate">
     <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="{{slot.id}}" >
       <view class="weui-cell__hd">
@@ -25,15 +24,21 @@ currentUser = invitee_id && has not submitted availability ==>
       </view>
     </label>
   </radio-group>
-
-  <button bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
-
-
-
 </view>
 
+<view wx:if="">
+  <button bindtap="submitAvailability">Submit availability
+  </button>
+</view>
 
+<view>
+  <button bindtap="changeAvailability">Change availability
+  </button>
+</view>
+
+<view wx:if="{{currentUser.id == event.creator_id.id}}">
+  <button bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date
+  </button>
+</view>
 
 <!-- <view class="card" wx:for="{{slots}}" wx:for-item="slot">{{slot.start_date}} to {{slot.end_date}}</view> -->
-
-<view></view>

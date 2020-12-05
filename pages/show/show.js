@@ -5,6 +5,7 @@ Page({
    * Page initial data
    */
   data: {
+    testImage: "https://cn.bing.com/images/search?view=detailV2&ccid=HJdtsb6y&id=704E4FB3FB6653CE4172F6A419363A7D8FDB1DBF&thid=OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA&mediaurl=http%3a%2f%2fwww.gourmetgiftbaskets.com%2fimages%2fproducts%2fBakery-Gift-Baskets%2fChocolate-Birthday-Cake-Whole.jpg&exph=450&expw=450&q=birthday+cake&simid=608013536763184478&ck=7791D5AEBF29D4FB0D8D9DB56CA34184&selectedIndex=15&FORM=IRPRST"
 
   },
 
