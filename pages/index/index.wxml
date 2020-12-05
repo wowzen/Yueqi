@@ -1,21 +1,19 @@
-<view>约起 - Let's Meet!</view>
-<view>Start</view>
 
-<view>In this WeChat Mini Program you can create and share events, send out date confirmation requests to confirm when most of your friends, family or colleagues are available, and lock the final date when most people can join!
-</view>
+  <view class="intro">Create an event and share to find the best and suitable date with your family, friends or colleagues! </view>
+  <view class="start">Let the fun begin!</view>
 
-<block wx:if="{{currentUser}}">
-  <button bindtap="createEvent">Create a new event!</button>
-</block>
+  <block wx:if="{{currentUser}}">
+    <button class="create-fun-btn" bindtap="createEvent">Create fun</button>
+  </block>
 
-<block wx:else>
-  <button open-type="getUserInfo" bindgetuserinfo="login">Login to create a new event!</button>
-</block>
+  <block wx:else>
+    <button open-type="getUserInfo" bindgetuserinfo="login">Login to create a new event!</button>
+  </block>
 
-<block wx:if="{{currentUser}}">
-  <button bindtap="viewEvents">View events</button>
-</block>
+  <block wx:if="{{currentUser}}">
+    <button class="my-fun-btn" bindtap="viewEvents">My fun</button>
+  </block>
 
-<block wx:else>
-  <button open-type="getUserInfo" bindtap="login">Login to view events</button>
-</block>
+  <block wx:else>
+    <button open-type="getUserInfo" bindtap="login">Login to view events</button>
+  </block>
