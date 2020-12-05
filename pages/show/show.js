@@ -7,7 +7,7 @@ Page({
   data: {
     testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1",
     dateSelected: false,
-    availabilityProvided: false
+    availabilitySubmitted: false
   },
 
   onLoad: function (options) {
@@ -29,6 +29,7 @@ Page({
   },
 
   getSlots: function (id) {
+    let page = this
     let Slots = new wx.BaaS.TableObject("event_slots")
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', id)
@@ -38,6 +39,10 @@ Page({
         return item.slot_selected
       })
       this.setData({slots: res.data.objects, confirmedSlot: confirmedSlot})
+      let slotIds = res.data.objects.map(e => {
+        return e.id
+      })
+      page.fetchSlotResponses(page.data.currentUser.id, slotIds)
     })
   },
 
@@ -54,20 +59,54 @@ Page({
     })
   },
 
+  chooseMultiDate: function (e) {
+    console.log('checkbox', e)
+    let chosenSlotIds = e.detail.value
+    this.setData({chosenSlotIds: chosenSlotIds})
+  },
+
+  submitAvailability: function () {
+    let page = this
+    let chosenSlotIds = page.data.chosenSlotIds
+    let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+    chosenSlotIds.forEach(item => {
+      EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
+        console.log('submitavailability', res)
+        page.setData({availabilitySubmitted: true})
+      })
+    })
+  },
+
+  fetchSlotResponses: function (invitee_id, slot_ids) {
+    let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+    let query = new wx.BaaS.Query()
+    query.compare('invitee_id', '=', invitee_id)
+    query.in('event_slot_id', slot_ids)
+    EventSlotResponses.setQuery(query).find().then(res => {
+      console.log(res)
+      this.setData({responseSlots: res.data.objects, availabilitySubmitted: res.data.objects.length > 0})
+    })
+  },
+
   setFinalDate: function () {
     wx.showModal({
       title: 'Reminder',
       content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
       success (res) {
         if (res.confirm) {
-          chosenSlot.create({}).then(res =>{
+          console.log('user clicked confirm')
+          let event = Events.getWithoutData(eventId)
+          event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
+            page.setData({event: res.data})
+          })
+          let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
+          eventSlot.set({slot_selected: true}).update().then(res => {
             console.log(res)
-
+            page.setData({confirmedSlot: res.data})
           })
 
-
         } else if (res.cancel) {
-          console.log('user clicked cancel', res)
+          console.log('user clicked cancel')
         }
       }
     })
@@ -86,7 +125,9 @@ Page({
         if (res.confirm) {
           console.log('user clicked confirm')
           let event = Events.getWithoutData(eventId)
-          event.set({confirmed_date: chosenSlot.start_date}).update().then()
+          event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
+            page.setData({event: res.data})
+          })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
             console.log(res)
