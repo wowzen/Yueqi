@@ -27,8 +27,8 @@
 
   <view class="header-dates" wx:if="{{slotsAdded}}" >Your choosen dates</view>
   <view class="chosenSlot"  wx:for="{{chosenSlots}}">
-    <view>{{item.start_date}}</view>
-    <view>{{item.end_date}}</view>
+    <view class="date" >{{item.start_date}}</view>
+    <view class="date" >{{item.end_date}}</view>
   </view>
 
   <view wx:if="{{slotsAdded}}"> 
