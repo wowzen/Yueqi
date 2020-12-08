@@ -41,7 +41,7 @@
     </view>
   </view>
 <view wx:if="{{goToSelectDates}}">
-    <button class="choose-date" bindtap="submitNewEvent">Choose date</button>
+    <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
   </view>
 <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
 <!-- 
