@@ -22,6 +22,13 @@ Page({
     })
   },
 
+  goToIndex: function () {
+    wx.navigateTo({
+      url: '../index/index',
+    })
+
+  },
+
   login: function (e) {
     console.log(e)
     let page = this
@@ -29,7 +36,7 @@ Page({
       console.log(res)
       wx.setStorageSync('user', res)
       this.setData({currentUser: res})
-      page.createEvent()
+      // page.goToIndex()
       })
   },
 

@@ -186,7 +186,6 @@ Page({
           progressPercent: progressPercent,
           slots: Slot,
         })
-
         AllSlots.getWithoutData(item.id).set({response_progress: progressPercent}).update().then(res => {
           console.log('setProgress', res)
         })
