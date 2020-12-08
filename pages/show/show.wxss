@@ -1,3 +1,6 @@
+page {
+  min-height: 100vh;
+}
 .container{
   margin: 15px;
 }
