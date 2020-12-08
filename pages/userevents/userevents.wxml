@@ -6,7 +6,7 @@
 
     <view class="my-events">My events</view>
   
-    <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}">
+    <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
       <image class="image1" src="{{testImage}}"></image> 
       <view class="description">
        <view class="occasion" >{{myEvent.occasion}}</view>
@@ -20,7 +20,7 @@
 
     <view class="header">Invited Events:</view>
 
-    <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}">
+    <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
       <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>
       <view class="activity" >{{invitedEvent.event_id.activity}}</view>
       <view class="deadline" >Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
