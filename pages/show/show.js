@@ -4,7 +4,9 @@ Page({
   data: {
     testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1",
     dateSelected: false,
-    availabilitySubmitted: false
+    availabilitySubmitted: false,
+    changeDate: false,
+    updateResponse: false
   },
 
   onLoad: function (options) {
@@ -74,9 +76,51 @@ Page({
       EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
         let Slot = Slots.getWithoutData(item)
         Slot.incrementBy('response_yes', 1).update().then(res => {
-          page.setData({availabilitySubmitted: true})
+          page.setData({availabilitySubmitted: true, updateResponse: false})
         })
       })
+    })
+  },
+
+  removeAvailability: function () {
+    let page = this
+    let eventId = page.data.event.id
+    let Slots = new wx.BaaS.TableObject("event_slots")
+    let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+    let query = new wx.BaaS.Query()
+    let currentUserId = page.data.currentUser.id
+    query.compare('event_id', '=', eventId)
+    Slots.setQuery(query).find().then(res => {
+      console.log('query', res)
+      let Slot = res.data.objects
+      Slot.forEach(item => {
+        console.log('try to delete', item)
+        query.compare('invitee_id', '=', currentUserId)
+        query.compare('event_id', '=', item.id)
+        EventSlotResponses.setQuery(query).remove().then(res =>{
+        console.log('delete', res)
+      })
+    })
+  })
+},
+
+  updateResponse: function () {
+    let page = this
+    wx.showModal({
+      title: 'Warning',
+      content: 'Are you sure you want to update your availability?',
+      success (res) {
+        if (res.confirm) {
+          console.log('user confirmed')
+          page.removeResponses ()
+          page.removeAvailability ()
+          page.setProgress()
+          page.setData({updateResponse: true, availabilitySubmitted: false})
+          
+        } else if (res.cancel) {
+          console.log('user canceled')
+        }
+      }
     })
   },
 
@@ -90,6 +134,22 @@ Page({
       let Slot = res.data.objects
       Slot.forEach(item => {
         AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
+        })
+      })
+    })
+  },
+
+  removeResponses: function () {
+    let page = this
+    let AllSlots = new wx.BaaS.TableObject("event_slots")
+    let eventId = page.data.event.id
+    let query = new wx.BaaS.Query()
+    query.compare('event_id', '=', eventId)
+    AllSlots.setQuery(query).find().then(res => {
+      let Slot = res.data.objects
+      Slot.forEach(item => {
+        AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
+          console.log('test', res)
         })
       })
     })
@@ -138,7 +198,7 @@ Page({
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
-            page.setData({confirmedSlot: res.data})
+            page.setData({confirmedSlot: res.data, changeDate: false})
           })
 
         } else if (res.cancel) {
@@ -165,7 +225,7 @@ Page({
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
-            page.setData({confirmedSlot: res.data})
+            page.setData({confirmedSlot: res.data, changeDate: false})
           })
 
         } else if (res.cancel) {
@@ -176,7 +236,25 @@ Page({
   },
 
   changeFinalDate: function () {
+    let page = this
+    let Events = new wx.BaaS.TableObject("events")
+    let eventId = this.data.event.id
+    wx.showModal({
+      title: 'Warning',
+      content: 'Your participants have already been informed about your event date. Are you sure you want to change the date?',
+      success (res) {
+        if (res.confirm) {
+          console.log('user confirmed')
+          let event = Events.getWithoutData(eventId)
+          event.set({confirmed_date: ''}).update().then(res => {
+            page.setData({event: res.data, changeDate: true, dateSelected: false, confirmedSlot: false})
+          })
 
+        } else if (res.cancel) {
+          console.log('user canceled')
+        }
+      }
+    })
   },
 
   inviteFriends: function () {

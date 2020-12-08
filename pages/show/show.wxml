@@ -19,7 +19,7 @@ currentUser = invitee_id && has not submitted availability ==>
   </view>
 
   <view wx:if="{{currentUser.id == event.creator_id.id}}">
-    <view wx:if="{{event.confirmed_date == '' || confirmedSlot == undefined}}">
+    <view wx:if="{{event.confirmed_date == '' || confirmedSlot == undefined || changeDate == true}}">
       <view>Select the event date</view>
       <radio-group bindchange="chooseDate">
         <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id">
@@ -33,13 +33,15 @@ currentUser = invitee_id && has not submitted availability ==>
     </view>
 
     <view wx:if="{{dateSelected && event.confirmed_date == ''}}">
-      <button wx:if="{{!confirmedSlot}}" class="button" bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
-      <button wx:else class="button" bindtap="{{changeFinalDate}}">Change final event date</button>
+      <button wx:if="{{!confirmedSlot || changeDate == false}}" class="button" bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
+    </view>
+    <view wx:elif="{{changeDate == false}}">
+      <button  class="button" bindtap="changeFinalDate">Change event date</button>
     </view>
   </view>
 
   <view wx:else>
-    <view wx:if="{{event.confirmed_date.length == 0 && availabilitySubmitted == false}}">
+    <view wx:if="{{(event.confirmed_date.length == 0 && availabilitySubmitted == false) || updateResponse == true}}">
       <view wx:if="{{slots.length > 0}}">Confirm your availability</view>
       <checkbox-group bindchange="chooseMultiDate">
         <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id" >
@@ -62,6 +64,9 @@ currentUser = invitee_id && has not submitted availability ==>
       <view>Your availability has been confirmed.</view>
       <view>Below you can see participant availability as confirmed so far. More participants may yet provide availability.</view>
       <view>Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
+      <view>
+        <button bindtap="updateResponse">Update availability</button>
+      </view>
       <view wx:for="{{slots}}" wx:for-item="slot" wx:key="id">
         <view>{{slot.start_date}} to {{slot.end_date}}</view>
         <view><progress percent="{{slot.response_progress}}"></progress></view>

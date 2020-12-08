@@ -73,6 +73,11 @@
           "pathName": "pages/show/show",
           "query": "id=5fcb7575d4fd5f41e5049b9c",
           "scene": null
+        },
+        {
+          "name": "pages/userevents/userevents",
+          "pathName": "pages/userevents/userevents",
+          "scene": null
         }
       ]
     }
