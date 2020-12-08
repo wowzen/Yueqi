@@ -42,12 +42,10 @@
             <view class="picker">Time: {{response_time}}</view>
           </picker>
         </view>
-    </view>
-    <button wx:if="{{goToSelectDates}}" class="choose-date" bindtap="submitNewEvent">Choose date</button>
-    <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
-  </view>
-
-<!-- 
+        <view wx:if="{{goToSelectDates}}">
+            <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
+        </view>
+  <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
   <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
   <view>Select possible dates + times using a WeChat plugin</view>
   <view>Location - This we save for Week 2, leave it out for now</view>

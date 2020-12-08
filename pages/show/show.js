@@ -93,26 +93,36 @@ Page({
     let eventId = page.data.event.id
     let EventSlots = new wx.BaaS.TableObject("event_slots")
     let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
-    let query = new wx.BaaS.Query()
+    let eventSlotQuery = new wx.BaaS.Query()
     let currentUserId = page.data.currentUser.id
-    query.compare('event_id', '=', eventId)
-    return EventSlots.setQuery(query).find().then(res => {
+    eventSlotQuery.compare('event_id', '=', eventId)
+    return EventSlots.setQuery(eventSlotQuery).find().then(res => {
       let eventSlots = res.data.objects
 
       return eventSlots.map(eventSlot => {
-        query = new wx.BaaS.Query()
+        let query = new wx.BaaS.Query()
         query.compare('invitee_id', '=', currentUserId)
         query.compare('event_slot_id', '=', eventSlot.id)
 
         return EventSlotResponses.setQuery(query).find().then(res => { 
+          console.log(res)
           let eventSlotResponses = res.data.objects
-          return eventSlotResponses.map(esr => (
-            EventSlotResponses.delete(esr.id).then(res => res)
-          ))
+          return eventSlotResponses.map(esr => {
+            console.log(esr)
+            let Slot = EventSlots.getWithoutData(esr.event_slot_id.id)
+            return EventSlotResponses.delete(esr.id).then(res => {
+              console.log('remove yes', res)
+              return Slot.incrementBy('response_yes', -1).update().then(res => {
+                page.setData({availabilitySubmitted: false, updateResponse: true})
+                console.log('finish remove availability')
+                return res
+              }) 
+            })
+          })
         })
       })
     })
-},
+  },
 
   countResponses: function () {
     let page = this
@@ -181,14 +191,14 @@ Page({
         let responseTotal = item.response_total
         let responseYes = item.response_yes
         let progressPercent= parseInt((responseYes/responseTotal) * 100)
-
-        page.setData({
-          progressPercent: progressPercent,
-          slots: Slot,
-        })
+        item.progressPercent = progressPercent
+    
         AllSlots.getWithoutData(item.id).set({response_progress: progressPercent}).update().then(res => {
           console.log('setProgress', res)
         })
+      })
+      page.setData({
+        slots: Slot
       })
     })
   },
