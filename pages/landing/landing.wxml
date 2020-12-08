@@ -1,0 +1,3 @@
+<view>App introduction</view>
+
+<button bindtap="getStarted">Go to next page</button>
