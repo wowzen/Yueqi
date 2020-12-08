@@ -71,8 +71,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/calendar/calendar",
-					"pathName": "pages/calendar/calendar",
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
 					"query": "id=5fcb49183420074a7fd12933",
 					"scene": null
 				}
