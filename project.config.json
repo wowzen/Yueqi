@@ -75,8 +75,8 @@
           "scene": null
         },
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
+          "name": "pages/userevents/userevents",
+          "pathName": "pages/userevents/userevents",
           "scene": null
         }
       ]

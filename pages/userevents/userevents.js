@@ -1,17 +1,10 @@
-// pages/userevents/userevents.js
 Page({
 
-  /**
-   * Page initial data
-   */
   data: {
     testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`
 
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
   onLoad: function (options) {
     let currentUser = wx.getStorageSync('user')
     this.setData({currentUser: currentUser})
@@ -40,18 +33,6 @@ Page({
     })
   },
 
-  // getOtherUserEvents: function () {
-  //   let currentUser = this.data.currentUser;
-  //   let event = new wx.BaaS.TableObject("events");
-  //   let query = new wx.BaaS.Query()
-    
-  //   query.compare('creator_id', "!=", currentUser.id)
-  //   event.setQuery(query).find().then(res => {
-  //     let otherUserEvents = res.data.objects
-  //     this.setData({otherUserEvents: otherUserEvents});
-  //   })
-  // },
-
   getInvitedEvents: function () {
     let currentUser = this.data.currentUser;
     let event = new wx.BaaS.TableObject("event_invitations");
@@ -66,16 +47,6 @@ Page({
     })
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
   onShow: function () {
     let event = new wx.BaaS.TableObject("events")
     event.find().then(res => {
@@ -93,40 +64,5 @@ Page({
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`,
     })
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
   }
 })

@@ -1,19 +1,18 @@
-
+<view class="background">
   <view class="intro">Create an event and share to find the best and suitable date with your family, friends or colleagues! </view>
   <view class="start">Let the fun begin!</view>
+  <view class="start">Login to view your events or create your own event!</view>
 
   <block wx:if="{{currentUser}}">
     <button class="create-fun-btn" bindtap="createEvent">Create fun</button>
   </block>
 
   <block wx:else>
-    <button open-type="getUserInfo" bindgetuserinfo="login">Login to create a new event!</button>
+    <button open-type="getUserInfo" bindgetuserinfo="login">Login!</button>
   </block>
 
   <block wx:if="{{currentUser}}">
     <button class="my-fun-btn" bindtap="viewEvents">My fun</button>
   </block>
 
-  <block wx:else>
-    <button open-type="getUserInfo" bindtap="login">Login to view events</button>
-  </block>
+</view>

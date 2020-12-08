@@ -3,6 +3,22 @@
   margin: 15px;
 }
 
+.header{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  padding-top: 35px;
+  font-weight: bold;
+}
+
+.title{
+  padding-top: 24px;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+
+}
+
 .occasions-card{
   padding: 10px;
   margin-top: 25px;
@@ -42,7 +58,10 @@
   background: #FFECD7;
   border-radius: 25px; 
 
-  font-family: Roboto;
+
+
+
+   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
 }
