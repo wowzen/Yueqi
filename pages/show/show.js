@@ -62,9 +62,12 @@ Page({
   },
 
   submitResponse: function () {
-    this.submitAvailability()
-    this.countResponses()
-    this.setProgress()
+    Promise.all([
+      ...this.submitAvailability(),
+      this.countResponses(),
+    ]).then(values => {
+      this.setProgress()
+    })
   },
 
   submitAvailability: function () {
@@ -72,11 +75,14 @@ Page({
     let chosenSlotIds = page.data.chosenSlotIds
     let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
     let Slots = new wx.BaaS.TableObject("event_slots")
-    chosenSlotIds.forEach(item => {
-      EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
+
+    return chosenSlotIds.map(item => {
+      return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
         let Slot = Slots.getWithoutData(item)
-        Slot.incrementBy('response_yes', 1).update().then(res => {
+        return Slot.incrementBy('response_yes', 1).update().then(res => {
           page.setData({availabilitySubmitted: true, updateResponse: false})
+          console.log('finish submit availability')
+          return res
         })
       })
     })
@@ -85,44 +91,28 @@ Page({
   removeAvailability: function () {
     let page = this
     let eventId = page.data.event.id
-    let Slots = new wx.BaaS.TableObject("event_slots")
+    let EventSlots = new wx.BaaS.TableObject("event_slots")
     let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
     let query = new wx.BaaS.Query()
     let currentUserId = page.data.currentUser.id
     query.compare('event_id', '=', eventId)
-    Slots.setQuery(query).find().then(res => {
-      console.log('query', res)
-      let Slot = res.data.objects
-      Slot.forEach(item => {
-        console.log('try to delete', item)
+    return EventSlots.setQuery(query).find().then(res => {
+      let eventSlots = res.data.objects
+
+      return eventSlots.map(eventSlot => {
+        query = new wx.BaaS.Query()
         query.compare('invitee_id', '=', currentUserId)
-        query.compare('event_id', '=', item.id)
-        EventSlotResponses.setQuery(query).remove().then(res =>{
-        console.log('delete', res)
+        query.compare('event_slot_id', '=', eventSlot.id)
+
+        return EventSlotResponses.setQuery(query).find().then(res => { 
+          let eventSlotResponses = res.data.objects
+          return eventSlotResponses.map(esr => (
+            EventSlotResponses.delete(esr.id).then(res => res)
+          ))
+        })
       })
     })
-  })
 },
-
-  updateResponse: function () {
-    let page = this
-    wx.showModal({
-      title: 'Warning',
-      content: 'Are you sure you want to update your availability?',
-      success (res) {
-        if (res.confirm) {
-          console.log('user confirmed')
-          page.removeResponses ()
-          page.removeAvailability ()
-          page.setProgress()
-          page.setData({updateResponse: true, availabilitySubmitted: false})
-          
-        } else if (res.cancel) {
-          console.log('user canceled')
-        }
-      }
-    })
-  },
 
   countResponses: function () {
     let page = this
@@ -130,10 +120,13 @@ Page({
     let eventId = page.data.event.id
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', eventId)
-    AllSlots.setQuery(query).find().then(res => {
+
+    return AllSlots.setQuery(query).find().then(res => {
       let Slot = res.data.objects
-      Slot.forEach(item => {
-        AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
+      return Slot.map(item => {
+        return AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
+          console.log('finish count responses')
+          return res
         })
       })
     })
@@ -145,13 +138,33 @@ Page({
     let eventId = page.data.event.id
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', eventId)
-    AllSlots.setQuery(query).find().then(res => {
+    return AllSlots.setQuery(query).find().then(res => {
       let Slot = res.data.objects
-      Slot.forEach(item => {
-        AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
+      return Slot.map(item => {
+        return AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
           console.log('test', res)
         })
       })
+    })
+  },
+
+  updateResponse: function () {
+    let page = this
+    wx.showModal({
+      title: 'Warning',
+      content: 'Are you sure you want to update your availability?',
+      success (res) {
+        if (res.confirm) {
+          console.log('user confirmed')
+          Promise.all(
+            [page.removeResponses(), page.removeAvailability()]).then(e => {
+            page.setProgress()
+            page.setData({updateResponse: true, availabilitySubmitted: false})
+          })
+        } else if (res.cancel) {
+          console.log('user canceled')
+        }
+      }
     })
   },
 
@@ -168,7 +181,12 @@ Page({
         let responseTotal = item.response_total
         let responseYes = item.response_yes
         let progressPercent= parseInt((responseYes/responseTotal) * 100)
-        // page.setData({progressPercent: progressPercent})
+
+        page.setData({
+          progressPercent: progressPercent,
+          slots: Slot,
+        })
+
         AllSlots.getWithoutData(item.id).set({response_progress: progressPercent}).update().then(res => {
           console.log('setProgress', res)
         })

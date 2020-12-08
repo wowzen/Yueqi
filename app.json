@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/landing/landing",
     "pages/index/index",
     "pages/userevents/userevents",
     "pages/show/show",

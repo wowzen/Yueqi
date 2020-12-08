@@ -69,6 +69,8 @@ currentUser = invitee_id && has not submitted availability ==>
       </view>
       <view wx:for="{{slots}}" wx:for-item="slot" wx:key="id">
         <view>{{slot.start_date}} to {{slot.end_date}}</view>
+        <view>{{slot.response_yes}}</view>
+        <view>{{slot.response_total}}</view>
         <view><progress percent="{{slot.response_progress}}"></progress></view>
       </view>
 
