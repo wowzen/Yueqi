@@ -1,9 +1,6 @@
 // pages/show/show.js
 Page({
 
-  /**
-   * Page initial data
-   */
   data: {
     testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1",
     dateSelected: false,
@@ -13,7 +10,6 @@ Page({
   onLoad: function (options) {
     const id = options.id;
     const currentUser = wx.getStorageSync('user');
-    console.log(options)
     this.setData({currentUser});
     this.getEvent(id)
     this.getSlots(id)
@@ -23,7 +19,6 @@ Page({
     let page = this
     let Events = new wx.BaaS.TableObject("events")
      Events.expand(["creator_id"]).get(id).then (res => {
-        console.log(res)
         let today = new Date()
         let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
         page.setData({event: res.data, deadlinePassed: deadlinePassed})
@@ -37,7 +32,6 @@ Page({
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', id)
     Slots.setQuery(query).find().then(res => {
-      console.log(res)
       let confirmedSlot = res.data.objects.find(item => {
         return item.slot_selected
       })
@@ -50,12 +44,10 @@ Page({
   },
 
   chooseDate: function (e) {
-    console.log('radio', e)
     let chosenSlotId = e.detail.value
     let chosenSlot = this.data.slots.find(item => {
       return item.id == chosenSlotId})
     this.setData({chosenSlot: chosenSlot, dateSelected: true})
-    console.log('chosenSlot', chosenSlot)
     wx.pageScrollTo({
       scrollTop: 1000,
       duration: 300
@@ -63,19 +55,63 @@ Page({
   },
 
   chooseMultiDate: function (e) {
-    console.log('checkbox', e)
     let chosenSlotIds = e.detail.value
     this.setData({chosenSlotIds: chosenSlotIds})
+  },
+
+  submitResponse: function () {
+    this.submitAvailability()
+    this.countResponses()
+    this.setProgress()
   },
 
   submitAvailability: function () {
     let page = this
     let chosenSlotIds = page.data.chosenSlotIds
     let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+    let Slots = new wx.BaaS.TableObject("event_slots")
     chosenSlotIds.forEach(item => {
       EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
-        console.log('submitavailability', res)
-        page.setData({availabilitySubmitted: true})
+        let Slot = Slots.getWithoutData(item)
+        Slot.incrementBy('response_yes', 1).update().then(res => {
+          page.setData({availabilitySubmitted: true})
+        })
+      })
+    })
+  },
+
+  countResponses: function () {
+    let page = this
+    let AllSlots = new wx.BaaS.TableObject("event_slots")
+    let eventId = page.data.event.id
+    let query = new wx.BaaS.Query()
+    query.compare('event_id', '=', eventId)
+    AllSlots.setQuery(query).find().then(res => {
+      let Slot = res.data.objects
+      Slot.forEach(item => {
+        AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
+        })
+      })
+    })
+  },
+
+  setProgress: function () {
+    let page = this
+    let AllSlots = new wx.BaaS.TableObject("event_slots")
+    let eventId = page.data.event.id
+    let query = new wx.BaaS.Query()
+    query.compare('event_id', '=', eventId)
+    AllSlots.setQuery(query).find().then(res =>{
+      let Slot = res.data.objects
+      Slot.forEach(item => {
+        console.log(item)
+        let responseTotal = item.response_total
+        let responseYes = item.response_yes
+        let progressPercent= parseInt((responseYes/responseTotal) * 100)
+        // page.setData({progressPercent: progressPercent})
+        AllSlots.getWithoutData(item.id).set({response_progress: progressPercent}).update().then(res => {
+          console.log('setProgress', res)
+        })
       })
     })
   },
@@ -86,7 +122,6 @@ Page({
     query.compare('invitee_id', '=', invitee_id)
     query.in('event_slot_id', slot_ids)
     EventSlotResponses.setQuery(query).find().then(res => {
-      console.log(res)
       this.setData({responseSlots: res.data.objects, availabilitySubmitted: res.data.objects.length > 0})
     })
   },
@@ -97,14 +132,12 @@ Page({
       content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
       success (res) {
         if (res.confirm) {
-          console.log('user clicked confirm')
           let event = Events.getWithoutData(eventId)
           event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
             page.setData({event: res.data})
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
-            console.log(res)
             page.setData({confirmedSlot: res.data})
           })
 
@@ -126,14 +159,12 @@ Page({
       content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
       success (res) {
         if (res.confirm) {
-          console.log('user clicked confirm')
           let event = Events.getWithoutData(eventId)
           event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
             page.setData({event: res.data})
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
-            console.log(res)
             page.setData({confirmedSlot: res.data})
           })
 
@@ -142,6 +173,10 @@ Page({
         }
       }
     })
+  },
+
+  changeFinalDate: function () {
+
   },
 
   inviteFriends: function () {
@@ -159,57 +194,13 @@ Page({
     query.compare('creator_id', '!=', invitee_id)
     Invitation.setQuery(query).find().then(res => {
       if (res.data.objects.length == 0) {
-        console.log(event, invitee_id)
         Invitation.create().set({event_id: event.id, invitee_id: invitee_id, creator_id: event.creator_id.id}).save().then(res => {
           console.log(res)
         })
       }
     })
-
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-    
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
   onShareAppMessage: function () {
     return {
       title: `You are invited for: ${this.date.event.occasion}`,
