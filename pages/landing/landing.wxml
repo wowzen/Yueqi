@@ -1,3 +1,8 @@
-<view>App introduction</view>
+<view>
 
-<button bindtap="getStarted">Go to next page</button>
+  <view class="description">Quality time means getting together with family, friends or workmates. We believe that you’re the only one planning this quality time, but it is done a lot easier with Yalla habibi, which helps you plan easy, faster and better.
+  </view>
+
+  <button bindtap="getStarted">Get started</button>
+
+</view>

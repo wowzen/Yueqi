@@ -58,10 +58,7 @@
   background: #FFECD7;
   border-radius: 25px; 
 
-
-
-
-   font-family: Roboto;
+  font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
 }
