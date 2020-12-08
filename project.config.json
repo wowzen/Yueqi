@@ -73,6 +73,11 @@
           "pathName": "pages/show/show",
           "query": "id=5fcb7575d4fd5f41e5049b9c",
           "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "scene": null
         }
       ]
     }
