@@ -24,7 +24,7 @@
 
 .time-picker{
   padding: 10px;
-  margin-top: 25px;
+  margin-top: 16px;
   background: #FFECD7;
   border-radius: 25px; 
 
@@ -32,6 +32,17 @@
   font-weight: 300;
   font-size: 18px;
 }
+
+.date{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-weight: bold;
+}
+
 
 .add-another-date{
   padding: 10px;

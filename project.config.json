@@ -4,39 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"enhance": false,
-		"postcss": true,
-		"preloadBackgroundData": false,
-		"minified": true,
-		"newFeature": false,
-		"coverView": true,
-		"nodeModules": false,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"uglifyFileName": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"compileHotReLoad": false,
-		"useMultiFrameRuntime": false,
-		"useApiHook": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"enableEngineNative": false,
-		"useIsolateContext": true,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false,
-		"userConfirmedBundleSwitch": false,
-		"packNpmManually": false,
-		"packNpmRelationList": [],
-		"minifyWXSS": true,
-		"bundle": false
+		"useApiHostProcess": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.14.0",
@@ -50,6 +18,14 @@
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
 		"plugin": {
 			"list": []
 		},
@@ -63,20 +39,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/calendar/calendar",
-					"pathName": "pages/calendar/calendar",
-					"query": "id=5fcb49183420074a7fd12933",
-					"scene": null
-				},
-				{
 					"name": "pages/show/show",
 					"pathName": "pages/show/show",
-					"query": "id=5fcb7575d4fd5f41e5049b9c",
-					"scene": null
-				},
-				{
-					"name": "pages/userevents/userevents",
-					"pathName": "pages/userevents/userevents",
+					"query": "id=5fcb49183420074a7fd12933",
 					"scene": null
 				}
 			]
