@@ -1,7 +1,7 @@
-.background{
-background-color: #FFFAF5;
-}
+/* .background{
+  background-color: rgb(250, 243, 236);
 
+} */
 .intro{
   font-family: Roboto;
   font-weight: 300;
@@ -16,14 +16,16 @@ background-color: #FFFAF5;
   font-weight: 300;
   font-size: 18px;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 35px;
 }
 
 .create-fun-btn{
   padding: 10px;
-  margin-top: 40px;
+  margin-top: 50px;
   background: #FFECD7;
   border-radius: 25px; 
+  min-width: 75vw;
+
 
   font-family: Roboto;
   font-weight: 300;
@@ -35,6 +37,8 @@ background-color: #FFFAF5;
   margin-top: 25px;
   background: #FFECD7;
   border-radius: 25px; 
+  min-width: 75vw;
+
 
   font-family: Roboto;
   font-weight: 300;

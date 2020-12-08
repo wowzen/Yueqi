@@ -1,4 +1,4 @@
-
+<view class="background">
   <view class="intro">Create an event and share to find the best and suitable date with your family, friends or colleagues! </view>
   <view class="start">Let the fun begin!</view>
 
@@ -17,3 +17,4 @@
   <block wx:else>
     <button open-type="getUserInfo" bindtap="login">Login to view events</button>
   </block>
+</view>

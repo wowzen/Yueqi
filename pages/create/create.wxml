@@ -6,7 +6,7 @@
   <view wx:if="{{goToSelectActivity}}" wx:if="{{goToSelectDates}}">Event occasion: {{finalOccasion}} </view>
   <view wx:if="{{goToSelectDates}}">Activity: {{finalActivity}}</view>
 
-  <view wx:if="{{occasionSpecSelected}}">What event type do you want to create:</view>
+  <view class="title" wx:if="{{occasionSpecSelected}}">What event type do you want to create:</view>
 
   <view wx:if="{{occasionSpecSelected}}" class="occasions-card" wx:for="{{occasions}}" > 
     <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
