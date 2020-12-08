@@ -36,7 +36,6 @@ Page({
       console.log(res)
       wx.setStorageSync('user', res)
       this.setData({currentUser: res})
-      // page.goToIndex()
       })
   },
 

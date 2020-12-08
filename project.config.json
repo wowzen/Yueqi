@@ -71,12 +71,19 @@
         {
           "name": "pages/show/show",
           "pathName": "pages/show/show",
-          "query": "id=5fcb7575d4fd5f41e5049b9c",
+          "query": "id=5fcf8e1abdeae00d6c170fa9",
           "scene": null
         },
         {
           "name": "pages/userevents/userevents",
           "pathName": "pages/userevents/userevents",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
           "scene": null
         }
       ]
