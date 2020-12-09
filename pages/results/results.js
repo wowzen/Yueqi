@@ -17,9 +17,9 @@ Page({
     this.getSlots(id)
   },
 
-  onReady: function () {
-    this.setProgress()
-  },
+  // onReady: function () {
+  //   this.setProgress()
+  // },
 
   getEvent: function (id) {
     let page = this
@@ -60,143 +60,143 @@ Page({
     })
   },
 
-  chooseMultiDate: function (e) {
-    let chosenSlotIds = e.detail.value
-    this.setData({chosenSlotIds: chosenSlotIds})
-  },
+  // chooseMultiDate: function (e) {
+  //   let chosenSlotIds = e.detail.value
+  //   this.setData({chosenSlotIds: chosenSlotIds})
+  // },
 
-  submitResponse: function () {
-    Promise.all([
-      ...this.submitAvailability(),
-      this.countResponses(),
-    ]).then(values => {
-      console.log('values', values)
-      this.setProgress()
-    })
-  },
+  // submitResponse: function () {
+  //   Promise.all([
+  //     ...this.submitAvailability(),
+  //     this.countResponses(),
+  //   ]).then(values => {
+  //     console.log('values', values)
+  //     this.setProgress()
+  //   })
+  // },
 
   // submitResponse: function () {
   //     this.submitAvailability(),
   //     this.countResponses()
   //   },
 
-  submitAvailability: function () {
-    let page = this
-    let chosenSlotIds = page.data.chosenSlotIds
-    let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
-    let Slots = new wx.BaaS.TableObject("event_slots")
+  // submitAvailability: function () {
+  //   let page = this
+  //   let chosenSlotIds = page.data.chosenSlotIds
+  //   let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+  //   let Slots = new wx.BaaS.TableObject("event_slots")
 
-    return chosenSlotIds.map(item => {
-      return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
-        let Slot = Slots.getWithoutData(item)
-        return Slot.incrementBy('response_yes', 1).update().then(res => {
-          page.setData({availabilitySubmitted: true, updateResponse: false})
-          console.log('finish submit availability', res)
-          page.setProgress()
-          return res
-        })
-      })
-    })
-  },
+  //   return chosenSlotIds.map(item => {
+  //     return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
+  //       let Slot = Slots.getWithoutData(item)
+  //       return Slot.incrementBy('response_yes', 1).update().then(res => {
+  //         page.setData({availabilitySubmitted: true, updateResponse: false})
+  //         console.log('finish submit availability', res)
+  //         page.setProgress()
+  //         return res
+  //       })
+  //     })
+  //   })
+  // },
 
-  removeAvailability: function () {
-    let page = this
-    let eventId = page.data.event.id
-    let EventSlots = new wx.BaaS.TableObject("event_slots")
-    let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
-    let eventSlotQuery = new wx.BaaS.Query()
-    let currentUserId = page.data.currentUser.id
-    eventSlotQuery.compare('event_id', '=', eventId)
-    return EventSlots.setQuery(eventSlotQuery).find().then(res => {
-      let eventSlots = res.data.objects
+  // removeAvailability: function () {
+  //   let page = this
+  //   let eventId = page.data.event.id
+  //   let EventSlots = new wx.BaaS.TableObject("event_slots")
+  //   let EventSlotResponses = new wx.BaaS.TableObject("event_slot_responses")
+  //   let eventSlotQuery = new wx.BaaS.Query()
+  //   let currentUserId = page.data.currentUser.id
+  //   eventSlotQuery.compare('event_id', '=', eventId)
+  //   return EventSlots.setQuery(eventSlotQuery).find().then(res => {
+  //     let eventSlots = res.data.objects
 
-      return eventSlots.map(eventSlot => {
-        let query = new wx.BaaS.Query()
-        query.compare('invitee_id', '=', currentUserId)
-        query.compare('event_slot_id', '=', eventSlot.id)
+  //     return eventSlots.map(eventSlot => {
+  //       let query = new wx.BaaS.Query()
+  //       query.compare('invitee_id', '=', currentUserId)
+  //       query.compare('event_slot_id', '=', eventSlot.id)
 
-        return EventSlotResponses.setQuery(query).find().then(res => { 
-          console.log(res)
-          let eventSlotResponses = res.data.objects
-          return eventSlotResponses.map(esr => {
-            console.log(esr)
-            let Slot = EventSlots.getWithoutData(esr.event_slot_id.id)
-            return EventSlotResponses.delete(esr.id).then(res => {
-              console.log('remove yes', res)
-              return Slot.incrementBy('response_yes', -1).update().then(res => {
-                page.setData({availabilitySubmitted: false, updateResponse: true})
-                console.log('finish remove availability')
-                page.setProgress()
-                return res
-              }) 
-            })
-          })
-        })
-      })
-    })
-  },
+  //       return EventSlotResponses.setQuery(query).find().then(res => { 
+  //         console.log(res)
+  //         let eventSlotResponses = res.data.objects
+  //         return eventSlotResponses.map(esr => {
+  //           console.log(esr)
+  //           let Slot = EventSlots.getWithoutData(esr.event_slot_id.id)
+  //           return EventSlotResponses.delete(esr.id).then(res => {
+  //             console.log('remove yes', res)
+  //             return Slot.incrementBy('response_yes', -1).update().then(res => {
+  //               page.setData({availabilitySubmitted: false, updateResponse: true})
+  //               console.log('finish remove availability')
+  //               page.setProgress()
+  //               return res
+  //             }) 
+  //           })
+  //         })
+  //       })
+  //     })
+  //   })
+  // },
 
-  countResponses: function () {
-    let page = this
-    let AllSlots = new wx.BaaS.TableObject("event_slots")
-    let eventId = page.data.event.id
-    let query = new wx.BaaS.Query()
-    query.compare('event_id', '=', eventId)
+  // countResponses: function () {
+  //   let page = this
+  //   let AllSlots = new wx.BaaS.TableObject("event_slots")
+  //   let eventId = page.data.event.id
+  //   let query = new wx.BaaS.Query()
+  //   query.compare('event_id', '=', eventId)
 
-    return AllSlots.setQuery(query).find().then(res => {
-      let Slot = res.data.objects
-      return Slot.map(item => {
-        return AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
-          console.log('finish count responses')
-          page.setProgress()
-          return res
-        })
-      })
-    })
-  },
+  //   return AllSlots.setQuery(query).find().then(res => {
+  //     let Slot = res.data.objects
+  //     return Slot.map(item => {
+  //       return AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
+  //         console.log('finish count responses')
+  //         page.setProgress()
+  //         return res
+  //       })
+  //     })
+  //   })
+  // },
 
-  removeResponses: function () {
-    let page = this
-    let AllSlots = new wx.BaaS.TableObject("event_slots")
-    let eventId = page.data.event.id
-    let query = new wx.BaaS.Query()
-    query.compare('event_id', '=', eventId)
-    return AllSlots.setQuery(query).find().then(res => {
-      let Slot = res.data.objects
-      return Slot.map(item => {
-        return AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
-          console.log('test', res)
-          page.setProgress()
-        })
-      })
-    })
-  },
+  // removeResponses: function () {
+  //   let page = this
+  //   let AllSlots = new wx.BaaS.TableObject("event_slots")
+  //   let eventId = page.data.event.id
+  //   let query = new wx.BaaS.Query()
+  //   query.compare('event_id', '=', eventId)
+  //   return AllSlots.setQuery(query).find().then(res => {
+  //     let Slot = res.data.objects
+  //     return Slot.map(item => {
+  //       return AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
+  //         console.log('test', res)
+  //         page.setProgress()
+  //       })
+  //     })
+  //   })
+  // },
 
-  updateResponse: function () {
-    let page = this
-    wx.showModal({
-      title: 'Warning',
-      content: 'Are you sure you want to update your availability?',
-      success (res) {
-        if (res.confirm) {
-          console.log('user confirmed')
+  // updateResponse: function () {
+  //   let page = this
+  //   wx.showModal({
+  //     title: 'Warning',
+  //     content: 'Are you sure you want to update your availability?',
+  //     success (res) {
+  //       if (res.confirm) {
+  //         console.log('user confirmed')
 
-          Promise.all(
-            [page.removeResponses(), page.removeAvailability()]).then(e => {
-            page.setProgress()
-            // page.setData({updateResponse: true, availabilitySubmitted: false})
-          })
+  //         Promise.all(
+  //           [page.removeResponses(), page.removeAvailability()]).then(e => {
+  //           page.setProgress()
+  //           // page.setData({updateResponse: true, availabilitySubmitted: false})
+  //         })
 
-          // page.removeResponses()
-          // page.removeAvailability()
-          // page.setData({updateResponse: true, availabilitySubmitted: false})
+  //         // page.removeResponses()
+  //         // page.removeAvailability()
+  //         // page.setData({updateResponse: true, availabilitySubmitted: false})
 
-        } else if (res.cancel) {
-          console.log('user canceled')
-        }
-      }
-    })
-  },
+  //       } else if (res.cancel) {
+  //         console.log('user canceled')
+  //       }
+  //     }
+  //   })
+  // },
 
   setProgress: function () {
     let page = this
