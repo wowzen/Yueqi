@@ -5,7 +5,8 @@
     "pages/userevents/userevents",
     "pages/show/show",
     "pages/create/create",
-    "pages/calendar/calendar"
+    "pages/calendar/calendar",
+    "pages/results/results"
   ],
   "window":{
     "backgroundTextStyle":"light",
