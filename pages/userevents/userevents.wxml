@@ -11,7 +11,8 @@
       <view class="description">
        <view class="occasion" >{{myEvent.occasion}}</view>
         <view class="activity" >{{myEvent.activity}}</view>
-        <view class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
+        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
+        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline">Event start: {{myEvent.confirmed_date}}</view>
       </view>  
     </view>
   </view>
@@ -23,7 +24,8 @@
     <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
       <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>
       <view class="activity" >{{invitedEvent.event_id.activity}}</view>
-      <view class="deadline" >Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
+      <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline" >Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
+      <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline">Event start: {{myEvent.confirmed_date}}</view>
       <view class="creator" >Organized by: {{invitedEvent.creator_id.nickname}}
       <image src="{{invitedEvent.creator_id.avatar}}"></image> 
       </view>

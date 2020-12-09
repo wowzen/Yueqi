@@ -28,6 +28,13 @@ Page({
       })
   },
 
+  gotoResults: function () {
+    let id = this.data.event.id
+    wx.navigateTo({
+      url: `/pages/results/results?id=${id}`,
+    })
+  },
+
   getSlots: function (id) {
     let page = this
     let Slots = new wx.BaaS.TableObject("event_slots")
@@ -45,16 +52,16 @@ Page({
     })
   },
 
-  chooseDate: function (e) {
-    let chosenSlotId = e.detail.value
-    let chosenSlot = this.data.slots.find(item => {
-      return item.id == chosenSlotId})
-    this.setData({chosenSlot: chosenSlot, dateSelected: true})
-    wx.pageScrollTo({
-      scrollTop: 1000,
-      duration: 300
-    })
-  },
+  // chooseDate: function (e) {
+  //   let chosenSlotId = e.detail.value
+  //   let chosenSlot = this.data.slots.find(item => {
+  //     return item.id == chosenSlotId})
+  //   this.setData({chosenSlot: chosenSlot, dateSelected: true})
+  //   wx.pageScrollTo({
+  //     scrollTop: 1000,
+  //     duration: 300
+  //   })
+  // },
 
   chooseMultiDate: function (e) {
     let chosenSlotIds = e.detail.value
@@ -66,9 +73,15 @@ Page({
       ...this.submitAvailability(),
       this.countResponses(),
     ]).then(values => {
+      console.log('values', values)
       this.setProgress()
     })
   },
+
+  // submitResponse: function () {
+  //     this.submitAvailability(),
+  //     this.countResponses()
+  //   },
 
   submitAvailability: function () {
     let page = this
@@ -81,7 +94,8 @@ Page({
         let Slot = Slots.getWithoutData(item)
         return Slot.incrementBy('response_yes', 1).update().then(res => {
           page.setData({availabilitySubmitted: true, updateResponse: false})
-          console.log('finish submit availability')
+          console.log('finish submit availability', res)
+          page.setProgress()
           return res
         })
       })
@@ -115,6 +129,7 @@ Page({
               return Slot.incrementBy('response_yes', -1).update().then(res => {
                 page.setData({availabilitySubmitted: false, updateResponse: true})
                 console.log('finish remove availability')
+                page.setProgress()
                 return res
               }) 
             })
@@ -136,6 +151,7 @@ Page({
       return Slot.map(item => {
         return AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
           console.log('finish count responses')
+          page.setProgress()
           return res
         })
       })
@@ -153,6 +169,7 @@ Page({
       return Slot.map(item => {
         return AllSlots.getWithoutData(item.id).incrementBy('response_total', -1).update().then(res => {
           console.log('test', res)
+          page.setProgress()
         })
       })
     })
@@ -166,11 +183,17 @@ Page({
       success (res) {
         if (res.confirm) {
           console.log('user confirmed')
+
           Promise.all(
             [page.removeResponses(), page.removeAvailability()]).then(e => {
             page.setProgress()
-            page.setData({updateResponse: true, availabilitySubmitted: false})
+            // page.setData({updateResponse: true, availabilitySubmitted: false})
           })
+
+          // page.removeResponses()
+          // page.removeAvailability()
+          // page.setData({updateResponse: true, availabilitySubmitted: false})
+
         } else if (res.cancel) {
           console.log('user canceled')
         }
@@ -213,76 +236,76 @@ Page({
     })
   },
 
-  setFinalDate: function () {
-    wx.showModal({
-      title: 'Reminder',
-      content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
-      success (res) {
-        if (res.confirm) {
-          let event = Events.getWithoutData(eventId)
-          event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
-            page.setData({event: res.data})
-          })
-          let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
-          eventSlot.set({slot_selected: true}).update().then(res => {
-            page.setData({confirmedSlot: res.data, changeDate: false})
-          })
+  // setFinalDate: function () {
+  //   wx.showModal({
+  //     title: 'Reminder',
+  //     content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+  //     success (res) {
+  //       if (res.confirm) {
+  //         let event = Events.getWithoutData(eventId)
+  //         event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
+  //           page.setData({event: res.data})
+  //         })
+  //         let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
+  //         eventSlot.set({slot_selected: true}).update().then(res => {
+  //           page.setData({confirmedSlot: res.data, changeDate: false})
+  //         })
 
-        } else if (res.cancel) {
-          console.log('user clicked cancel')
-        }
-      }
-    })
-  },
+  //       } else if (res.cancel) {
+  //         console.log('user clicked cancel')
+  //       }
+  //     }
+  //   })
+  // },
 
-  setFinalDateEarly: function () {
-    let page = this
-    let chosenSlot = this.data.chosenSlot
-    let EventSlots = new wx.BaaS.TableObject("event_slots")
-    let Events = new wx.BaaS.TableObject("events")
-    let eventId = this.data.event.id
-    wx.showModal({
-      title: 'Reminder',
-      content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
-      success (res) {
-        if (res.confirm) {
-          let event = Events.getWithoutData(eventId)
-          event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
-            page.setData({event: res.data})
-          })
-          let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
-          eventSlot.set({slot_selected: true}).update().then(res => {
-            page.setData({confirmedSlot: res.data, changeDate: false})
-          })
+  // setFinalDateEarly: function () {
+  //   let page = this
+  //   let chosenSlot = this.data.chosenSlot
+  //   let EventSlots = new wx.BaaS.TableObject("event_slots")
+  //   let Events = new wx.BaaS.TableObject("events")
+  //   let eventId = this.data.event.id
+  //   wx.showModal({
+  //     title: 'Reminder',
+  //     content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+  //     success (res) {
+  //       if (res.confirm) {
+  //         let event = Events.getWithoutData(eventId)
+  //         event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
+  //           page.setData({event: res.data})
+  //         })
+  //         let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
+  //         eventSlot.set({slot_selected: true}).update().then(res => {
+  //           page.setData({confirmedSlot: res.data, changeDate: false})
+  //         })
 
-        } else if (res.cancel) {
-          console.log('user clicked cancel')
-        }
-      }
-    })
-  },
+  //       } else if (res.cancel) {
+  //         console.log('user clicked cancel')
+  //       }
+  //     }
+  //   })
+  // },
 
-  changeFinalDate: function () {
-    let page = this
-    let Events = new wx.BaaS.TableObject("events")
-    let eventId = this.data.event.id
-    wx.showModal({
-      title: 'Warning',
-      content: 'Your participants have already been informed about your event date. Are you sure you want to change the date?',
-      success (res) {
-        if (res.confirm) {
-          console.log('user confirmed')
-          let event = Events.getWithoutData(eventId)
-          event.set({confirmed_date: ''}).update().then(res => {
-            page.setData({event: res.data, changeDate: true, dateSelected: false, confirmedSlot: false})
-          })
+  // changeFinalDate: function () {
+  //   let page = this
+  //   let Events = new wx.BaaS.TableObject("events")
+  //   let eventId = this.data.event.id
+  //   wx.showModal({
+  //     title: 'Warning',
+  //     content: 'Your participants have already been informed about your event date. Are you sure you want to change the date?',
+  //     success (res) {
+  //       if (res.confirm) {
+  //         console.log('user confirmed')
+  //         let event = Events.getWithoutData(eventId)
+  //         event.set({confirmed_date: ''}).update().then(res => {
+  //           page.setData({event: res.data, changeDate: true, dateSelected: false, confirmedSlot: false})
+  //         })
 
-        } else if (res.cancel) {
-          console.log('user canceled')
-        }
-      }
-    })
-  },
+  //       } else if (res.cancel) {
+  //         console.log('user canceled')
+  //       }
+  //     }
+  //   })
+  // },
 
   inviteFriends: function () {
     wx.showShareMenu({
