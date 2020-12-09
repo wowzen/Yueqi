@@ -36,7 +36,6 @@
           <view class="picker">Date: {{response_date}}</view>
         </picker>
       </view>
-    </view>
 
         <view>
           <picker class="time-picker" mode="time" value="{{reponsse_time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
@@ -46,8 +45,10 @@
         <view wx:if="{{goToSelectDates}}">
             <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
         </view>
+      </view>
+
   <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
-  <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
+  <!-- <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
   <view>Select possible dates + times using a WeChat plugin</view>
   <view>Location - This we save for Week 2, leave it out for now</view>
   <view>Latest response date: This is a deadline for invited users to submit their responses</view>
