@@ -6,11 +6,12 @@ Page({
    */
   data: {
     dayStyle: [
-        { month:'current', day:new Date().getDate(),color:'white', background: "#AAD4F5" },
-        { month:'current', day:new Date().getDate(),color:'white',background:'#AAD4F5'}
+        { month:'current', day:new Date().getDate(),color:'green' },
+        { month:'current', day:new Date().getDate(),color:'green'}
       ],
     chosenSlots: [],
-    slotsAdded: false
+    slotsAdded: false,
+    addDateButton: 'Add your first Date'
     },
 
   onLoad: function (options) {
@@ -76,8 +77,10 @@ Page({
     let Slot = new wx.BaaS.TableObject('event_slots')
     Slot.create().set(data).save().then(res => {
       console.log(res)
-      data.start_date = data.start_date.slice(5,18)
-      data.end_date = data.end_date.slice(5,18)
+      let start_date = new Date(data.start_date)
+      let end_date = new Date(data.end_date)
+      data.start_date = start_date.toDateString().slice(4,10) + ' ' +start_date.toTimeString().slice(0,5)
+      data.end_date = end_date.toDateString().slice(4,10) + ' ' + end_date.toTimeString().slice(0,5)
       chosenSlots.push(data)
       let changeDay = 'dayStyle[1].day';
       let changeBg = 'dayStyle[1].background';
@@ -86,7 +89,8 @@ Page({
         [changeDay]: null,
         [changeBg]: '#84e7d0',
         slotsAdded: true,
-        chosenDate: ''
+        chosenDate: '',
+        addDateButton: 'Add another Date'
       })
       wx.pageScrollTo({
         duration: 300,

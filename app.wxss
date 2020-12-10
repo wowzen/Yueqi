@@ -1,15 +1,33 @@
+.container {
+  padding: 16px;
+  min-height: 100vh;
+  background-color: #FFFAF5;
+}
 
 .card {
   width: 100%;
   background: #FFECD7;
   border-radius: 10px;
   margin: 32rpx 0;
-  box-shadow: 2px 2px 84px rgba(0,0,0,0.2);
-
   box-sizing: border-box;
-
+  border: 1px solid #e4e4e4;
 }
-.image{
+
+.card-image {
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.image {
   width: 100%;
   border-radius: 8px;
+}
+
+.strong {
+  font-weight: 600;
 }

@@ -1,34 +1,52 @@
 <view class="container">
+  <view class="profile">
+    <image class="profile-image" src="{{avatar}}"></image>
+    <view class="profile-name">{{title}}</view>
+  </view>
 
-  <view wx:if="currentUser">
+  <view class="divider"></view>
 
-    <view class="header">Hi {{currentUser.nickname}}</view>
+  <view wx:if="{{currentUser}}">
+    <text class="header {{eventTab == 'myEvents' ? 'active-tab' : ''}}" bindtap="changeTab">My Events</text>
+    <text class="header {{eventTab == 'invitedEvents' ? 'active-tab' : ''}}" bindtap="changeTab">Invited Events</text>
+    <view class="card" wx:if="{{eventTab == 'myEvents'}}" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
+      <image class="card-image" src="{{myEvent.creator_id.avatar || testImage}}"></image>
+      <view class="card-body">
+        <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
+        <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
+        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">
+          <text class="strong">Response Deadline: </text>
+          {{myEvent.response_deadline}}
+        </view>
+        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event Start: </text>{{myEvent.confirmed_date}}</view>
+      </view>
+    </view>
 
-    <view class="my-events">My events</view>
-  
-    <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
-      <image class="image" src="{{testImage}}"></image> 
-      <view class="description">
-       <view class="occasion" >{{myEvent.occasion}}</view>
-        <view class="activity" >{{myEvent.activity}}</view>
-        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
-        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline">Event start: {{myEvent.confirmed_date}}</view>
-      </view>  
+    <view class="card" wx:if="{{eventTab == 'invitedEvents'}}" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
+      <image class="card-image" src="{{invitedEvent.creator_id.avatar}}"></image>
+      <view class="card-body">
+        <view class="activity"><text class="strong">Activity: </text>{{invitedEvent.activity}}</view>
+        <view class="occasion"><text class="strong">Occasion: </text>{{invitedEvent.occasion}}</view>
+        <view wx:if="{{invitedEvent.response_deadline.length > 0}}" class="deadline">
+          <text class="strong">Response Deadline: </text>
+          {{invitedEvent.response_deadline}}
+        </view>
+        <view wx:if="{{invitedEvent.confirmed_date.length > 0}}" class="deadline">
+          <text class="strong">Event Start: </text>
+          {{invitedEvent.confirmed_date}}
+        </view>
+        <view class="creator" >
+          <text class="strong">Organized by: </text>
+          {{invitedEvent.creator_id.nickname}}
+        </view>
+      </view>
     </view>
   </view>
 
-  <view wx:if="currentUser">
-
-    <view class="header">Invited Events:</view>
-
-    <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
-      <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>
-      <view class="activity" >{{invitedEvent.event_id.activity}}</view>
-      <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline" >Response deadline: {{invitedEvent.event_id.response_deadline}}</view>
-      <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline">Event start: {{myEvent.confirmed_date}}</view>
-      <view class="creator" >Organized by: {{invitedEvent.creator_id.nickname}}
-      <image src="{{invitedEvent.creator_id.avatar}}"></image> 
-      </view>
+  <view wx:else>
+    <view class="login">
+      <text class="login-title">Please click on the button bellow to view your events.</text>
+      <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login</button>
     </view>
   </view>
 

@@ -6,7 +6,7 @@
   <view class="header-time">Select the time for your event</view>
 
   <view class="time-picker">
-    <picker mode="time" value="{{start_time}}" start="00:00" end="23:00" bindchange="bindStartTimeChange">
+    <picker mode="time" value="{{start_time}}" start="00:00" end="23:59" bindchange="bindStartTimeChange">
       <view class="picker">
         Start Time: {{start_time}}
       </view>
@@ -14,21 +14,22 @@
   </view>
 
     <view class="time-picker">
-    <picker mode="time" value="{{end_time}}" start="{{start_time || '00:00' }}" end="23:00" bindchange="bindEndTimeChange">
+    <picker mode="time" value="{{end_time}}" start="{{start_time || '00:00' }}" end="23:59" bindchange="bindEndTimeChange">
       <view class="picker">
         End Time: {{end_time}}
       </view>
     </picker>
   </view>
 
-  <view> 
-    <button class="add-another-date" bindtap="addSlot">Add another date</button>
-  </view>
+  <button class="add-another-date" bindtap="addSlot">{{addDateButton}}</button>
 
   <view class="header-dates" wx:if="{{slotsAdded}}" >Your choosen dates</view>
-  <view class="chosenSlot"  wx:for="{{chosenSlots}}">
-    <view class="date" >{{item.start_date}}</view>
-    <view class="date" >{{item.end_date}}</view>
+  <view class="chosenSlot"  wx:for="{{chosenSlots}}" wx:key="id">
+    <view class="date">
+      <text>{{item.start_date}} to</text>
+      <text class="w-16"></text>
+      <text>{{item.end_date}}</text>
+    </view>
   </view>
 
   <view wx:if="{{slotsAdded}}"> 

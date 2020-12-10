@@ -1,8 +1,8 @@
 
   <view class="container">
     <view class="card">
-      <image class="image" src="{{testImage}}" />
-      <view class="description">
+      <image class="card-image" src="{{testImage}}" />
+      <view class="card-body">
         <view class="activity">{{event.activity}}</view>
         <view class="occasion">For {{event.occasion}}</view>
         <view class="nickname">Organized by: {{event.creator_id.nickname}}</view>

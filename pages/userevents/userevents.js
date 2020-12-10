@@ -1,13 +1,23 @@
 Page({
-
   data: {
-    testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`
-
+    currentUser: null,
+    testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`,
+    avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1',
+    title: 'Welcome!',
+    eventTab: 'myEvents'
   },
 
   onLoad: function (options) {
     let currentUser = wx.getStorageSync('user')
-    this.setData({currentUser: currentUser})
+
+    if (currentUser) {
+      this.setData({
+        currentUser: currentUser,
+        avatar: currentUser.avatar,
+        title: `Welcome, ${currentUser.nickname}`,
+      })
+    }
+
     let EventType = new wx.BaaS.TableObject("event_types")
     EventType.find().then(res => {
       let occasions = res.data.objects[0].event_occasions_objects.map(item => Object.keys(item)[0])
@@ -25,11 +35,24 @@ Page({
     let currentUser = this.data.currentUser;
     let event = new wx.BaaS.TableObject("events");
     let query = new wx.BaaS.Query()
-    
+
     query.compare('creator_id', "=", currentUser.id)
     event.setQuery(query).find().then(res => {
       let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
-      this.setData({myEvents: myEvents});
+      myEvents = myEvents.map(event => {
+        const { response_deadline, confirmed_date } = event
+
+        const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
+        const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+
+        return {
+          ...event,
+          response_deadline: deadline,
+          confirmed_date: confirmed,
+        }
+      })
+
+      this.setData({ myEvents: myEvents });
     })
   },
 
@@ -37,13 +60,26 @@ Page({
     let currentUser = this.data.currentUser;
     let event = new wx.BaaS.TableObject("event_invitations");
     let query = new wx.BaaS.Query()
-    
+
     query.compare('creator_id', "!=", currentUser.id)
     query.compare('invitee_id', "=", currentUser.id)
     event.setQuery(query).expand(["event_id", "creator_id"]).find().then(res => {
       let invitedEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
-      this.setData({invitedEvents: invitedEvents});
-      console.log(invitedEvents)
+
+      invitedEvents = invitedEvents.map(event => {
+        const { response_deadline, confirmed_date } = event
+
+        const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
+        const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+
+        return {
+          ...event,
+          response_deadline: deadline,
+          confirmed_date: confirmed,
+        }
+      })
+
+      this.setData({ invitedEvents: invitedEvents });
     })
   },
 
@@ -58,11 +94,23 @@ Page({
   },
 
   goToEvent: function (e) {
-    
-    console.log('goToEvent', e)
     let id = e.currentTarget.dataset.eventid
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`,
     })
+  },
+
+  login: function (e) {
+    wx.BaaS.auth.loginWithWechat(e).then(res => {
+      wx.setStorageSync('user', res)
+      this.setData({currentUser: res})
+    })
+  },
+  changeTab: function() {
+    if (this.data.eventTab =='myEvents') {
+      this.setData({eventTab: 'invitedEvents'})
+    } else {
+      this.setData({eventTab: 'myEvents'})
+    }
   }
 })
