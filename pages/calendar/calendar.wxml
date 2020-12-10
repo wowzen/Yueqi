@@ -24,7 +24,7 @@
   <button class="add-another-date" bindtap="addSlot">{{addDateButton}}</button>
 
   <view class="header-dates" wx:if="{{slotsAdded}}" >Your choosen dates</view>
-  <view class="chosenSlot"  wx:for="{{chosenSlots}}">
+  <view class="chosenSlot"  wx:for="{{chosenSlots}}" wx:key="id">
     <view class="date">
       <text>{{item.start_date}} to</text>
       <text class="w-16"></text>
