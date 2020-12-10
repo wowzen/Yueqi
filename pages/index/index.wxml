@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="intro">Create an event and share to find the best and suitable date with your family, friends or colleagues! </view>
+  
   <view class="start bold">Let the fun begin!</view>
 
   <block>
@@ -8,7 +8,6 @@
 
   <view class="intro">Have you already planned events yourself, or have you been invited to events?</view>
   <view class="intro">Check them out below:</view>
-
   <block>
     <button class="my-fun-btn" bindtap="viewEvents">My events</button>
   </block>
