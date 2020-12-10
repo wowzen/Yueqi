@@ -38,14 +38,20 @@ Page({
     query.compare('creator_id', "=", currentUser.id)
     event.setQuery(query).find().then(res => {
       let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
-      myEvents = myEvents.map(event => (
-        {
+      myEvents = myEvents.map(event => {
+        const { response_deadline, confirmed_date } = event
+
+        const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
+        const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+
+        return {
           ...event,
-          response_deadline: event.response_deadline && (new Date(event.response_deadline)).toDateString(),
-          confirmed_date: event.confirmed_date &&  (new Date(event.confirmed_date)).toDateString(),
+          response_deadline: deadline,
+          confirmed_date: confirmed,
         }
-      ))
-      this.setData({myEvents: myEvents});
+      })
+
+      this.setData({ myEvents: myEvents });
     })
   },
 
