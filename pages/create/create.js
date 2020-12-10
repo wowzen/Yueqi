@@ -134,9 +134,20 @@ Page({
       page.navToSelectDates(res.data.id)
     })
   },
+
   navToSelectDates: function (id) {
     wx.navigateTo({
       url: `../calendar/calendar?id=${id}`})
-  }
+  },
+
+  login: function (e) {
+    console.log(e)
+    let page = this
+    wx.BaaS.auth.loginWithWechat(e).then(res => {
+      console.log(res)
+      wx.setStorageSync('user', res)
+      this.setData({currentUser: res})
+      })
+  },
 
 })

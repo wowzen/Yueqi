@@ -10,12 +10,10 @@
     </view>
   </view>
 
-  <!-- <view class="title" wx:if="{{occasionSpecSelected}}">What event type do you want to create:</view> -->
-
   <view wx:if="{{occasionSpecSelected}}" class="occasions-card" wx:for="{{occasions}}" > 
     <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
     <view wx:if="{{occasionIndex == index && occasionSelected}}">
-      <view class="event-type-card" >Type of {{mainOccasion}}:</view>
+      <view class="event-type-card" >Type of {{mainOccasion}} event:</view>
       <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" >
       <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
     </view>  
@@ -31,6 +29,7 @@
 
     <view wx:if="{{pickResponseDeadline}}">
       <view class="header">Whats your voting deadline?</view>
+      <view>optional</view>
       <view>
         <picker class="time-picker" mode="date" value="{{date}}" start="2020-12-01" end="2099-12-31" bindchange="bindDateChange">
           <view class="picker">Date: {{response_date}}</view>
@@ -43,15 +42,17 @@
           </picker>
         </view>
         <view wx:if="{{goToSelectDates}}">
+        <block wx:if="{{currentUser}}">
             <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
-        </view>
+        </block>
+
+        <block wx:else>
+          <view class="start">Login to view your events or create your own event!</view>
+          <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login!</button>
+        </block>
+      </view>
       </view>
 
-  <button class="back-button" bindtap="startAgain" type="warn" >Back</button>
-  <!-- <view>Define event from predefined categories: The first is the OCCASSION [WHY is this event] and the second is the ACTIVITY [WHAT do we do]</view>
-  <view>Select possible dates + times using a WeChat plugin</view>
-  <view>Location - This we save for Week 2, leave it out for now</view>
-  <view>Latest response date: This is a deadline for invited users to submit their responses</view>
-  <view>Click on the SUBMIT button below to be directed to the SHOW page, CREATE an event in the DATABASE, and to INVITE users to the event</view> -->
+  <button wx:if="{{finalOccasion}}" class="back-button" bindtap="startAgain" type="warn" >Start Again</button>
 </view>
 
