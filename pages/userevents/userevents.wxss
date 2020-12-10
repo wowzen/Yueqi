@@ -34,9 +34,11 @@
 
 .header {
   font-size: 18px;
-  font-weight: 600;
+  /* font-weight: 600; */
   margin-top: 22px;
   margin-bottom: 16px;
+  margin-left: 16rpx;
+  margin-right: 16rpx;
 }
 
 .divider {
@@ -65,4 +67,8 @@
   background: #97FEA2;
   border-radius: 25px;
   margin: 32px 32px 0 32px;
+}
+
+.active-tab {
+  font-weight: 900;
 }
