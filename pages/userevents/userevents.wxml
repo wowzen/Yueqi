@@ -10,7 +10,7 @@
     <text class="header {{eventTab == 'myEvents' ? 'active-tab' : ''}}" bindtap="changeTab">My Events</text>
     <text class="header {{eventTab == 'invitedEvents' ? 'active-tab' : ''}}" bindtap="changeTab">Invited Events</text>
     <view class="card" wx:if="{{eventTab == 'myEvents'}}" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
-      <image class="card-image" src="{{myEvent.creator_id.avatar || testImage}}"></image>
+      <image class="card-image" src="{{myEvent.image || testImage}}"></image>
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
@@ -23,7 +23,7 @@
     </view>
 
     <view class="card" wx:if="{{eventTab == 'invitedEvents'}}" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
-      <image class="card-image" src="{{invitedEvent.creator_id.avatar}}"></image>
+      <image class="card-image" src="{{invitedEvent.image || testImage}}"></image>
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{invitedEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{invitedEvent.occasion}}</view>

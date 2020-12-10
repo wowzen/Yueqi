@@ -1,6 +1,6 @@
 <view class="container">
   <view class="card">
-    <image class="card-image" src="{{event.creator_id.avatar}}" />
+    <image class="card-image" src="{{event.image || testImage}}" />
     <view class="card-body">
       <view class="activity"><text class="strong">Activity: </text>{{event.activity}}</view>
       <view class="occasion"><text class="strong">For: </text>{{event.occasion}}</view>

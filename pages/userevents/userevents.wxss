@@ -39,6 +39,7 @@
   margin-bottom: 16px;
   margin-left: 16rpx;
   margin-right: 16rpx;
+
 }
 
 .divider {
@@ -70,5 +71,8 @@
 }
 
 .active-tab {
+  padding: 6px 12px;
+  background-color: #b7e1ff;
+  border-radius: 25px;
   font-weight: 900;
 }
