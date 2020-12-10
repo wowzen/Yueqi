@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="intro">Create an event and share to find the best and suitable date with your family, friends or colleagues! </view>
+  
   <view class="start bold">Let the fun begin!</view>
 
   <block wx:if="{{currentUser}}">
@@ -7,8 +7,8 @@
   </block>
 
   <block wx:else>
-    <view class="start">Login to view your events or create your own event!</view>
-    <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login!</button>
+    <view class="start">Login to join the fun!</view>
+    <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login</button>
   </block>
 
   <block wx:if="{{currentUser}}">
