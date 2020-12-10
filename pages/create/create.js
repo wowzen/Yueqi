@@ -70,7 +70,8 @@ Page({
     let occasionSpecSelected = !this.data.occasionSpecSelected
     let goToSelectActivity = !this.data.goToSelectActivity
     let finalOccasion = e.currentTarget.dataset.focca.title
-    this.setData({occasionSpecSelected: occasionSpecSelected, goToSelectActivity: goToSelectActivity, finalOccasion: finalOccasion})
+    let occasionImage = e.currentTarget.dataset.focca.image
+    this.setData({occasionSpecSelected: occasionSpecSelected, goToSelectActivity: goToSelectActivity, finalOccasion: finalOccasion, occasionImage: occasionImage})
     console.log(e)
 
   },
@@ -126,10 +127,11 @@ Page({
     let page = this
     let activity = this.data.finalActivity
     let occasion = this.data.finalOccasion
+    let image = this.data.occasionImage
     let creator_id = this.data.currentUser.id
     let response_deadline = this.data.response_date + " " + this.data.response_time
     let Event = new wx.BaaS.TableObject("events")
-    Event.create().set({occasion: occasion, activity: activity, creator_id: creator_id, response_deadline:response_deadline}).save().then(res =>{
+    Event.create().set({occasion: occasion, activity: activity, image: image, creator_id: creator_id, response_deadline:response_deadline}).save().then(res =>{
       console.log(res)
       page.navToSelectDates(res.data.id)
     })
