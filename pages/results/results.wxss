@@ -14,10 +14,19 @@ page {
   padding-bottom: 8px;
 }
 
+.title{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 16px;
+  font-weight: bolder
+}
+
 .select-date{
   position: relative;
   margin-bottom: 20px;
- 
   font-family: Roboto;
   font-weight: 300;
   font-size: 24px;
@@ -27,7 +36,6 @@ page {
 .date-cell {
   position: relative;
   margin-bottom: 8px;
- 
   font-family: Roboto;
   font-weight: 300;
   font-size: 15px;
