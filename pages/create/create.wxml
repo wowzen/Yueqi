@@ -38,7 +38,7 @@
       </view>
 
         <view>
-          <picker class="time-picker" mode="time" value="{{reponsse_time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+          <picker class="time-picker" mode="time" value="{{reponsse_time}}" bindchange="bindTimeChange">
             <view class="picker">Time: {{response_time}}</view>
           </picker>
         </view>
