@@ -18,23 +18,34 @@
   margin: 32px;
 }
 
-.start-btn{
-  padding: 16px;
-  margin-top: 20vh;
-  background: #FFECD7;
-  border-radius: 28px; 
-  min-width: 75vw;
-  font-family: Roboto;
-  font-weight: 300;
-  font-size: 18px;
-}
 .swipe-card{
   /* margin: 0 auto; */
-  margin-top: 10px;
+  margin-top: 16px;
   width: 93vw;
   height: 95vw;
 }
 .slide-image{
   width: 93vw;
   height: 100%;
+}
+.create-fun-btn{
+  padding: 16px;
+  margin-top: 86px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.my-fun-btn{
+  padding: 16px;
+  margin-top: 36px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
 }

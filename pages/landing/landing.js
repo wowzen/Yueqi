@@ -3,7 +3,7 @@ Page({
   data: {
     indicatorDots: true,
     autoplay: true,
-    interval: 2000,
+    interval: 3500,
     duration: 500,
     circular: true,
     imgUrls: ['https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU56iKv0awum3.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5ZzokuJE2y0.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5BvEnZqBJF9.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5NJ8p3kQC5c.png']
@@ -19,6 +19,17 @@ Page({
   getStarted: function (e) {
     wx.navigateTo({
       url: '/pages/index/index',
+    })
+  },
+  createEvent: function () {
+    wx.navigateTo({
+      url: '../create/create',
+    })
+  },
+
+  viewEvents: function () {
+    wx.navigateTo({
+      url: '../userevents/userevents',
     })
   },
 
