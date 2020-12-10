@@ -24,7 +24,8 @@ Page({
         let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
         console.log(res.data, typeof(response_deadline))
         let event = res.data
-        event.response_deadline = !(event.response_deadline == 'undefined' || event.response_deadline == 'undefined undefined' || event.response_deadline == undefined)
+        
+        event.response_deadline_result = !(event.response_deadline == 'undefined' || event.response_deadline == 'undefined undefined' || event.response_deadline == undefined)
         
         page.setData({event: event, deadlinePassed: deadlinePassed})
         page.createInvitation(page.data.currentUser.id, res.data)
@@ -65,8 +66,8 @@ Page({
       ...this.submitAvailability(),
       this.countResponses(),
     ]).then(values => {
+      page.setData({availabilitySubmitted: true, updateResponse: false})
       console.log('values', values)
-      this.setProgress()
     })
   },
 
@@ -85,7 +86,7 @@ Page({
       return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
         let Slot = Slots.getWithoutData(item)
         return Slot.incrementBy('response_yes', 1).update().then(res => {
-          page.setData({availabilitySubmitted: true, updateResponse: false})
+          // page.setData({availabilitySubmitted: true, updateResponse: false})
           console.log('finish submit availability', res)
           page.setProgress()
           return res
@@ -119,7 +120,7 @@ Page({
             return EventSlotResponses.delete(esr.id).then(res => {
               console.log('remove yes', res)
               return Slot.incrementBy('response_yes', -1).update().then(res => {
-                page.setData({availabilitySubmitted: false, updateResponse: true})
+              
                 console.log('finish remove availability')
                 page.setProgress()
                 return res
@@ -178,8 +179,8 @@ Page({
 
           Promise.all(
             [page.removeResponses(), page.removeAvailability()]).then(e => {
-            page.setProgress()
-            // page.setData({updateResponse: true, availabilitySubmitted: false})
+            // page.setProgress()
+            page.setData({updateResponse: true, availabilitySubmitted: false})
           })
 
           // page.removeResponses()
