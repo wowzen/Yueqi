@@ -1,15 +1,15 @@
 <view class="container">
   <view class="card">
-    <image class="image" src="{{testImage}}" />
-    <view class="description">
-      <view class="activity">Activity: {{event.activity}}</view>
-      <view class="occasion">For: {{event.occasion}}</view>
-      <view class="nickname">Organized by: {{event.creator_id.nickname}}</view>
+    <image class="card-image" src="{{event.creator_id.avatar}}" />
+    <view class="card-body">
+      <view class="activity"><text class="strong">Activity: </text>{{event.activity}}</view>
+      <view class="occasion"><text class="strong">For: </text>{{event.occasion}}</view>
+      <view class="nickname"><text class="strong">Organized by: </text>{{event.creator_id.nickname}}</view>
       <view wx:if="{{event.confirmed_date != ''}}"> 
-        <view>Event date & time: </view>
+        <view class="strong">Event date & time: </view>
         <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
       </view>
-      <view wx:elif="{{event.response_deadline == true}}" class="">Response deadline: {{event.response_deadline}}</view>
+      <view wx:elif="{{event.response_deadline == true}}" class=""><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
     </view>
   </view>
 

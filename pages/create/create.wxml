@@ -16,7 +16,7 @@
       <view class="event-type-card" >Type of {{mainOccasion}} event:</view>
       <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:for-index="specIndex" >
       <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
-    </view>  
+    </view>
     </view>
   </view>
 
