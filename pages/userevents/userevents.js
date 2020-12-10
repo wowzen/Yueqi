@@ -101,9 +101,12 @@ Page({
   },
 
   login: function (e) {
+    let page = this
     wx.BaaS.auth.loginWithWechat(e).then(res => {
       wx.setStorageSync('user', res)
-      this.setData({currentUser: res})
+      page.setData({currentUser: res})
+      page.getMyEvents()
+      page.getInvitedEvents()
     })
   },
   changeTab: function() {

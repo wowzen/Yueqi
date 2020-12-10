@@ -14,7 +14,7 @@
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
-        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">
+        <view wx:if="{{myEvent.response_deadline && myEvent.response_deadline !='Invalid Date'}}" class="deadline">
           <text class="strong">Response Deadline: </text>
           {{myEvent.response_deadline}}
         </view>
@@ -27,7 +27,7 @@
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{invitedEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{invitedEvent.occasion}}</view>
-        <view wx:if="{{invitedEvent.response_deadline.length > 0}}" class="deadline">
+        <view wx:if="{{invitedEvent.response_deadline && invitedEvent.response_deadline !='Invalid Date'}}" class="deadline">
           <text class="strong">Response Deadline: </text>
           {{invitedEvent.response_deadline}}
         </view>

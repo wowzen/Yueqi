@@ -9,7 +9,7 @@
         <view class="strong">Event date & time: </view>
         <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
       </view>
-      <view wx:elif="{{event.response_deadline != ''}}" class=""><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
+      <view wx:elif="{{event.response_deadline && event.response_deadline !='Invalid Date'}}" class=""><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
     </view>
   </view>
 
