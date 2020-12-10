@@ -1,11 +1,12 @@
 // pages/landing/landing.js
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
-
+    indicatorDots: true,
+    autoplay: true,
+    interval: 2000,
+    duration: 500,
+    circular: true,
+    imgUrls: ['https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU56iKv0awum3.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5ZzokuJE2y0.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5BvEnZqBJF9.png', 'https://cloud-minapp-38171.cloud.ifanrusercontent.com/1knMU5NJ8p3kQC5c.png']
   },
 
   /**
