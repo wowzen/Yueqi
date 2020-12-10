@@ -35,15 +35,18 @@
 .header {
   font-size: 18px;
   /* font-weight: 600; */
-  margin-top: 22px;
+  margin-top: 26px;
   margin-bottom: 16px;
   margin-left: 16rpx;
   margin-right: 16rpx;
 
+  padding: 6px 12px;
+  border-radius: 25px;
+  background: #ecf7ff;
 }
 
 .divider {
-  margin: 16px 0;
+  margin: 24px 0;
   height: 1px;
   background-color: #e4e4e4;
   width: 100%;
@@ -71,8 +74,6 @@
 }
 
 .active-tab {
-  padding: 6px 12px;
-  background-color: #b7e1ff;
-  border-radius: 25px;
   font-weight: 900;
+  background-color: #b7e1ff;
 }
