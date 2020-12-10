@@ -15,7 +15,7 @@
         <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
         <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">
-          <text class="strong">Respond Until: </text>
+          <text class="strong">Response Deadline: </text>
           {{myEvent.response_deadline}}
         </view>
         <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event Start: </text>{{myEvent.confirmed_date}}</view>
@@ -28,11 +28,11 @@
         <view class="activity"><text class="strong">Activity: </text>{{invitedEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{invitedEvent.occasion}}</view>
         <view wx:if="{{invitedEvent.response_deadline.length > 0}}" class="deadline">
-          <text class="strong">Response deadline: </text>
+          <text class="strong">Response Deadline: </text>
           {{invitedEvent.response_deadline}}
         </view>
         <view wx:if="{{invitedEvent.confirmed_date.length > 0}}" class="deadline">
-          <text class="strong">Event start: </text>
+          <text class="strong">Event Start: </text>
           {{invitedEvent.confirmed_date}}
         </view>
         <view class="creator" >

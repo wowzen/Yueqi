@@ -25,7 +25,7 @@ Page({
         console.log(res.data, typeof(response_deadline))
         let event = res.data
         event.response_deadline = !(event.response_deadline == 'undefined' || event.response_deadline == 'undefined undefined' || event.response_deadline == undefined)
-        
+
         page.setData({event: event, deadlinePassed: deadlinePassed})
         page.createInvitation(page.data.currentUser.id, res.data)
       })

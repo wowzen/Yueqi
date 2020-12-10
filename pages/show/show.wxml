@@ -32,8 +32,9 @@
         <button class="button-confirm" bindtap="submitResponse">Confirm availability</button>
       </view>
       <view wx:else>
-        <view>Your availability has been confirmed. Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
-        <view>Click below button in case you want to change your availability</view>
+        <view class="description">Your availability has been confirmed.</view>
+        <view class="description">Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
+        <view class="description">Click below button in case you want to change your availability</view>
         <button class="button" bindtap="removeAvailability">Change availability</button>
       </view>
 
@@ -54,8 +55,8 @@
         </view>
       </view>
       <view>
-        <view>Your event has been created.</view>
-        <view>Tap the button to invite friends to your event. They will receive a notification to share their availability with you. Check in a few days later to view their responses and confirm the event date.</view>
+        <view class="description">Your event has been created.</view>
+        <view class="description">Tap the button to invite friends to your event. They will receive a notification to share their availability with you. Check in a few days later to view their responses and confirm the event date.</view>
         <button class="button" open-type="share">Invite friends</button>
       </view>
 
