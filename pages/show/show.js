@@ -23,7 +23,11 @@ Page({
      Events.expand(["creator_id"]).get(id).then (res => {
         let today = new Date()
         let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
-        page.setData({event: res.data, deadlinePassed: deadlinePassed})
+        console.log(res.data, typeof(response_deadline))
+        let event = res.data
+        event.response_deadline = !(event.response_deadline == 'undefined' || event.response_deadline == 'undefined undefined' || event.response_deadline == undefined)
+        
+        page.setData({event: event, deadlinePassed: deadlinePassed})
         page.createInvitation(page.data.currentUser.id, res.data)
       })
   },

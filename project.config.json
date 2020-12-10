@@ -69,8 +69,9 @@
           "scene": null
         },
         {
-          "name": "pages/calendar/calendar",
-          "pathName": "pages/calendar/calendar",
+          "name": "pages/show/show",
+          "pathName": "pages/show/show",
+          "query": "id=5fd225a5f466a81986e06413",
           "scene": null
         }
       ]
