@@ -9,3 +9,7 @@
   box-sizing: border-box;
 
 }
+.image{
+  width: 100%;
+  border-radius: 8px;
+}

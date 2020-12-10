@@ -71,7 +71,7 @@
   padding: 16px;
   margin-top: 25px;
   background: #FFECD7;
-  border-radius: 25px; 
+  border-radius: 26px; 
 
   font-family: Roboto;
   font-weight: 300;

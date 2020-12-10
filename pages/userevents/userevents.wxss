@@ -1,9 +1,9 @@
 /* pages/userevents/userevents.wxss */
 .container{
   margin: 15px;
-
 }
-.image1{
+
+.image{
   width: 100%;
   border-radius: 8px;
 }

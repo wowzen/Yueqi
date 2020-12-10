@@ -7,7 +7,7 @@
     <view class="my-events">My events</view>
   
     <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
-      <image class="image1" src="{{testImage}}"></image> 
+      <image class="image" src="{{testImage}}"></image> 
       <view class="description">
        <view class="occasion" >{{myEvent.occasion}}</view>
         <view class="activity" >{{myEvent.activity}}</view>
