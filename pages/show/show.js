@@ -19,17 +19,22 @@ Page({
   getEvent: function (id) {
     let page = this
     let Events = new wx.BaaS.TableObject("events")
-     Events.expand(["creator_id"]).get(id).then (res => {
-        let today = new Date()
-        let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
-        console.log(res.data, typeof(response_deadline))
-        let event = res.data
-        
-        event.response_deadline_result = !(event.response_deadline == 'undefined' || event.response_deadline == 'undefined undefined' || event.response_deadline == undefined)
-        
-        page.setData({event: event, deadlinePassed: deadlinePassed})
-        page.createInvitation(page.data.currentUser.id, res.data)
-      })
+    Events.expand(["creator_id"]).get(id).then (res => {
+      let today = new Date()
+      let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
+      console.log(res.data, typeof(response_deadline))
+      let event = res.data
+      const { response_deadline, confirmed_date } = event
+
+      const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
+      const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+
+      event.response_deadline = deadline
+      event.confirmed_date = confirmed
+
+      page.setData({ event: event, deadlinePassed: deadlinePassed })
+      page.createInvitation(page.data.currentUser.id, res.data)
+    })
   },
 
   gotoResults: function () {
