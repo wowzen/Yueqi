@@ -8,6 +8,6 @@
   </block>
 </swiper>
 
-  <button class="start-btn" bindtap="getStarted">Get started</button>
-
+  <button class="create-fun-btn" bindtap="createEvent">Plan an event!</button>
+  <button class="my-fun-btn" bindtap="viewEvents">My events</button>
 </view>

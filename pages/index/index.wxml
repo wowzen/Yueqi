@@ -3,7 +3,7 @@
   <view class="start bold">Let the fun begin!</view>
 
   <block>
-    <button class="create-fun-btn" bindtap="createEvent">Plan an event!</button>
+    
   </block>
 
   <view class="intro">Have you already planned events yourself, or have you been invited to events?</view>
