@@ -25,10 +25,17 @@ Page({
     let currentUser = this.data.currentUser;
     let event = new wx.BaaS.TableObject("events");
     let query = new wx.BaaS.Query()
-    
+
     query.compare('creator_id', "=", currentUser.id)
     event.setQuery(query).find().then(res => {
       let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
+      myEvents = myEvents.map(event => (
+        {
+          ...event,
+          response_deadline: event.response_deadline && (new Date(event.response_deadline)).toDateString(),
+          confirmed_date: event.confirmed_date &&  (new Date(event.confirmed_date)).toDateString(),
+        }
+      ))
       this.setData({myEvents: myEvents});
     })
   },

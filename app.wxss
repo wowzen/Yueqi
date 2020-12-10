@@ -9,7 +9,18 @@
   box-sizing: border-box;
 
 }
-.image{
+
+.card-image {
+  width: 100%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.image {
   width: 100%;
   border-radius: 8px;
+}
+
+.strong {
+  font-weight: 600;
 }

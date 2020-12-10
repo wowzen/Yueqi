@@ -2,24 +2,30 @@
 
   <view wx:if="currentUser">
 
-    <view class="header">Hi {{currentUser.nickname}}</view>
+    <view class="profile">
+      <image class="profile-image" src="{{currentUser.avatar}}"></image>
+      <view class="profile-name">Welcome, {{currentUser.nickname}}</view>
+    </view>
 
-    <view class="my-events">My events</view>
-  
+    <view class="divider"></view>
+
+    <view class="header">My Events</view>
     <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
-      <image class="image" src="{{testImage}}"></image> 
+      <image class="card-image" src="{{testImage}}"></image>
       <view class="description">
-       <view class="occasion" >{{myEvent.occasion}}</view>
-        <view class="activity" >{{myEvent.activity}}</view>
-        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">Response deadline: {{myEvent.response_deadline}}</view>
-        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline">Event start: {{myEvent.confirmed_date}}</view>
-      </view>  
+        <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
+        <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
+        <view wx:if="{{myEvent.response_deadline.length > 0}}" class="deadline">
+          <text class="strong">Respond Until: </text>
+          {{myEvent.response_deadline}}
+        </view>
+        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event Start: </text>{{myEvent.confirmed_date}}</view>
+      </view>
     </view>
   </view>
 
   <view wx:if="currentUser">
-
-    <view class="header">Invited Events:</view>
+    <view class="header">Invited Events</view>
 
     <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
       <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>

@@ -1,13 +1,47 @@
 /* pages/userevents/userevents.wxss */
-.container{
-  margin: 15px;
+.container {
+  padding: 16px;
+  min-height: 100vh;
+  background-color: #FFFAF5;
 }
 
-.image{
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-name {
+  margin-top: 16rpx;
+  font-size: 18px;
+}
+
+.profile-image {
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 50%;
+}
+
+.image {
   width: 100%;
   border-radius: 8px;
 }
-.description{
-  margin:8px;
+
+.description {
+  margin: 12px;
   padding-bottom: 8px;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 22px;
+  margin-bottom: 16px;
+}
+
+.divider {
+  margin: 16px 0;
+  height: 1px;
+  background-color: #c3c3c3;
+  width: 100%;
 }
