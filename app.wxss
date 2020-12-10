@@ -4,10 +4,8 @@
   background: #FFECD7;
   border-radius: 10px;
   margin: 32rpx 0;
-  box-shadow: 2px 2px 84px rgba(0,0,0,0.2);
-
   box-sizing: border-box;
-
+  border: 1px solid #e4e4e4;
 }
 
 .card-image {

@@ -1,13 +1,22 @@
 Page({
-
   data: {
-    testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`
-
+    currentUser: null,
+    testImage: `https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1`,
+    avatar: 'https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1',
+    title: 'Welcome!',
   },
 
   onLoad: function (options) {
     let currentUser = wx.getStorageSync('user')
-    this.setData({currentUser: currentUser})
+
+    if (currentUser) {
+      this.setData({
+        currentUser: currentUser,
+        avatar: currentUser.avatar,
+        title: `Welcome, ${currentUser.nickname}`,
+      })
+    }
+
     let EventType = new wx.BaaS.TableObject("event_types")
     EventType.find().then(res => {
       let occasions = res.data.objects[0].event_occasions_objects.map(item => Object.keys(item)[0])
@@ -65,11 +74,16 @@ Page({
   },
 
   goToEvent: function (e) {
-    
-    console.log('goToEvent', e)
     let id = e.currentTarget.dataset.eventid
     wx.navigateTo({
       url: `/pages/show/show?id=${id}`,
     })
-  }
+  },
+
+  login: function (e) {
+    wx.BaaS.auth.loginWithWechat(e).then(res => {
+      wx.setStorageSync('user', res)
+      this.setData({currentUser: res})
+    })
+  },
 })

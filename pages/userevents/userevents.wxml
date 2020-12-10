@@ -1,14 +1,12 @@
 <view class="container">
+  <view class="profile">
+    <image class="profile-image" src="{{avatar}}"></image>
+    <view class="profile-name">{{title}}</view>
+  </view>
 
-  <view wx:if="currentUser">
+  <view class="divider"></view>
 
-    <view class="profile">
-      <image class="profile-image" src="{{currentUser.avatar}}"></image>
-      <view class="profile-name">Welcome, {{currentUser.nickname}}</view>
-    </view>
-
-    <view class="divider"></view>
-
+  <view wx:if="{{currentUser}}">
     <view class="header">My Events</view>
     <view class="card" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
       <image class="card-image" src="{{testImage}}"></image>
@@ -22,11 +20,8 @@
         <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event Start: </text>{{myEvent.confirmed_date}}</view>
       </view>
     </view>
-  </view>
 
-  <view wx:if="currentUser">
     <view class="header">Invited Events</view>
-
     <view class="card" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
       <view class="ocaasion" >{{invitedEvent.event_id.occasion}}</view>
       <view class="activity" >{{invitedEvent.event_id.activity}}</view>
@@ -35,6 +30,13 @@
       <view class="creator" >Organized by: {{invitedEvent.creator_id.nickname}}
       <image src="{{invitedEvent.creator_id.avatar}}"></image> 
       </view>
+    </view>
+  </view>
+
+  <view wx:else>
+    <view class="login">
+      <text class="login-title">Please click on the button bellow to view your events.</text>
+      <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login</button>
     </view>
   </view>
 
