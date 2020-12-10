@@ -26,7 +26,7 @@ Page({
       let event = res.data
       const { response_deadline, confirmed_date } = event
 
-      const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
+      const deadline = response_deadline && (response_deadline != 'undefined' || response_deadline != 'undefined undefined') && (new Date(response_deadline.substring(0, 10))).toDateString()
       const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
 
       event.response_deadline = deadline
@@ -71,7 +71,7 @@ Page({
       ...this.submitAvailability(),
       this.countResponses(),
     ]).then(values => {
-      page.setData({availabilitySubmitted: true, updateResponse: false})
+      // page.setData({availabilitySubmitted: true, updateResponse: false})
       console.log('values', values)
     })
   },
@@ -91,7 +91,7 @@ Page({
       return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
         let Slot = Slots.getWithoutData(item)
         return Slot.incrementBy('response_yes', 1).update().then(res => {
-          // page.setData({availabilitySubmitted: true, updateResponse: false})
+          page.setData({availabilitySubmitted: true, updateResponse: false})
           console.log('finish submit availability', res)
           page.setProgress()
           return res
@@ -125,7 +125,7 @@ Page({
             return EventSlotResponses.delete(esr.id).then(res => {
               console.log('remove yes', res)
               return Slot.incrementBy('response_yes', -1).update().then(res => {
-              
+                page.setData({updateResponse: true, availabilitySubmitted: false})
                 console.log('finish remove availability')
                 page.setProgress()
                 return res
