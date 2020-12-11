@@ -67,18 +67,22 @@ Page({
   },
 
   submitResponse: function () {
+    let page = this
     Promise.all([
-      ...this.submitAvailability(),
-      this.countResponses(),
+      ...page.submitAvailability(),
+      page.countResponses()
     ]).then(values => {
-      // page.setData({availabilitySubmitted: true, updateResponse: false})
+      page.setData({availabilitySubmitted: true, updateResponse: false})
+      page.setProgress()
       console.log('values', values)
     })
   },
 
   // submitResponse: function () {
+  //     let page = this
   //     this.submitAvailability(),
   //     this.countResponses()
+  //     page.setData({availabilitySubmitted: true, updateResponse: false})
   //   },
 
   submitAvailability: function () {
@@ -91,9 +95,9 @@ Page({
       return EventSlotResponses.create().set({event_slot_id: item, invitee_id: page.data.currentUser.id, invitee_response: "yes"}).save().then(res => {
         let Slot = Slots.getWithoutData(item)
         return Slot.incrementBy('response_yes', 1).update().then(res => {
-          page.setData({availabilitySubmitted: true, updateResponse: false})
+          // page.setData({availabilitySubmitted: true, updateResponse: false})
           console.log('finish submit availability', res)
-          page.setProgress()
+          // page.setProgress()
           return res
         })
       })
@@ -125,9 +129,9 @@ Page({
             return EventSlotResponses.delete(esr.id).then(res => {
               console.log('remove yes', res)
               return Slot.incrementBy('response_yes', -1).update().then(res => {
-                page.setData({updateResponse: true, availabilitySubmitted: false})
+                // page.setData({updateResponse: true, availabilitySubmitted: false})
                 console.log('finish remove availability')
-                page.setProgress()
+                // page.setProgress()
                 return res
               }) 
             })
@@ -149,7 +153,7 @@ Page({
       return Slot.map(item => {
         return AllSlots.getWithoutData(item.id).incrementBy('response_total', 1).update().then(res => {
           console.log('finish count responses')
-          page.setProgress()
+          // page.setProgress()
           return res
         })
       })
@@ -182,9 +186,12 @@ Page({
         if (res.confirm) {
           console.log('user confirmed')
 
-          Promise.all(
-            [page.removeResponses(), page.removeAvailability()]).then(e => {
-            // page.setProgress()
+          Promise.all([
+            ...page.removeAvailability(),
+            page.removeResponses() 
+          ]).then(e => {
+            console.log('remove', e)
+            page.setProgress()
             page.setData({updateResponse: true, availabilitySubmitted: false})
           })
 
