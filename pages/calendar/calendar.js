@@ -54,7 +54,7 @@ Page({
     let chosenDate = this.data.chosenDate
     let start_date = chosenDate + ' ' + this.data.start_time
     let end_date = chosenDate + ' ' + this.data.end_time
-    if (chosenDate == undefined || chosenDate == '' || this.data.start_time == undefined || this.data.start_time == '') {
+    if (chosenDate == undefined || chosenDate == '' || this.data.start_time == undefined || this.data.start_time == '' || this.data.end_time == undefined || this.data.end_time == '') {
       wx.showModal({
         title: 'Reminder',
         content: `Please choose date and time`,
