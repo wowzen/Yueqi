@@ -15,6 +15,7 @@
 
   <view wx:if="{{event.confirmed_date.length != 0}}">
     <view>The event date has been confirmed. Get ready and enjoy the event! </view>
+    <button class="button" bindtap="gotoResults">View participant availability</button>
   </view>
 
   <view wx:else>
@@ -47,7 +48,7 @@
 
     <block wx:else>
 
-      <view wx:if="{{event.confirmed_date.length == 0}}">
+      <view>
         <!-- <view wx:if="{{event.confirmed_date.length == 0 && slots[0].response_total > 0}}"> -->
         <view> Click on "View participant availability" to view the responses to your event & set or change the event date.
         </view>
