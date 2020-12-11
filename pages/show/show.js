@@ -265,8 +265,8 @@ Page({
 
   onShareAppMessage: function () {
     return {
-      title: `You are invited for: ${this.date.event.occasion}`,
-      path: `pages/show/show?id=${this.date.event.id}`
+      title: `You are invited for: ${this.data.event.occasion}`,
+      path: `pages/show/show?id=${this.data.event.id}`
     }
   }
 })
