@@ -53,6 +53,7 @@ Page({
     let page = this
     console.log(e)
     let chosenDate = this.data.chosenDate
+    console.log(chosenDate)
     let start_date = chosenDate + ' ' + this.data.start_time
     let end_date = chosenDate + ' ' + this.data.end_time
     if (chosenDate == undefined || chosenDate == '' || this.data.start_time == undefined || this.data.start_time == '' || this.data.end_time == undefined || this.data.end_time == '') {
@@ -78,7 +79,10 @@ Page({
     let Slot = new wx.BaaS.TableObject('event_slots')
     Slot.create().set(data).save().then(res => {
       console.log(res)
-      let theDate = new Date(page.data.chosenDate)
+      // replace - in date to / for iOS, 2012-12-12 to 2012/12/12, still store 2012-12-12 to BaaS
+      let reg = /-/g;
+      let theDate = page.data.chosenDate
+      theDate = new Date(theDate.replace(reg,'/'))
       data.start_date = theDate.toDateString().slice(4,10) + ' ' + page.data.start_time
       data.end_date   = theDate.toDateString().slice(4,10) + ' ' + page.data.end_time
       chosenSlots.push(data)
@@ -110,11 +114,12 @@ Page({
     Slot.setQuery(query).find().then(res => {
       console.log(res)
       let chosenSlots = res.data.objects
+      let reg = /-/g;
       chosenSlots.forEach(item => {
-        let start_date = new Date(item.start_date.split(' ')[0])
+        let start_date = new Date(item.start_date.split(' ')[0].replace(reg,'/'))
         let start_time = item.start_date.split(' ')[1]
         let end_time = item.end_date.split(' ')[1]
-        let end_date = new Date(item.start_date.split(' ')[0])
+        let end_date = new Date(item.start_date.split(' ')[0].replace(reg,'/'))
         item.start_date = start_date.toDateString().slice(4,10) + ' ' + start_time
         item.end_date = end_date.toDateString().slice(4,10) + ' ' + end_time
       })
