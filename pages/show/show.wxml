@@ -35,10 +35,10 @@
         <view class="description">Your availability has been confirmed.</view>
         <view class="description">Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
         <view class="description">Click below button in case you want to change your availability</view>
-        <button class="button" bindtap="removeAvailability">Change availability</button>
+        <button class="button" bindtap="updateResponse">Change availability</button>
       </view>
 
-      <view wx:if="{{(availabilitySubmitted == true || updateResponse == false) && event_slots.response_total > 0}}">
+      <view wx:if="{{(availabilitySubmitted == true || updateResponse == false) && slots[0].response_total > 0}}">
         <button class="button" bindtap="gotoResults">View participant availability</button> 
       </view>
     
@@ -46,7 +46,7 @@
 
     <block wx:else>
 
-      <view wx:if="{{event.confirmed_date.length == 0 && event_slots.response_total > 0}}">
+      <view wx:if="{{event.confirmed_date.length == 0 && slots[0].response_total > 0}}">
         <view> Click on "View participant availability" to view the responses to your event & set or change the event date.
         </view>
         
