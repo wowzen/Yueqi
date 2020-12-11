@@ -38,7 +38,8 @@
         <button class="button" bindtap="updateResponse">Change availability</button>
       </view>
 
-      <view wx:if="{{(availabilitySubmitted == true || updateResponse == false) && slots[0].response_total > 0}}">
+      <view wx:if="{{availabilitySubmitted == true || updateResponse == false}}">
+        <!-- <view wx:if="{{(availabilitySubmitted == true || updateResponse == false) && slots[0].response_total > 0}}"> -->
         <button class="button" bindtap="gotoResults">View participant availability</button> 
       </view>
     
@@ -46,7 +47,8 @@
 
     <block wx:else>
 
-      <view wx:if="{{event.confirmed_date.length == 0 && slots[0].response_total > 0}}">
+      <view wx:if="{{event.confirmed_date.length == 0}}">
+        <!-- <view wx:if="{{event.confirmed_date.length == 0 && slots[0].response_total > 0}}"> -->
         <view> Click on "View participant availability" to view the responses to your event & set or change the event date.
         </view>
         
@@ -56,7 +58,10 @@
       </view>
       <view>
         <view class="description">Your event has been created.</view>
-        <view class="description">Tap the button to invite friends to your event. They will receive a notification to share their availability with you. Check in a few days later to view their responses and confirm the event date.</view>
+        <view class="description">Tap the button to invite friends to your event. They will receive a notification to share their availability. 
+          </view>
+          <view>
+          After you invited friends, Check in a few days later. After your friends responded, you will be able to view the voting results and you can set a date.</view>
         <button class="button" open-type="share">Invite friends</button>
       </view>
 

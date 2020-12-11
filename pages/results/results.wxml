@@ -1,66 +1,66 @@
 
-  <view class="container">
-    <view class="card">
-      <image class="card-image" src="{{event.image || testImage}}" />
-      <view class="card-body">
-        <view class="activity">{{event.activity}}</view>
-        <view class="occasion">For {{event.occasion}}</view>
-        <view class="nickname">Organized by: {{event.creator_id.nickname}}</view>
-        <view wx:if="{{event.confirmed_date != ''}}"> 
-          <view>Event date & time: </view>
-          <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
-        </view>
-        <view wx:else class="">
-          <view>Event date & time: To be confirmed by the organizer</view>
-          <view>Participant response deadline: {{event.response_deadline}}</view>
+<view class="container">
+  <view class="card">
+    <image class="card-image" src="{{event.image || testImage}}" />
+    <view class="card-body">
+      <view class="activity">{{event.activity}}</view>
+      <view class="occasion">For {{event.occasion}}</view>
+      <view class="nickname">Organized by: {{event.creator_id.nickname}}</view>
+      <view wx:if="{{event.confirmed_date != ''}}"> 
+        <view>Event date & time: </view>
+        <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
       </view>
+      <view wx:else class="">
+        <view>Event date & time: To be confirmed by the organizer</view>
+        <view>Participant response deadline: {{event.response_deadline}}</view>
+    </view>
     </view>
   </view>
 
-  <view class="container2">
-    <view class="description">
-      <view wx:if="{{currentUser.id == event.creator_id.id}}">
-      <view wx:if="{{event.confirmed_date == '' || confirmedSlot == undefined || changeDate == true}}">
-        <view class="title">Select the event date</view>
-        <radio-group bindchange="chooseDate">
-          <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id">
-            <view class="date-cell">
+  
+    <block wx:if="{{currentUser.id == event.creator_id.id}}">
+      <view class="description">
+        <view wx:if="{{slots[0].response_total == 0}}">No people have responded to your event yet. Come back to this page after the people you have invited have confirmed their availability. </view>
+        <view wx:elif="{{event.confirmed_date == '' || confirmedSlot == undefined || changeDate == true}}">
+          <view class="title">Select the event date</view>
+          <radio-group bindchange="chooseDate">
+            <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id">
+              <view class="date-cell">
               {{slot.start_date}} to {{slot.end_date}}
-              <radio value="{{slot.id}}"/>
-              <view><progress percent="{{slot.response_progress}}"></progress></view>
-              <view class="available">Participants available: {{slot.response_yes}}</view>
+                <radio value="{{slot.id}}"/>
+                <view><progress percent="{{slot.response_progress}}"></progress></view>
+                <view class="available">Participants available: {{slot.response_yes}}</view>
             </view>
           </label>
           <view class="title" >Total number of participant responses: {{slots[0].response_total}}</view>
         </radio-group>
       </view>
     </view>
-  </view>
-    
-
+  
     <view wx:if="{{dateSelected && event.confirmed_date == ''}}">
       <button wx:if="{{!confirmedSlot || changeDate == false}}" class="button" bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
     </view>
     <view wx:elif="{{(dateSelected == true || event.confirmed_date.length != 0) && changeDate == false }}">
       <button  class="button" bindtap="changeFinalDate">Change event date</button>
     </view>
-  </view>
 
-  <view>
+</block>
 
-    <view wx:if="{{event.creator_id.id != currentUser.id && event.confirmed_date.length == 0 && availabilitySubmitted == true}}">
-      <view>Your availability has been confirmed.</view>
-      <view>Below you can see participant availability as confirmed so far. More participants may yet provide availability.</view>
-      <view>Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
-      
-      <view wx:for="{{slots}}" wx:for-item="slot" wx:key="id">
-        <view>{{slot.start_date}} to {{slot.end_date}}</view>
-        <view><progress percent="{{slot.response_progress}}"></progress></view>
-        <view>Participants available: {{slot.response_yes}}</view>
-      </view>
-      <view>Total number of participant responses: {{slots[0].response_total}}</view>
+<block wx:else> 
+  <!-- event.creator_id.id != currentUser.id &&  -->
+
+  <view wx:if="{{event.confirmed_date.length == 0 && availabilitySubmitted == true}}">
+    <view>Your availability has been confirmed.</view>
+    <view>More participants may yet provide availability.</view>
+    <view>After the event organizer has set the final event date, you will receive a notification.</view>
+    
+    <view wx:for="{{slots}}" wx:for-item="slot" wx:key="id">
+      <view>{{slot.start_date}} to {{slot.end_date}}</view>
+      <view><progress percent="{{slot.response_progress}}"></progress></view>
+      <view>Participants available: {{slot.response_yes}}</view>
+    </view>
+    <view>Total number of participant responses: {{slots[0].response_total}}</view>
 
     </view>
+  </block>
   </view>
-
-</view>
