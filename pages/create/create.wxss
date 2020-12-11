@@ -9,7 +9,7 @@
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
-  padding-top: 35px;
+  padding-top: 32px;
   font-weight: bold;
   text-align: center;
 }
@@ -23,23 +23,20 @@
 }
 
 .occasions-card{
-  padding: 12px;
-  margin-top: 32px;
+  padding: 16px;
+  margin-top: 36px;
   background: #FFECD7;
-  border-radius: 25px; 
-
-  text-align: center;
+  border-radius: 28px; 
+  min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
-  font-weight: bold;
+  text-align: center;
 }
 .event-type-card{
-  padding: 10px;
-  margin-top: 25px;
+  margin-top: 24px;
   background: #FFECD7;
   border-radius: 25px; 
-
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
@@ -47,26 +44,31 @@
 }
 
 .unselectedCard {
-  padding: 12px;
-  margin-top: 16px;
-  background: #F7F5F5;
-  border-radius: 25px;
+  padding: 16px;
+  margin-top: 34px;
+  background-color: #FFFAF5;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
   text-align: center;
 
-  font-family: Roboto;
-  font-weight: 300;
-  font-size: 18px;
 }
 .back-button{
-  padding: 10px;
-  margin-top: 32px;
-  background: #FFECD7;
-  border-radius: 25px; 
-
+  padding: 16px;
+  margin-top: 36px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
+  text-align: center;
+  
+
 }
+
 .time-picker{
   padding: 16px;
   margin-top: 25px;

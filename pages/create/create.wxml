@@ -13,7 +13,7 @@
   <view wx:if="{{occasionSpecSelected}}" class="occasions-card" wx:for="{{occasions}}" wx:key="id" > 
     <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
     <view wx:if="{{occasionIndex == index && occasionSelected}}">
-      <view class="event-type-card" >Type of {{mainOccasion}} event:</view>
+      <view class="event-type-card" > What type of {{mainOccasion}}?</view>
       <view class="unselectedCard" wx:for="{{occasionSpecs}}" wx:for-item="occasionSpec" wx:key="id" wx:for-index="specIndex" >
       <view data-focca="{{occasionSpec}}" bindtap="selectOccasionSpec">{{occasionSpec.title}}</view>
     </view>
@@ -53,6 +53,5 @@
       </view>
       </view>
 
-  <button wx:if="{{finalOccasion}}" class="back-button" bindtap="startAgain" type="warn" >Start Again</button>
+      <button wx:if="{{finalOccasion}}" class="back-button" bindtap="startAgain" >Start Again</button>
 </view>
-
