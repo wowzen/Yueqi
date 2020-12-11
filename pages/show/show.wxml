@@ -12,36 +12,41 @@
       <view wx:elif="{{event.response_deadline && event.response_deadline !='Invalid Date'}}" class=""><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
     </view>
   </view>
+  
 
-  <view wx:if="{{event.confirmed_date.length != 0}}">
-    <view>The event date has been confirmed. Get ready and enjoy the event! </view>
-    <button class="button" bindtap="gotoResults">View participant availability</button>
+  <view class="event-confirmed-card" wx:if="{{event.confirmed_date.length != 0}}">
+    <view> Yalla! the event date has been confirmed, get ready and enjoy the event! </view>
+    <button class="view-button" bindtap="gotoResults">View friends availability</button>
   </view>
 
   <view wx:else>
 
     <block wx:if="{{currentUser.id != event.creator_id.id}}">
       <view wx:if="{{availabilitySubmitted == false || updateResponse == true}}">
-        <view class="confirm" wx:if="{{slots.length > 0}}">Confirm your availability</view>
-        <checkbox-group bindchange="chooseMultiDate">
-          <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id" >
-            <view class="date-cell">{{slot.start_date}} to {{slot.end_date}}
-              <checkbox value="{{slot.id}}"/>
-            </view>
-          </label>
-        </checkbox-group>
-        <button class="button-confirm" bindtap="submitResponse">Confirm availability</button>
+        <view class="confirm-card">
+          <view class="confirm" wx:if="{{slots.length > 0}}">Confirm your availability</view>
+          <checkbox-group bindchange="chooseMultiDate">
+            <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id" >
+              <view class="date-cell">{{slot.start_date}} to {{slot.end_date}}
+                <checkbox class="checkbox" value="{{slot.id}}"/>
+              </view>
+            </label>
+          </checkbox-group>
+          <button class="button-confirm1" bindtap="submitResponse">Confirm availability</button>
+        </view>
       </view>
-      <view wx:else>
-        <view class="description">Your availability has been confirmed.</view>
-        <view class="description">Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view>
-        <view class="description">Click below button in case you want to change your availability</view>
-        <button class="button" bindtap="updateResponse">Change availability</button>
+
+      
+      <view class="availability-confirmed" wx:else>
+        <view class="description2">Availability has been confirmed.</view>
+        <!-- <view class="description">Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view> -->
+        <!-- <view class="description">Click below button in case you want to change your availability</view> -->
+        <button class="button-btn" bindtap="updateResponse">Change availability</button>
       </view>
 
       <view wx:if="{{availabilitySubmitted == true || updateResponse == false}}">
         <!-- <view wx:if="{{(availabilitySubmitted == true || updateResponse == false) && slots[0].response_total > 0}}"> -->
-        <button class="button" bindtap="gotoResults">View participant availability</button> 
+        <button class=" availability-button" bindtap="gotoResults">View friends availability</button> 
       </view>
     
     </block>
@@ -50,24 +55,21 @@
 
       <view>
         <!-- <view wx:if="{{event.confirmed_date.length == 0 && slots[0].response_total > 0}}"> -->
-        <view> Click on "View participant availability" to view the responses to your event & set or change the event date.
-        </view>
+        <!-- <view> Click on "View participant availability" to view the responses to your event & set or change the event date.</view> -->
         
         <view>
-        <button class="button" bindtap="gotoResults">View participant availability</button>
+        <button class="availability-button" bindtap="gotoResults">View friends availability</button>
         </view>
       </view>
-      <view>
-        <view class="description">Your event has been created.</view>
-        <view class="description">Tap the button to invite friends to your event. They will receive a notification to share their availability. 
+      <view class="invite-card">
+        <!-- <view class="description">Tap the button to invite friends to your event. They will receive a notification to share their availability. 
           </view>
           <view>
-          After you invited friends, Check in a few days later. After your friends responded, you will be able to view the voting results and you can set a date.</view>
-        <button class="button" open-type="share">Invite friends</button>
+          After you invited friends, Check in a few days later. After your friends responded, you will be able to view the voting results and you can set a date.</view> -->
+        <view class="event-created">Your event has been created.</view>
+        <button class="invite-button" open-type="share">Invite friends</button>
       </view>
 
     </block>
-
   </view>
-    
 </view>

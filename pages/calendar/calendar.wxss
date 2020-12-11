@@ -1,38 +1,50 @@
 /* pages/calendar/calendar.wxss */
+
 .container{
-  margin: 15px;
+  padding: 16px;
+  min-height: 100vh;
+  background-color: #FFFAF5;
 }
 
 .header-date{
   font-family: Roboto;
-  font-weight: 300;
   font-size: 18px;
   text-align: center;
   padding-top: 20px;
-  padding-bottom: 20px;
-  font-weight: bolder
+  padding-bottom: 24px;
+  font-weight: bold;
+}
+
+.calender{
+  padding: 16px;
+  margin-top: 8px;
+  background: #FFECD7;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
 }
 
 .header-time{
   font-family: Roboto;
-  font-weight: 300;
   font-size: 18px;
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 16px;
-  font-weight: bolder
+  padding-top: 32px;
+  font-weight: bold;
 }
 
 
 .time-picker{
-  padding: 10px;
-  margin-top: 16px;
+  padding: 16px;
+  margin-top: 36px;
   background: #FFECD7;
-  border-radius: 25px; 
+  border-radius: 28px; 
+  min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
 }
+
 .chosenSlot {
   display: flex;
   align-items: center;
@@ -55,11 +67,11 @@
 
 
 .add-another-date{
-  padding: 10px;
-  margin-top: 25px;
+  padding: 16px;
+  margin-top: 36px;
   background: #B7E1FF;
-  border-radius: 25px; 
-
+  border-radius: 28px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
@@ -74,13 +86,45 @@
   padding-bottom: 16px;
 }
 
-.view-invitation-button{
-  padding: 10px;
-  margin-top: 25px;
-  margin-bottom: 64px;
-  background: #FFECD7;
-  border-radius: 25px; 
+.choosen-dated-card{
+  padding: 16px;
+  margin-top: 36px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+}
 
+.choosen-dates-header{
+  padding: 16px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.date{
+  padding: 16px;
+  margin-top: 16px;
+  background-color: #ECF7FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+
+}
+
+.view-invitation-button{
+  padding: 16px;
+  margin-top: 36px;
+  background: #97FEA2;
+  border-radius: 28px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;

@@ -12,7 +12,7 @@ page {
   color: #030303;
 }
 
-.date-cell {
+/* .date-cell {
   position: relative;
   margin-bottom: 8px;
  
@@ -20,6 +20,27 @@ page {
   font-weight: 300;
   font-size: 15px;
   color: #030303;
+} */
+
+.event-confirmed-card{
+  padding: 16px;
+  margin-top: 36px;
+  background: #ECF7FF;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.view-button{
+  padding: 16px;
+  margin-top: 36px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 80vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
 }
 
 .button-confirm{
@@ -33,22 +54,116 @@ page {
   font-size: 18px;
 }
 
-
-.button{
-  padding: 10px;
-  margin-top: 25px;
-  background: #FFECD7;
-  border-radius: 25px; 
-
+.availability-button{
+  padding: 16px;
+  margin-top: 36px;
+  background: #B7E1FF;
+  border-radius: 28px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
 }
 
-.confirm{
-  padding-bottom: 12px;
+.invite-card{
+  padding: 16px;
+  margin-top: 36px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+}
+.event-created{
+  margin-top: 16px;
+  background: #D1FFD6;
+  border-radius: 8px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
 }
 
-.description{
-  padding: 8px;
+.invite-button{
+  padding: 16px;
+  margin-top: 32px;
+  background: #97FEA2;
+  border-radius: 28px; 
+  min-width: 80vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+.confirm-card{
+  padding: 16px;
+  margin-top: 36px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+}
+.confirm{
+  padding: 16px;
+  margin-top: 16px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  min-width: 75vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+}
+
+.date-cell{
+  margin-top: 16px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 14px;
+  text-align: left;
+}
+
+.checkbox{
+  text-align: right;
+  padding-left: 12px;
+}
+
+.button-confirm1{
+  padding: 16px;
+  margin-top: 32px;
+  background: #97FEA2;
+  border-radius: 28px; 
+  min-width: 80vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.availability-confirmed{
+  padding: 16px;
+  margin-top: 36px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  min-width: 75vw;
+}
+
+.description2{
+  padding: 16px;
+  background: #D1FFD6;
+  border-radius: 28px; 
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+.button-btn{
+  padding: 16px;
+  background: #97FEA2;
+  border-radius: 28px; 
+  min-width: 80vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
 }
