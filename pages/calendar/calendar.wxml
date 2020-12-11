@@ -1,7 +1,11 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="container">
   <view class="header-date">Select the dates for your event</view>
+
+  <view class="calender">
   <calendar active-style='square' days-color="{{dayStyle}}" week-style="cn" binddayClick='dayClick'/>
+  </view>
+  
 
   <view class="header-time">Select the time for your event</view>
 
@@ -23,14 +27,20 @@
 
   <button class="add-another-date" bindtap="addSlot">{{addDateButton}}</button>
 
-  <view class="header-dates" wx:if="{{slotsAdded}}" >Your choosen dates</view>
-  <view class="chosenSlot"  wx:for="{{chosenSlots}}" wx:key="id">
-    <view class="date">
-      <text>{{item.start_date}} to</text>
-      <text class="w-16"></text>
-      <text>{{item.end_date}}</text>
+  
+
+  <view class="choosen-dated-card">
+    <view wx:if="{{slotsAdded}}"></view>
+    <view class="choosen-dates-header">Your choosen dates</view>
+    <view class="chosenSlot"  wx:for="{{chosenSlots}}" wx:key="id">
+      <view class="date">
+        <text>{{item.start_date}} to</text>
+        <text class="w-16"></text>
+        <text>{{item.end_date}}</text>
+      </view>
     </view>
   </view>
+  
 
   <view wx:if="{{slotsAdded}}"> 
     <button class="view-invitation-button" bindtap="toShowPage">View Invitation</button>

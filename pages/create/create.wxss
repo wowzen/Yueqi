@@ -53,8 +53,28 @@
   font-weight: 300;
   font-size: 18px;
   text-align: center;
-
 }
+.start{
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 50px;
+  padding: 32px;
+}
+
+.login-button{
+  padding: 16px;
+  margin-top: 36px;
+  background: #97FEA2;
+  border-radius: 28px; 
+  min-width: 90vw;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+
 .back-button{
   padding: 16px;
   margin-top: 36px;
@@ -65,31 +85,31 @@
   font-weight: 300;
   font-size: 18px;
   text-align: center;
-  
 
 }
 
 .time-picker{
   padding: 16px;
-  margin-top: 25px;
+  margin-top: 36px;
   background: #FFECD7;
-  border-radius: 26px; 
-
+  border-radius: 28px; 
+  min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
+  text-align: center;
 }
+
 .choose-date{
-  padding: 12px;
-  margin-top: 32px;
+  padding: 16px;
+  margin-top: 36px;
   background: #97FEA2;
-  border-radius: 25px; 
-  font-weight: 600;
-
-
+  border-radius: 28px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
+  text-align: center;
 }
 
 .event-details {

@@ -31,19 +31,42 @@
 .description {
   padding: 16px;
 }
-
-.header {
-  font-size: 18px;
-  /* font-weight: 600; */
-  margin-top: 26px;
-  margin-bottom: 16px;
-  margin-left: 16rpx;
-  margin-right: 16rpx;
-
-  padding: 6px 12px;
-  border-radius: 25px;
-  background: #ecf7ff;
+.header{
+  padding-top: 12px;
+  padding-bottom: 18px;
 }
+
+.header1 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 36px;
+  padding-right: 36px;
+  margin-right: 24px;
+  background: #ecf7ff;
+  border-radius: 28px; 
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.header2 {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 26px;
+  padding-right: 26px;
+  background: #ecf7ff;
+  border-radius: 28px; 
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 18px;
+  align-content: right;
+  margin-bottom: 16px;
+}
+
+.active-tab {
+  background-color: #b7e1ff;
+}
+
 
 .divider {
   margin: 24px 0;
@@ -73,7 +96,3 @@
   margin: 32px 32px 0 32px;
 }
 
-.active-tab {
-  font-weight: 900;
-  background-color: #b7e1ff;
-}

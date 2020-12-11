@@ -3,12 +3,12 @@
 
   <view class="header">Choose event</view>
 
-  <view class="event-details" wx:if="{{goToSelectDates}}">
+  <!-- <view class="event-details" wx:if="{{goToSelectDates}}">
     <view>
         <view><text class="bold">Event:</text> {{finalOccasion}} </view>
         <view><text class="bold">Activity:</text> {{finalActivity}}</view>
     </view>
-  </view>
+  </view> -->
 
   <view wx:if="{{occasionSpecSelected}}" class="occasions-card" wx:for="{{occasions}}" wx:key="id" > 
     <view data-occa="{{item}}"  data-index="{{index}}" bindtap="selectOccasion">{{item}}</view>
@@ -29,7 +29,6 @@
 
     <view wx:if="{{pickResponseDeadline}}">
       <view class="header">Whats your voting deadline?</view>
-      <view>optional</view>
       <view>
         <picker class="time-picker" mode="date" value="{{date}}" start="2020-12-01" end="2099-12-31" bindchange="bindDateChange">
           <view class="picker">Date: {{response_date}}</view>
@@ -42,13 +41,14 @@
           </picker>
         </view>
         <view wx:if="{{goToSelectDates}}">
+      
         <block wx:if="{{currentUser}}">
             <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
         </block>
 
         <block wx:else>
           <view class="start">Login to view your events or create your own event!</view>
-          <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="login">Login!</button>
+          <button class="login-button" open-type="getUserInfo" bindgetuserinfo="login">Login</button>
         </block>
       </view>
       </view>
