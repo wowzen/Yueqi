@@ -50,6 +50,7 @@ Page({
   },
 
   addSlot:function(e){
+    let page = this
     console.log(e)
     let chosenDate = this.data.chosenDate
     let start_date = chosenDate + ' ' + this.data.start_time
@@ -73,15 +74,16 @@ Page({
       end_date: end_date,
     }
     console.log(data)
-    let chosenSlots = this.data.chosenSlots
+    let chosenSlots = page.data.chosenSlots
     let Slot = new wx.BaaS.TableObject('event_slots')
     Slot.create().set(data).save().then(res => {
       console.log(res)
-      let start_date = new Date(data.start_date)
-      let end_date = new Date(data.end_date)
-      data.start_date = start_date.toDateString().slice(4,10) + ' ' +start_date.toTimeString().slice(0,5)
-      data.end_date = end_date.toDateString().slice(4,10) + ' ' + end_date.toTimeString().slice(0,5)
+      let theDate = new Date(page.data.chosenDate)
+      data.start_date = theDate.toDateString().slice(4,10) + ' ' + page.data.start_time
+      data.end_date   = theDate.toDateString().slice(4,10) + ' ' + page.data.end_time
       chosenSlots.push(data)
+      console.log('chosenSlots')
+      console.log(chosenSlots)
       let changeDay = 'dayStyle[1].day';
       let changeBg = 'dayStyle[1].background';
       this.setData({
@@ -104,12 +106,17 @@ Page({
     let Slot = new wx.BaaS.TableObject('event_slots')
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', event_id)
+    console.log(event_id)
     Slot.setQuery(query).find().then(res => {
       console.log(res)
       let chosenSlots = res.data.objects
       chosenSlots.forEach(item => {
-        item.start_date = item.start_date.slice(5,18)
-        item.end_date = item.end_date.slice(5,18)
+        let start_date = new Date(item.start_date.split(' ')[0])
+        let start_time = item.start_date.split(' ')[1]
+        let end_time = item.end_date.split(' ')[1]
+        let end_date = new Date(item.start_date.split(' ')[0])
+        item.start_date = start_date.toDateString().slice(4,10) + ' ' + start_time
+        item.end_date = end_date.toDateString().slice(4,10) + ' ' + end_time
       })
       page.setData({slotsAdded: true, chosenSlots: chosenSlots})
     })

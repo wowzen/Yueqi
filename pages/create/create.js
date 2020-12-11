@@ -45,7 +45,11 @@ Page({
     let currentUser = wx.getStorageSync('user')
     this.setData({currentUser: currentUser})
     let EventType = new wx.BaaS.TableObject("event_types")
+    wx.showLoading({
+      title: 'Loading...',
+    })
     EventType.find().then(res => {
+      wx.hideLoading()
       let occasions = res.data.objects[0].event_occasions_objects.map(item => Object.keys(item)[0])
       let activities = res.data.objects[0].event_activities
       this.setData({event_types: res.data.objects, occasions: occasions, activities: activities})
@@ -125,6 +129,10 @@ Page({
 
   submitNewEvent: function () {
     let page = this
+    if (page.data.createdEventId != undefined) {
+      // go to Calendar page if event created but Slots not finished yet
+      return page.navToSelectDates(page.data.createdEventId)
+    }
     let activity = this.data.finalActivity
     let occasion = this.data.finalOccasion
     let image = this.data.occasionImage
@@ -136,6 +144,7 @@ Page({
     let Event = new wx.BaaS.TableObject("events")
     Event.create().set(data).save().then(res =>{
       console.log(res)
+      page.setData({createdEventId: res.data.id})
       page.navToSelectDates(res.data.id)
     })
   },
