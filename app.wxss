@@ -32,3 +32,9 @@
 .strong {
   font-weight: 600;
 }
+.bg-active {
+  background-color: #D7EEFF !important;
+}
+.bg-inactive {
+  background-color: #E5E5E5 !important;
+}

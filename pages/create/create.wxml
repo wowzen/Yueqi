@@ -36,7 +36,7 @@
         <view wx:if="{{goToSelectDates}}">
       
         <block wx:if="{{currentUser}}">
-            <button class="choose-date" bindtap="submitNewEvent">Choose Event Time</button>
+            <button class="choose-date {{activeButton == 'choose-time' ? 'bg-active' : 'bg-inactive'}}" bindtap="submitNewEvent">Choose Event Time</button>
         </block>
 
         <block wx:else>
@@ -46,5 +46,5 @@
       </view>
       </view>
 
-      <button wx:if="{{finalOccasion}}" class="back-button" bindtap="startAgain" >Start Again</button>
+      <button wx:if="{{finalOccasion}}" class="back-button {{activeButton == 'start-again' ? 'bg-active' : 'bg-inactive'}}" bindtap="startAgain" >Start Again</button>
 </view>

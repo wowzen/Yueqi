@@ -143,10 +143,3 @@
   width: 40rpx;
   height: 40rpx;
 }
-.bg-active {
-  background-color: #D7EEFF !important;
-}
-
-.bg-inactive {
-  background-color: #E5E5E5 !important;
-}
