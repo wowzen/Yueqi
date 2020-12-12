@@ -31,6 +31,7 @@ Page({
 
       event.response_deadline = response_deadline
 
+
       page.setData({ event: event, deadlinePassed: deadlinePassed })
       page.createInvitation(page.data.currentUser.id, res.data)
     })

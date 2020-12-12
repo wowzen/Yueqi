@@ -28,7 +28,7 @@ const parseStringDate = (stringDate) => {
   const hour = result[4]
   const minute = result[5]
 
-  return new Date(Date.UTC(year, month, day, hour, minute, 0))
+  return new Date(Date.UTC(year, month - 1, day, hour, minute, 0))
 }
 
 const formatDateTime = (dateTime) => {
