@@ -285,7 +285,17 @@ Page({
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
           eventSlot.set({slot_selected: true}).update().then(res => {
-            page.setData({confirmedSlot: res.data, changeDate: false})
+            const confirmedSlot = res.data
+
+            if (confirmedSlot) {
+              let confirmed_start_date = utils.parseStringDate(confirmedSlot.start_date)
+              confirmedSlot.start_date = utils.formatToDateRange(confirmed_start_date)
+
+              let confirmed_end_date = utils.parseStringDate(confirmedSlot.end_date)
+              confirmedSlot.end_date = utils.formatToDateRange(confirmed_end_date)
+            }
+
+            page.setData({ confirmedSlot, changeDate: false })
           })
 
         } else if (res.cancel) {
