@@ -16,7 +16,7 @@
 
   <view class="event-confirmed-card" wx:if="{{event.confirmed_date.length != 0}}">
     <view> Yalla! the event date has been confirmed, get ready and enjoy the event! </view>
-    <button class="view-button" bindtap="gotoResults">View friends availability</button>
+    <button wx:if="{{currentUser.id == event.creator_id.id}}" class="view-button" bindtap="gotoResults">View friends availability</button>
   </view>
 
   <view wx:else>
