@@ -10,6 +10,7 @@ Page({
     goToSelectActivity: false,
     activitySelected: false,
     goToSelectDates: false,
+    activeButton: 'choose-time' // ['choose-time', 'start-again']
   },
 
 //   formSubmit: function (e) {
