@@ -17,7 +17,7 @@
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{myEvent.activity}}</view>
         <view class="occasion"><text class="strong">Occasion: </text>{{myEvent.occasion}}</view>
-        <view wx:if="{{myEvent.confirmed_date.length == 0 && myEvent.response_deadline && myEvent.response_deadline !='Invalid Date'}}" class="deadline">
+        <view wx:if="{{!myEvent.confirmed_date && myEvent.response_deadline && myEvent.response_deadline !='Invalid Date'}}" class="deadline">
           <text class="strong">Response Deadline: </text>
           {{myEvent.response_deadline}}
         </view>
