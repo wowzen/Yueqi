@@ -32,8 +32,8 @@
   padding: 16px;
   margin-top: 86px;
   background: #B7E1FF;
-  border-radius: 28px; 
-  min-width: 75vw;
+  border-radius: 25px; 
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
@@ -42,9 +42,10 @@
 .my-fun-btn{
   padding: 16px;
   margin-top: 36px;
-  background: #B7E1FF;
-  border-radius: 28px; 
-  min-width: 75vw;
+  background: #e6f4ff;
+  border: 1px solid #B7E1FF;
+  border-radius: 25px;
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
