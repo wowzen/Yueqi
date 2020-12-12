@@ -129,10 +129,6 @@ Page({
 
   submitNewEvent: function () {
     let page = this
-    if (page.data.createdEventId != undefined) {
-      // go to Calendar page if event created but Slots not finished yet
-      return page.navToSelectDates(page.data.createdEventId)
-    }
     let activity = this.data.finalActivity
     let occasion = this.data.finalOccasion
     let image = this.data.occasionImage
@@ -141,10 +137,25 @@ Page({
     if (this.data.response_date && this.data.response_time) {
       data.response_deadline = this.data.response_date + ' ' + this.data.response_time
     }
+
+    if (page.data.createdEventId != undefined) {
+      // update the event with updated finalActivity and finalOccasion
+      return page.updateEvent(page.data.createdEventId, data)
+    }
+
     let Event = new wx.BaaS.TableObject("events")
     Event.create().set(data).save().then(res =>{
       console.log(res)
       page.setData({createdEventId: res.data.id})
+      page.navToSelectDates(res.data.id)
+    })
+  },
+
+  updateEvent: function (event_id, data) {
+    let page = this
+    let Event = new wx.BaaS.TableObject("events")
+    let event = Event.getWithoutData(event_id).set(data).update().then(res =>{
+      console.log(res)
       page.navToSelectDates(res.data.id)
     })
   },
