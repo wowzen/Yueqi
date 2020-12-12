@@ -1,11 +1,9 @@
 <!--pages/calendar/calendar.wxml-->
 <view class="container">
-  <view class="header-date">Select the dates for your event</view>
-
+  <view class="header-date">Select the date for your event</view>
   <view class="calender">
-  <calendar active-style='square' days-color="{{dayStyle}}" week-style="cn" binddayClick='dayClick'/>
+    <calendar active-style='square' days-color="{{dayStyle}}" week-style="cn" binddayClick='dayClick'/>
   </view>
-  
 
   <view class="header-time">Select the time for your event</view>
 
@@ -18,33 +16,30 @@
   </view>
 
     <view class="time-picker">
-    <picker mode="time" value="{{end_time}}" start="{{start_time || '00:00' }}" end="23:59" bindchange="bindEndTimeChange">
-      <view class="picker">
-        End Time: {{end_time}}
-      </view>
+      <picker mode="time" value="{{end_time}}" start="{{start_time || '00:00' }}" end="23:59" bindchange="bindEndTimeChange">
+        <view class="picker">
+          End Time: {{end_time}}
+        </view>
     </picker>
   </view>
 
-  <button class="add-another-date" bindtap="addSlot">{{addDateButton}}</button>
+  <button class="add-another-date {{activeButton == 'add-slot' ? 'bg-active' : 'bg-inactive'}}" bindtap="addSlot">{{addDateButton}}</button>
 
-  
-
-  <view class="choosen-dated-card">
-    <view wx:if="{{slotsAdded}}"></view>
-    <view class="choosen-dates-header">Your choosen dates</view>
-    <view class="chosenSlot"  wx:for="{{chosenSlots}}" wx:key="id">
+  <view class="choosen-dated-card" wx:if="{{chosenSlots.length > 0}}">
+    <view class="choosen-dates-header">Your chosen dates</view>
+    <view class="chosen-slot" wx:for="{{chosenSlots}}" wx:key="id" wx:for-item="slot">
       <view class="date">
-        <text>{{item.start_date}} to</text>
+        <text>{{slot.start_date}} to</text>
         <text class="w-16"></text>
-        <text>{{item.end_date}}</text>
+        <text>{{slot.end_date}}</text>
+      </view>
+      <view class="date">
+        <image src="/images/icons/delete.png" data-id="{{slot.id}}" data-index="{{index}}" bindtap="removeSlot" class="delete"></image>
       </view>
     </view>
   </view>
   
-
-  <view wx:if="{{slotsAdded}}"> 
-    <button class="view-invitation-button" bindtap="toShowPage">View Invitation</button>
-  </view>
+  <button wx:if="{{slotsAdded}}" class="view-invitation-button {{activeButton == 'view-invitation' ? 'bg-active' : 'bg-inactive'}}" bindtap="toShowPage">View Invitation</button>
 
 </view>
 

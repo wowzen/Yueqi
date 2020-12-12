@@ -1,9 +1,4 @@
-// pages/calendar/calendar.js
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
     dayStyle: [
         { month:'current', day:new Date().getDate(),color:'green' },
@@ -11,7 +6,8 @@ Page({
       ],
     chosenSlots: [],
     slotsAdded: false,
-    addDateButton: 'Add your first Date'
+    addDateButton: 'Add your first Date',
+    activeButton: 'add-slot' // ['add-slot', 'view-invitation']
     },
 
   onLoad: function (options) {
@@ -85,6 +81,7 @@ Page({
       theDate = new Date(theDate.replace(reg,'/'))
       data.start_date = theDate.toDateString().slice(4,10) + ' ' + page.data.start_time
       data.end_date   = theDate.toDateString().slice(4,10) + ' ' + page.data.end_time
+      data.id = res.data.id
       chosenSlots.push(data)
       console.log('chosenSlots')
       console.log(chosenSlots)
@@ -96,7 +93,8 @@ Page({
         [changeBg]: '#84e7d0',
         slotsAdded: true,
         chosenDate: '',
-        addDateButton: 'Add another Date'
+        addDateButton: 'Add another Date',
+        activeButton: 'view-invitation'
       })
       wx.pageScrollTo({
         duration: 300,
@@ -105,6 +103,26 @@ Page({
     })
   },
 
+  removeSlot: function(e) {
+    let page = this
+    console.log(e)
+    let slotId = e.currentTarget.dataset.id
+    let slotIndex = e.currentTarget.dataset.index
+    let chosenSlots = page.data.chosenSlots
+    let Slot = new wx.BaaS.TableObject('event_slots')
+    Slot.delete(slotId).then(res => {
+      console.log(res)
+      chosenSlots.splice(slotIndex, 1)
+      if (chosenSlots.length == 0) {
+        page.setData({
+          addDateButton: 'Add your first Date',
+          slotsAdded: false,
+          activeButton: 'add-slot'
+        })
+      }
+      page.setData({chosenSlots: chosenSlots})
+    })
+  },
   fetchSlots: function(event_id) {
     let page = this
     let Slot = new wx.BaaS.TableObject('event_slots')
@@ -123,20 +141,22 @@ Page({
         item.start_date = start_date.toDateString().slice(4,10) + ' ' + start_time
         item.end_date = end_date.toDateString().slice(4,10) + ' ' + end_time
       })
-      page.setData({slotsAdded: true, chosenSlots: chosenSlots})
+      if (chosenSlots.length > 0) {
+        page.setData({
+          addDateButton: 'Add another Date',
+          slotsAdded: true,
+          chosenSlots: chosenSlots,
+          activeButton: 'view-invitation'
+        })
+      }
     })
   },
-
   toShowPage: function () {
     wx.navigateTo({
       url: `/pages/show/show?id=${this.data.event_id}`,
     })
   },
-
-
   onReady: function () {
 
   },
-
-
 })
