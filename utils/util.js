@@ -45,8 +45,17 @@ const formatDateTime = (dateTime) => {
   return `${stringDate} ${hours}:${minutes}`
 }
 
+const formatToDateRange = (dateTime) => {
+  const formattedDate = formatDateTime(dateTime)
+
+  if (!formattedDate) { return null }
+
+  return formattedDate.slice(4)
+}
+
 module.exports = {
   formatTime,
   formatDateTime,
+  formatToDateRange,
   parseStringDate,
 }

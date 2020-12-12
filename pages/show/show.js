@@ -56,10 +56,28 @@ Page({
       let confirmedSlot = res.data.objects.find(item => {
         return item.slot_selected
       })
-      this.setData({slots: res.data.objects, confirmedSlot: confirmedSlot})
+
+      const slots = res.data.objects.map(slot => {
+
+        let start_date = utils.parseStringDate(slot.start_date)
+        start_date = utils.formatToDateRange(start_date)
+
+        let end_date = utils.parseStringDate(slot.end_date)
+        end_date = utils.formatToDateRange(end_date)
+
+        return {
+          ...slot,
+          start_date,
+          end_date,
+        }
+      })
+
+      this.setData({ slots: slots, confirmedSlot: confirmedSlot })
+
       let slotIds = res.data.objects.map(e => {
         return e.id
       })
+
       page.fetchSlotResponses(page.data.currentUser.id, slotIds)
     })
   },

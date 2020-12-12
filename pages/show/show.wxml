@@ -24,10 +24,10 @@
     <block wx:if="{{currentUser.id != event.creator_id.id}}">
       <view wx:if="{{availabilitySubmitted == false || updateResponse == true}}">
         <view class="confirm-card">
-          <view class="confirm" wx:if="{{slots.length > 0}}">Confirm your availability</view>
+          <view class="confirm-header" wx:if="{{slots.length > 0}}">Select your availability</view>
           <checkbox-group bindchange="chooseMultiDate">
             <label wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id" >
-              <view class="date-cell">{{slot.start_date}} to {{slot.end_date}}
+              <view class="date-cell"><text class="strong">{{slot.start_date}}</text> to <text class="strong">{{slot.end_date}}</text>
                 <checkbox class="checkbox" value="{{slot.id}}"/>
               </view>
             </label>

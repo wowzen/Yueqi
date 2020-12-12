@@ -101,26 +101,18 @@ page {
   font-weight: 300;
 }
 
-.confirm{
-  padding: 16px;
-  margin-top: 16px;
-  background: #D1FFD6;
-  border-radius: 28px; 
-  min-width: 75vw;
-  font-family: Roboto;
-  font-weight: 300;
+.confirm-header {
   font-size: 18px;
   text-align: center;
 }
 
 .date-cell{
   margin-top: 16px;
-  background: #D1FFD6;
-  border-radius: 28px; 
+  border-radius: 28px;
   font-family: Roboto;
   font-weight: 300;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
 }
 
 .checkbox{
