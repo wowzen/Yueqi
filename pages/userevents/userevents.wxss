@@ -31,9 +31,22 @@
 .description {
   padding: 16px;
 }
-.header{
+
+.tabs {
   padding-top: 12px;
-  padding-bottom: 18px;
+  padding-bottom: 12px;
+}
+
+.tab {
+  padding: 8px 16px;
+  margin-right: 16px;
+  background: #ecf7ff;
+  border: 1px solid #b7e1ff;
+  border-radius: 25px;
+}
+
+.active-tab {
+  background-color: #b7e1ff;
 }
 
 .header1 {
@@ -42,7 +55,6 @@
   padding-left: 36px;
   padding-right: 36px;
   margin-right: 24px;
-  background: #ecf7ff;
   border-radius: 28px; 
   font-family: Roboto;
   font-weight: 300;
@@ -62,11 +74,6 @@
   align-content: right;
   margin-bottom: 16px;
 }
-
-.active-tab {
-  background-color: #b7e1ff;
-}
-
 
 .divider {
   margin: 24px 0;

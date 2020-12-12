@@ -6,9 +6,9 @@ App({
 
     let clientID = config.clientID  // 
     wx.BaaS.init(clientID);
-    // wx.BaaS.auth.loginWithWechat().then(user => {
-    //   console.log(user)
-    //   wx.setStorageSync('user', user);
-    // })
+    wx.BaaS.auth.loginWithWechat().then(user => {
+      console.log(user)
+      // wx.setStorageSync('user', user);
+    })
   }
 })

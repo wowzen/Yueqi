@@ -57,8 +57,9 @@ page {
 .availability-button{
   padding: 16px;
   margin-top: 36px;
-  background: #B7E1FF;
-  border-radius: 28px; 
+  background: #e6f4ff;
+  border: 1px solid #B7E1FF;
+  border-radius: 25px;
   min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
@@ -66,44 +67,40 @@ page {
 }
 
 .invite-card{
-  padding: 16px;
+  /* padding: 16px; */
   margin-top: 36px;
-  background: #D1FFD6;
-  border-radius: 28px; 
+  /* background-color: #f6ffed; */
+  /* border: 1px solid #b7eb8f; */
+  /* border-radius: 10px; */
   min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;
 }
 .event-created{
-  margin-top: 16px;
-  background: #D1FFD6;
-  border-radius: 8px; 
-  min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 }
 
 .invite-button{
   padding: 16px;
   margin-top: 32px;
-  background: #97FEA2;
-  border-radius: 28px; 
-  min-width: 80vw;
+  background: #B7E1FF;
+  border-radius: 25px;
+  min-width: 90vw;
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
 }
+
 .confirm-card{
   padding: 16px;
-  margin-top: 36px;
-  background: #D1FFD6;
-  border-radius: 28px; 
-  min-width: 75vw;
+  margin-top: 16px;
   font-family: Roboto;
   font-weight: 300;
 }
+
 .confirm{
   padding: 16px;
   margin-top: 16px;

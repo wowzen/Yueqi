@@ -7,11 +7,11 @@
   <view class="divider"></view>
 
   <view wx:if="{{currentUser}}">
-    <view class="header">
-      <text class="header1 {{eventTab == 'myEvents' ? 'active-tab' : ''}}" bindtap="changeTab">My Events</text>
-      <text class="header2 {{eventTab == 'invitedEvents' ? 'active-tab' : ''}}" bindtap="changeTab">Invited Events</text>
+    <view class="tabs">
+      <text class="tab {{eventTab == 'myEvents' ? 'active-tab' : ''}}" bindtap="changeTab">My Events</text>
+      <text class="tab {{eventTab == 'invitedEvents' ? 'active-tab' : ''}}" bindtap="changeTab">Invited Events</text>
     </view>
-    
+
     <view class="card" wx:if="{{eventTab == 'myEvents'}}" wx:for="{{myEvents}}" wx:for-item="myEvent" bindtap="goToEvent" data-eventid="{{myEvent.id}}" wx:key="id">
       <image class="card-image" src="{{myEvent.image || testImage}}"></image>
       <view class="card-body">

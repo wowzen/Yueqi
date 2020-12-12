@@ -51,6 +51,6 @@
 .home-btn {
   background-color: #E5E5E5;
   padding: 8px 12px;
-  min-width: 60vw;
+  min-width: 30vw;
   font-size: 16px;
 }
