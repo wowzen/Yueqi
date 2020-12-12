@@ -72,4 +72,7 @@
 
     </block>
   </view>
+  <view>
+    <button class="btn home-btn" bindtap="goToLanding">Home</button>
+  </view>
 </view>

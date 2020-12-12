@@ -38,3 +38,19 @@
 .bg-inactive {
   background-color: #E5E5E5 !important;
 }
+
+.btn {
+  padding: 16px;
+  margin-top: 60px;
+  border-radius: 25px;
+  min-width: 90vw;
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.home-btn {
+  background-color: #E5E5E5;
+  padding: 8px 12px;
+  min-width: 60vw;
+  font-size: 16px;
+}

@@ -12,7 +12,8 @@
       <view wx:else>
         <view wx:if="{{currentUser.id != event.creator_id.id}}"><text class="strong">Event date & time: </text>To be confirmed</view>
         <view><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
-    </view>
+      </view>
+      <view><text class="strong">Number of participant: </text>{{slots[0].response_total}}</view>
     </view>
   </view>
 
@@ -40,7 +41,6 @@
 
               </radio-group>
             </view>
-            <view class="total1" >Number of participant: {{slots[0].response_total}}</view>
         </view>
     
   
@@ -72,4 +72,7 @@
 
     </view>
   </block>
+  <view>
+    <button class="btn home-btn" bindtap="goToLanding">Home</button>
   </view>
+</view>

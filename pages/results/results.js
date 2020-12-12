@@ -345,5 +345,11 @@ Page({
       title: `You are invited for: ${this.date.event.occasion}`,
       path: `pages/show/show?id=${this.date.event.id}`
     }
-  }
+  },
+
+  goToLanding: function() {
+    wx.reLaunch({
+      url: '/pages/landing/landing',
+    })
+  },
 })

@@ -271,5 +271,11 @@ Page({
       title: `You are invited for: ${this.data.event.occasion}`,
       path: `pages/show/show?id=${this.data.event.id}`
     }
-  }
+  },
+
+  goToLanding: function() {
+    wx.reLaunch({
+      url: '/pages/landing/landing',
+    })
+  },
 })
