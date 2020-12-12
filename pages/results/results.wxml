@@ -5,7 +5,7 @@
       <view class="activity"><text class="strong">Activity: </text>{{event.activity}}</view>
       <view class="occasion"><text class="strong">For: </text>{{event.occasion}}</view>
       <view class="nickname"><text class="strong">Organized by: </text>{{event.creator_id.nickname}}</view>
-      <view wx:if="{{event.confirmed_date != ''}}"> 
+      <view wx:if="{{event.confirmed_date}}">
         <view class="strong">Event date & time: </view>
         <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
       </view>
@@ -21,7 +21,7 @@
    
       <view class="no-response" wx:if="{{slots[0].response_total == 0}}">Nobody has responded to this event yet</view>
         
-      <view wx:elif="{{event.confirmed_date == '' || confirmedSlot == undefined || changeDate == true}}">
+      <view wx:elif="{{!event.confirmed_date || confirmedSlot == undefined || changeDate == true}}">
 
         <view class="results-card1">
             <view class="header2">Select the event date</view>
@@ -44,10 +44,10 @@
         </view>
     
   
-    <view wx:if="{{dateSelected && event.confirmed_date == ''}}">
+    <view wx:if="{{dateSelected && !event.confirmed_date}}">
       <button wx:if="{{!confirmedSlot || changeDate == false}}" class="button3" bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
     </view>
-    <view wx:elif="{{(dateSelected == true || event.confirmed_date.length != 0) && changeDate == false }}">
+    <view wx:elif="{{(dateSelected == true || event.confirmed_date) && changeDate == false }}">
       <button  class="button3" bindtap="changeFinalDate">Change event date</button>
     </view>
 
@@ -55,7 +55,7 @@
 
 <block wx:else> 
 
-  <view wx:if="{{event.confirmed_date.length == 0 && availabilitySubmitted == true}}">
+  <view wx:if="{{!event.confirmed_date && availabilitySubmitted == true}}">
     
     <view class="results-card">
       <view class="header2">Friends availability</view>
