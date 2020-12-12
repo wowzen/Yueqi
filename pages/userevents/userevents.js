@@ -66,7 +66,8 @@ Page({
     event.setQuery(query).expand(["event_id", "creator_id"]).find().then(res => {
       let invitedEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
 
-      invitedEvents = invitedEvents.map(event => {
+      invitedEvents = invitedEvents.map(invitedEvent => {
+        const event = invitedEvent.event_id
         const { response_deadline, confirmed_date } = event
 
         const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
@@ -74,6 +75,7 @@ Page({
 
         return {
           ...event,
+          creator_id: invitedEvent.creator_id,
           response_deadline: deadline,
           confirmed_date: confirmed,
         }

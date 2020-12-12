@@ -25,7 +25,7 @@
       </view>
     </view>
 
-    <view class="card" wx:if="{{eventTab == 'invitedEvents'}}" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.event_id.id}}" wx:key="id">
+    <view class="card" wx:if="{{eventTab == 'invitedEvents'}}" wx:for="{{invitedEvents}}" wx:for-item="invitedEvent" bindtap="goToEvent" data-eventid="{{invitedEvent.id}}" wx:key="id">
       <image class="card-image" src="{{invitedEvent.image || testImage}}"></image>
       <view class="card-body">
         <view class="activity"><text class="strong">Activity: </text>{{invitedEvent.activity}}</view>

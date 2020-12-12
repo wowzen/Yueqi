@@ -2,12 +2,6 @@ page {
   min-height: 100vh;
 }
 
-.container{
-  padding: 16px;
-  min-height: 100vh;
-  background-color: #FFFAF5;
-}
-
 .image1{
   width: 100%;
   border-radius: 8px;
@@ -93,11 +87,14 @@ page {
 
 }
 
-.progress-bar1{
-  padding: 4px;
+.progress-bar1 {
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 8px 4px;
 }
+
 .participants1{
-  border-radius: 25px; 
+  border-radius: 25px;
   font-family: Roboto;
   font-weight: 300;
   font-size: 16px;
@@ -142,7 +139,7 @@ page {
 }
 
 .timedate{
-  border-radius: 28px; 
+  border-radius: 28px;
   font-family: Roboto;
   font-weight: 300;
   font-size: 14px;
@@ -150,10 +147,12 @@ page {
 }
 
 .progress-bar{
-  padding: 4px;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 8px 4px;
 }
 .participants{
-  border-radius: 25px; 
+  border-radius: 25px;
   font-family: Roboto;
   font-weight: 300;
   font-size: 16px;

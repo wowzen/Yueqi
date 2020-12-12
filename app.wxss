@@ -2,6 +2,7 @@
   padding: 16px;
   min-height: 100vh;
   background-color: #FFFAF5;
+  padding-bottom: 40px;
 }
 
 .card {
