@@ -48,20 +48,24 @@ Page({
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', id)
     Slots.setQuery(query).find().then(res => {
-      let confirmedSlot = res.data.objects.find(item => {
-        return item.slot_selected
-      })
+      let slots = res.data.objects
+      let confirmedSlot = slots.find(item => item.slot_selected)
 
       if (confirmedSlot) {
         let confirmed_start_date = utils.parseStringDate(confirmedSlot.start_date)
-        confirmedSlot.start_date = utils.formatToDateRange(confirmed_start_date)
+        confirmed_start_date = utils.formatToDateRange(confirmed_start_date)
 
         let confirmed_end_date = utils.parseStringDate(confirmedSlot.end_date)
-        confirmedSlot.end_date = utils.formatToDateRange(confirmed_end_date)
+        confirmed_end_date = utils.formatToDateRange(confirmed_end_date)
+
+        confirmedSlot = {
+          ...confirmedSlot,
+          start_date: confirmed_start_date,
+          end_date: confirmed_end_date,
+        }
       }
 
-      const slots = res.data.objects.map(slot => {
-
+      slots = res.data.objects.map(slot => {
         let start_date = utils.parseStringDate(slot.start_date)
         start_date = utils.formatToDateRange(start_date)
 
@@ -76,6 +80,7 @@ Page({
       })
 
       this.setData({ slots, confirmedSlot })
+
       let slotIds = res.data.objects.map(e => {
         return e.id
       })
@@ -280,11 +285,11 @@ Page({
       success (res) {
         if (res.confirm) {
           let event = Events.getWithoutData(eventId)
-          event.set({confirmed_date: chosenSlot.start_date}).update().then(res => {
+          event.set({ confirmed_date: chosenSlot.start_date }).update().then(res => {
             page.setData({event: res.data})
           })
           let eventSlot = EventSlots.getWithoutData(chosenSlot.id)
-          eventSlot.set({slot_selected: true}).update().then(res => {
+          eventSlot.set({ slot_selected: true }).update().then(res => {
             const confirmedSlot = res.data
 
             if (confirmedSlot) {
