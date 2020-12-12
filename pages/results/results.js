@@ -248,9 +248,15 @@ Page({
   },
 
   setFinalDate: function () {
+    let page = this
+    let chosenSlot = this.data.chosenSlot
+    let EventSlots = new wx.BaaS.TableObject("event_slots")
+    let Events = new wx.BaaS.TableObject("events")
+    let eventId = this.data.event.id
+
     wx.showModal({
       title: 'Reminder',
-      content: `Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
+      content: `Please confirm you want the event to start on ${chosenSlot.start_date}`,
       success (res) {
         if (res.confirm) {
           let event = Events.getWithoutData(eventId)
@@ -275,6 +281,7 @@ Page({
     let EventSlots = new wx.BaaS.TableObject("event_slots")
     let Events = new wx.BaaS.TableObject("events")
     let eventId = this.data.event.id
+
     wx.showModal({
       title: 'Reminder',
       content: `You are trying to confirm the final event date before the response deadline. Some users may still want to provide their availability. Please confirm you want the event to start on ${this.data.chosenSlot.start_date}`,
