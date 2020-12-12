@@ -1,3 +1,5 @@
+const utils = require('../../utils/util')
+
 Page({
   data: {
     currentUser: null,
@@ -40,15 +42,18 @@ Page({
     event.setQuery(query).find().then(res => {
       let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
       myEvents = myEvents.map(event => {
-        const { response_deadline, confirmed_date } = event
+        let { response_deadline, confirmed_date } = event
 
-        const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
-        const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+        response_deadline = utils.parseStringDate(response_deadline)
+        response_deadline = utils.formatDateTime(response_deadline)
+
+        confirmed_date = utils.parseStringDate(confirmed_date)
+        confirmed_date = utils.formatDateTime(confirmed_date)
 
         return {
           ...event,
-          response_deadline: deadline,
-          confirmed_date: confirmed,
+          response_deadline,
+          confirmed_date,
         }
       })
 
@@ -66,16 +71,22 @@ Page({
     event.setQuery(query).expand(["event_id", "creator_id"]).find().then(res => {
       let invitedEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
 
-      invitedEvents = invitedEvents.map(event => {
-        const { response_deadline, confirmed_date } = event
+      invitedEvents = invitedEvents.map(invitedEvent => {
+        const event = invitedEvent.event_id
 
-        const deadline = response_deadline && (new Date(response_deadline.substring(0, 10))).toDateString()
-        const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+        let { response_deadline, confirmed_date } = event
+
+        response_deadline = utils.parseStringDate(response_deadline)
+        response_deadline = utils.formatDateTime(response_deadline)
+
+        confirmed_date = utils.parseStringDate(confirmed_date)
+        confirmed_date = utils.formatDateTime(confirmed_date)
 
         return {
           ...event,
-          response_deadline: deadline,
-          confirmed_date: confirmed,
+          creator_id: invitedEvent.creator_id,
+          response_deadline,
+          confirmed_date,
         }
       })
 
@@ -115,5 +126,5 @@ Page({
     } else {
       this.setData({eventTab: 'myEvents'})
     }
-  }
+  },
 })

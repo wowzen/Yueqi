@@ -11,13 +11,13 @@ Page({
     },
 
   onLoad: function (options) {
-    let event_id = options.id 
+    let event_id = options.id
     this.setData({event_id: event_id})
     let currentUser = wx.getStorageSync('user')
     this.setData({currentUser: currentUser})
     this.fetchSlots(event_id)
   },
-  
+
   dayClick: function(event) {
     console.log(event)
     let clickDay = event.detail.day;

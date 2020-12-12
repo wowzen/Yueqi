@@ -1,5 +1,6 @@
-Page({
+const utils = require('../../utils/util')
 
+Page({
   data: {
     testImage: "https://tse4-mm.cn.bing.net/th/id/OIP.HJdtsb6yf2Q0DRkpVVrL6wAAAA?pid=Api&rs=1",
     dateSelected: false,
@@ -22,15 +23,17 @@ Page({
     Events.expand(["creator_id"]).get(id).then (res => {
       let today = new Date()
       let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
-      console.log(res.data, typeof(response_deadline))
       let event = res.data
-      const { response_deadline, confirmed_date } = event
+      let { response_deadline, confirmed_date } = event
 
-      const deadline = response_deadline && (response_deadline != 'undefined' || response_deadline != 'undefined undefined') && (new Date(response_deadline.substring(0, 10))).toDateString()
-      const confirmed = confirmed_date &&  (new Date(confirmed_date.substring(0, 10))).toDateString()
+      response_deadline = utils.parseStringDate(response_deadline)
+      response_deadline = utils.formatDateTime(response_deadline)
 
-      event.response_deadline = deadline
-      event.confirmed_date = confirmed
+      confirmed_date = utils.parseStringDate(confirmed_date)
+      confirmed_date = utils.formatDateTime(confirmed_date)
+
+      event.response_deadline = response_deadline
+      event.confirmed_date = confirmed_date
 
       page.setData({ event: event, deadlinePassed: deadlinePassed })
       page.createInvitation(page.data.currentUser.id, res.data)
