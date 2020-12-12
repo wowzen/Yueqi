@@ -41,56 +41,47 @@ page {
 
 .results-card1{
   padding: 16px;
-  margin-top: 24px;
-  background: #D1FFD6;
-  border-radius: 8px; 
-
+  text-align: center;
 }
-.header2{
-  padding: 16px;
-  background: #D1FFD6;
-  border-radius: 28px; 
+
+.header2 {
   font-family: Roboto;
   font-weight: 300;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 26px;
 }
+
 .date-cell1{
   font-family: Roboto;
   font-weight: 300;
   font-size: 12px;
-  text-align: left;
+  text-align: center;
 
 }
 
 .datetime-slot1{
-  padding: 12px;
-  background: #97FEA2;
-  border-radius: 28px; 
   min-width: 75vw;
   margin-bottom: 16px;
 }
 
 .timedate1{
-  border-radius: 28px; 
   font-family: Roboto;
   font-weight: 300;
   font-size: 14px;
-  text-align: left;
+  text-align: center;
 }
 
 .radio{
-  padding-left: 18px;
+  padding-left: 14px;
   align-content: right;
-
-
 }
 
 .progress-bar1 {
   border-radius: 25px;
   overflow: hidden;
-  margin: 8px 4px;
+  margin: 8px 16px;
 }
 
 .participants1{
@@ -116,18 +107,7 @@ page {
 .results-card{
   padding: 16px;
   margin-top: 36px;
-  background: #D1FFD6;
-  border-radius: 28px; 
   min-width: 75vw;
-}
-.header2{
-  padding: 16px;
-  background: #D1FFD6;
-  border-radius: 28px; 
-  font-family: Roboto;
-  font-weight: 300;
-  font-size: 18px;
-  font-weight: bold;
 }
 
 .datetime-slot{
@@ -173,20 +153,16 @@ page {
 
 .button3{
   padding: 16px;
-  margin-top: 24px;
-  border-radius: 28px; 
+  margin-top: 16px;
+  border-radius: 25px;
   min-width: 90vw;
-  background: #FFECD7;
-  border-radius: 25px; 
-  font-family: Roboto;
-  font-weight: 300;
-  font-size: 16px;
+  background: #B7E1FF;
+  border-radius: 25px;
   text-align: center;
   font-weight: bold;
 }
 
 .no-response{
-
   padding: 16px;
   margin-top: 24px;
   border-radius: 8px; 
@@ -198,4 +174,6 @@ page {
   font-weight: bold;
 }
 
-
+.change-event-date {
+  margin-top: 32px;
+}

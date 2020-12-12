@@ -21,7 +21,7 @@
           <text class="strong">Response Deadline: </text>
           {{myEvent.response_deadline}}
         </view>
-        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event Start: </text>{{myEvent.confirmed_date}}</view>
+        <view wx:if="{{myEvent.confirmed_date.length > 0}}" class="deadline"><text class="strong">Event start: </text>{{myEvent.confirmed_date}}</view>
       </view>
     </view>
 
@@ -35,7 +35,7 @@
           {{invitedEvent.response_deadline}}
         </view>
         <view wx:if="{{invitedEvent.confirmed_date.length > 0}}" class="deadline">
-          <text class="strong">Event Start: </text>
+          <text class="strong">Event start: </text>
           {{invitedEvent.confirmed_date}}
         </view>
         <view class="creator" >

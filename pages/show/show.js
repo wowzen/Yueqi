@@ -24,16 +24,12 @@ Page({
       let today = new Date()
       let deadlinePassed = today > new Date(Date.parse(res.data.response_deadline))
       let event = res.data
-      let { response_deadline, confirmed_date } = event
+      let { response_deadline } = event
 
       response_deadline = utils.parseStringDate(response_deadline)
-      response_deadline = utils.formatDateTime(response_deadline)
-
-      confirmed_date = utils.parseStringDate(confirmed_date)
-      confirmed_date = utils.formatDateTime(confirmed_date)
+      response_deadline = utils.formatToDateRange(response_deadline)
 
       event.response_deadline = response_deadline
-      event.confirmed_date = confirmed_date
 
       page.setData({ event: event, deadlinePassed: deadlinePassed })
       page.createInvitation(page.data.currentUser.id, res.data)
@@ -57,6 +53,14 @@ Page({
         return item.slot_selected
       })
 
+      if (confirmedSlot) {
+        let confirmed_start_date = utils.parseStringDate(confirmedSlot.start_date)
+        confirmedSlot.start_date = utils.formatToDateRange(confirmed_start_date)
+
+        let confirmed_end_date = utils.parseStringDate(confirmedSlot.end_date)
+        confirmedSlot.end_date = utils.formatToDateRange(confirmed_end_date)
+      }
+
       const slots = res.data.objects.map(slot => {
 
         let start_date = utils.parseStringDate(slot.start_date)
@@ -72,7 +76,7 @@ Page({
         }
       })
 
-      this.setData({ slots: slots, confirmedSlot: confirmedSlot })
+      this.setData({ slots, confirmedSlot })
 
       let slotIds = res.data.objects.map(e => {
         return e.id
@@ -234,21 +238,26 @@ Page({
     let query = new wx.BaaS.Query()
     query.compare('event_id', '=', eventId)
     AllSlots.setQuery(query).find().then(res =>{
-      let Slot = res.data.objects
-      Slot.forEach(item => {
-        console.log(item)
+      const slots = res.data.objects.map(item => {
         let responseTotal = item.response_total
         let responseYes = item.response_yes
         let progressPercent= parseInt((responseYes/responseTotal) * 100)
         item.progressPercent = progressPercent
-    
+
+        let start_date = utils.parseStringDate(item.start_date)
+        start_date = utils.formatToDateRange(start_date)
+
+        let end_date = utils.parseStringDate(item.end_date)
+        end_date = utils.formatToDateRange(end_date)
+
         AllSlots.getWithoutData(item.id).set({response_progress: progressPercent}).update().then(res => {
           console.log('setProgress', res)
         })
+
+        return { ...item, start_date, end_date }
       })
-      page.setData({
-        slots: Slot
-      })
+
+      page.setData({ slots })
     })
   },
 

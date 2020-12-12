@@ -25,8 +25,6 @@ page {
 .event-confirmed-card{
   padding: 16px;
   margin-top: 36px;
-  background: #ECF7FF;
-  border-radius: 28px; 
   min-width: 75vw;
   font-family: Roboto;
   font-weight: 300;

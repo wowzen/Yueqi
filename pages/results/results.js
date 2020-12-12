@@ -33,13 +33,9 @@ Page({
       let { response_deadline, confirmed_date } = event
 
       response_deadline = utils.parseStringDate(response_deadline)
-      response_deadline = utils.formatDateTime(response_deadline)
-
-      confirmed_date = utils.parseStringDate(confirmed_date)
-      confirmed_date = utils.formatDateTime(confirmed_date)
+      response_deadline = utils.formatToDateRange(response_deadline)
 
       event.response_deadline = response_deadline
-      event.confirmed_date = confirmed_date
 
       page.setData({ event: event, deadlinePassed: deadlinePassed })
       page.createInvitation(page.data.currentUser.id, res.data)
@@ -55,7 +51,31 @@ Page({
       let confirmedSlot = res.data.objects.find(item => {
         return item.slot_selected
       })
-      this.setData({slots: res.data.objects, confirmedSlot: confirmedSlot})
+
+      if (confirmedSlot) {
+        let confirmed_start_date = utils.parseStringDate(confirmedSlot.start_date)
+        confirmedSlot.start_date = utils.formatToDateRange(confirmed_start_date)
+
+        let confirmed_end_date = utils.parseStringDate(confirmedSlot.end_date)
+        confirmedSlot.end_date = utils.formatToDateRange(confirmed_end_date)
+      }
+
+      const slots = res.data.objects.map(slot => {
+
+        let start_date = utils.parseStringDate(slot.start_date)
+        start_date = utils.formatToDateRange(start_date)
+
+        let end_date = utils.parseStringDate(slot.end_date)
+        end_date = utils.formatToDateRange(end_date)
+
+        return {
+          ...slot,
+          start_date,
+          end_date,
+        }
+      })
+
+      this.setData({ slots, confirmedSlot })
       let slotIds = res.data.objects.map(e => {
         return e.id
       })

@@ -5,15 +5,19 @@
       <view class="activity"><text class="strong">Activity: </text>{{event.activity}}</view>
       <view class="occasion"><text class="strong">For: </text>{{event.occasion}}</view>
       <view class="nickname"><text class="strong">Organized by: </text>{{event.creator_id.nickname}}</view>
+      <view><text class="strong">Number of participant: </text>{{slots[0].response_total}}</view>
       <view wx:if="{{event.confirmed_date}}">
-        <view class="strong">Event date & time: </view>
-        <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
+        <view>
+          <text class="strong">Event start: </text>{{confirmedSlot.start_date}}
+        </view>
+        <view>
+          <text class="strong">Event end: </text>{{confirmedSlot.end_date}}
+        </view>
       </view>
       <view wx:else>
         <view wx:if="{{currentUser.id != event.creator_id.id}}"><text class="strong">Event date & time: </text>To be confirmed</view>
         <view><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
       </view>
-      <view><text class="strong">Number of participant: </text>{{slots[0].response_total}}</view>
     </view>
   </view>
 
@@ -32,7 +36,7 @@
                 <label class="timedate1" wx:for="{{slots}}" data-chosenSlot="{{slot.start_date}}" wx:for-item="slot" wx:key="id">
                   <view class="datetime-slot1">
                     <view class="date-cell1">
-                      {{slot.start_date}} to {{slot.end_date}}
+                      <text class="strong">{{slot.start_date}}</text> to <text class="strong">{{slot.end_date}}</text>
                         <radio class="radio" value="{{slot.id}}"/>
                         <view class="progress-bar1"><progress percent="{{slot.response_progress}}"></progress></view>
                     </view>
@@ -47,7 +51,7 @@
     <view wx:if="{{dateSelected && !event.confirmed_date}}">
       <button wx:if="{{!confirmedSlot || changeDate == false}}" class="button3" bindtap="{{deadlinePassed ? 'setFinalDate' : 'setFinalDateEarly'}}">Set final event date</button>
     </view>
-    <view wx:elif="{{(dateSelected == true || event.confirmed_date) && changeDate == false }}">
+    <view class="change-event-date" wx:elif="{{(dateSelected == true || event.confirmed_date) && changeDate == false }}">
       <button  class="button3" bindtap="changeFinalDate">Change event date</button>
     </view>
 
@@ -60,15 +64,14 @@
     <view class="results-card">
       <view class="header2">Friends availability</view>
        <view  wx:for="{{slots}}" wx:for-item="slot" wx:key="id">
-          <view class="datetime-slot">
-            <view class="timedate">{{slot.start_date}} to {{slot.end_date}}</view>
-            <view class="progress-bar"><progress percent="{{slot.response_progress}}"></progress></view>
-          </view>
+         <view class="datetime-slot1">
+           <view class="date-cell1">
+             <text class="strong">{{slot.start_date}}</text> to <text class="strong">{{slot.end_date}}</text>
+             <view class="progress-bar1"><progress percent="{{slot.response_progress}}"></progress></view>
+           </view>
+         </view>
         </view>
-    
     </view>
-
-    <view class="total">Number of participants: {{slots[0].response_total}}</view>
 
     </view>
   </block>

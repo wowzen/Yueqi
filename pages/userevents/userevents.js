@@ -42,18 +42,14 @@ Page({
     event.setQuery(query).find().then(res => {
       let myEvents = res.data.objects.sort((a, b) => b.updated_at - a.updated_at);
       myEvents = myEvents.map(event => {
-        let { response_deadline, confirmed_date } = event
+        let { response_deadline } = event
 
         response_deadline = utils.parseStringDate(response_deadline)
-        response_deadline = utils.formatDateTime(response_deadline)
-
-        confirmed_date = utils.parseStringDate(confirmed_date)
-        confirmed_date = utils.formatDateTime(confirmed_date)
+        response_deadline = utils.formatToDateRange(response_deadline)
 
         return {
           ...event,
           response_deadline,
-          confirmed_date,
         }
       })
 
@@ -74,19 +70,15 @@ Page({
       invitedEvents = invitedEvents.map(invitedEvent => {
         const event = invitedEvent.event_id
 
-        let { response_deadline, confirmed_date } = event
+        let { response_deadline } = event
 
         response_deadline = utils.parseStringDate(response_deadline)
-        response_deadline = utils.formatDateTime(response_deadline)
-
-        confirmed_date = utils.parseStringDate(confirmed_date)
-        confirmed_date = utils.formatDateTime(confirmed_date)
+        response_deadline = utils.formatToDateRange(response_deadline)
 
         return {
           ...event,
           creator_id: invitedEvent.creator_id,
           response_deadline,
-          confirmed_date,
         }
       })
 

@@ -6,16 +6,21 @@
       <view class="occasion"><text class="strong">For: </text>{{event.occasion}}</view>
       <view class="nickname"><text class="strong">Organized by: </text>{{event.creator_id.nickname}}</view>
       <view wx:if="{{event.confirmed_date}}">
-        <view class="strong">Event date & time: </view>
-        <view>{{confirmedSlot.start_date}} to {{confirmedSlot.end_date}}</view>
+        <view>
+          <text class="strong">Event start: </text>{{confirmedSlot.start_date}}
+        </view>
+        <view>
+          <text class="strong">Event end: </text>{{confirmedSlot.end_date}}
+        </view>
       </view>
       <view wx:elif="{{event.response_deadline && event.response_deadline !='Invalid Date'}}" class=""><text class="strong">Response deadline: </text>{{event.response_deadline}}</view>
     </view>
   </view>
-  
 
-  <view class="event-confirmed-card" wx:if="{{event.confirmed_date}}">
-    <view> Yalla! the event date has been confirmed, get ready and enjoy the event! </view>
+  <view wx:if="{{event.confirmed_date}}">
+    <view class="event-confirmed-card">
+      <view>Yalla! the event date has been confirmed, get ready and enjoy the event! </view>
+    </view>
     <button wx:if="{{currentUser.id == event.creator_id.id}}" class="view-button" bindtap="gotoResults">View friends availability</button>
   </view>
 
@@ -37,12 +42,11 @@
         <button class="invite-button" bindtap="submitResponse">Confirm availability</button>
       </view>
 
-      
-      <view class="availability-confirmed" wx:else>
-        <view class="description2">Availability has been confirmed.</view>
+      <view class="invite-card" wx:else>
+        <view class="event-created">Availability has been confirmed.</view>
         <!-- <view class="description">Wait for the organizer to set the event date. You will receive a notification in your WeChat notifications.</view> -->
         <!-- <view class="description">Click below button in case you want to change your availability</view> -->
-        <button class="button-btn" bindtap="updateResponse">Change availability</button>
+        <button class="invite-button" bindtap="updateResponse">Change availability</button>
       </view>
 
       <view wx:if="{{availabilitySubmitted == true || updateResponse == false}}">
